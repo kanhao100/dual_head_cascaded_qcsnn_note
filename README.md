@@ -1,5 +1,12 @@
 # A Cascaded Quantized Spiking Neural Network for Real-Time ECG Arrhythmia Detection on Edge Hardware
 
+## 注释版阅读导航
+
+[在线阅读](https://kanhao100.github.io/dual_head_cascaded_qcsnn_note/) · [本地导航](index.html)
+
+导航包含工程源码解读、逐层推理动画、卷积与 LIF 微架构、全测试集误分类浏览器四个入口。
+各页面可离线打开。发布时运行 `powershell -File scripts/publish-pages.ps1`，将五个独立 HTML 发布到 `gh-pages`；GitHub Pages 发布源为该分支根目录。
+
 
 This repository implements an end-to-end **Quantized Convolution Spiking Neural Network (QCSNN)** for ECG arrhythmia classification on the **MIT-BIH Arrhythmia Database**, with hardware deployment on a **PYNQ-Z2 FPGA**.
 

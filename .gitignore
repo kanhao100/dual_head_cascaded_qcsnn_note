@@ -71,3 +71,4 @@ _ide/logs/
 # Local research attachments and working notes
 /output/
 /plan.md
+/.pages-build/
