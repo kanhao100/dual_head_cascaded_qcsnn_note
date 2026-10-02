@@ -1,0 +1,190 @@
+<style>
+.dg{display:block;width:100%;height:auto;min-width:900px}
+.dg .bx{fill:var(--surface);stroke:var(--line);stroke-width:1.4}
+.dg .bx.cmp{fill:color-mix(in srgb,var(--sig) 11%,var(--surface));stroke:var(--sig)}
+.dg .bx.mem{fill:color-mix(in srgb,var(--thr) 16%,var(--surface));stroke:var(--thr)}
+.dg .bx.cnd{fill:color-mix(in srgb,var(--bad) 10%,var(--surface));stroke:var(--bad)}
+.dg .bx.ok{fill:color-mix(in srgb,var(--mwi) 13%,var(--surface));stroke:var(--mwi)}
+.dg .bx.io{fill:var(--surface2);stroke:var(--ink2)}
+.dg .bx.dash{fill:none;stroke:var(--muted);stroke-dasharray:4 4}
+.dg .rg{fill:none;stroke:var(--muted);stroke-dasharray:6 5;stroke-width:1.2}
+.dg .rg.cnd{stroke:var(--bad)}
+.dg .t{font:600 13px var(--f-body);fill:var(--ink)}
+.dg .ts{font:400 11px var(--f-body);fill:var(--muted)}
+.dg .tm{font:500 11.5px var(--f-mono);fill:var(--muted)}
+.dg .ln{fill:none;stroke:var(--muted);stroke-width:1.5}
+.dg .ln.cnd{stroke:var(--bad)} .dg .ln.ok{stroke:var(--mwi)} .dg .ln.dsh{stroke-dasharray:4 4}
+.dg .mk{fill:none;stroke:var(--muted);stroke-width:1.5}.dg .mk.mkc{stroke:var(--bad)}.dg .mk.mkg{stroke:var(--mwi)}
+.figwrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:6px}
+.bar1{display:flex;height:34px;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--surface2)}
+.bar1 div{height:100%;min-width:1px;cursor:default}
+.kind-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--ink2);margin:8px 0}
+.kind-legend i{display:inline-block;width:12px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.bigbar{position:relative;height:46px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface2);display:flex}
+.bigbar div{height:100%;display:flex;align-items:center;justify-content:center;font:600 11.5px var(--f-mono);color:var(--on-accent);overflow:hidden;white-space:nowrap}
+.tl-row{display:grid;grid-template-columns:minmax(150px,230px) 1fr auto;gap:10px;align-items:center;font-size:12.5px;padding:2px 0}
+.tl-row .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tl-row .tr{height:12px;background:var(--surface2);border-radius:4px;position:relative}
+.tl-row .tr i{position:absolute;top:0;height:100%;border-radius:3px;min-width:2px}
+.tl-row .v{font:12px var(--f-mono);color:var(--ink2);text-align:right;min-width:170px}
+.calc-out{font:600 15px var(--f-mono);color:var(--ink)}
+.checklist{display:grid;gap:8px;padding:0;margin:0;list-style:none}
+.checklist li{border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:var(--surface);font-size:13.8px;line-height:1.7;color:var(--ink2)}
+</style>
+
+<header class="hero" id="top">
+  <p class="eyebrow">kernel 解读 · <code>topFunction</code> · Vitis HLS 2026.1 · xc7z020</p>
+  <h1 style="margin-top:12px">一个心拍，怎样在 kernel 里流过 34 万个周期</h1>
+  <p class="lead">这个页面只讲 kernel，也就是 HLS 综合出来的那个 IP 核，不含 DMA、ARM 和板级系统。所有数字来自我在本机实际跑出的综合报告、生成的 RTL、Vivado 布局布线结果，以及 C++ 源码。每个数字后面标了来源。</p>
+  <div class="kpis" id="kpis"></div>
+  <div class="note" style="margin-top:16px;max-width:76ch"><b>这一版新增：</b>一个逐位对齐的功能模型（对齐到 C++，不含 RTL；范围见第 02 节），和 8 个由它驱动的数值动画（信号流、卷积、BN 取整、LIF、池化与 QuantIdentity、全连接、门控、实验室）。其余章节讲结构、调度和资源，数字来自综合与实现报告。<b>仍然没有做的事：</b>C/RTL 协同仿真，所以“C++ 与 RTL 一致”不在本页的证明范围内。</div>
+</header>
+
+<p style="margin:18px 0"><a href="qcsnn_error_browser.html">打开全测试集误分类浏览器 →</a></p>
+
+<section id="s-arch" class="step" data-sec="总览与接口">
+  <div class="step-head"><span class="step-no">01</span><div><p class="eyebrow">数据通路</p><h2>一个 IP，三个 AXI-Stream 口，两个头共用一个主干</h2></div></div>
+  <div class="prose wide"><p>顶层 <code>topFunction</code> 每被启动一次处理一个心拍：从输入流读 24 个 64 位字，算完后分别往两路输出流各写一个字。下图是数据通路，右上角是图例。框里的周期数来自综合报告，“每步”指一个时间步；心拍要跑 10 个时间步。<span class="src">源码</span> <span class="src rpt">报告</span></p></div>
+  <div class="lab"><div class="figwrap" id="fig1-host"></div><p class="swipe">左右滑动查看完整图</p></div>
+  <div class="prose wide" style="margin-top:14px">
+    <p>接口来自生成的 <code>topFunction.v</code> 的端口列表：<span class="src">源码</span></p>
+  </div>
+  <div class="lab" style="margin-top:10px"><div id="ports-host"></div></div>
+</section>
+
+<section id="s-macro" class="step" data-sec="宏观调度">
+  <div class="step-head"><span class="step-no">02</span><div><p class="eyebrow">时间都花在哪</p><h2>各层首尾相接，一层算完才开始下一层</h2></div></div>
+  <div class="prose wide">
+    <p>网络本体（<code>forward_4</code>）在报告里不是 dataflow，所以一个时间步里的各个层按调用顺序串行执行。下面的时间线把每个模块的<b>报告延迟</b>按顺序摆开。起点是我把前面模块的延迟累加得到的（<span class="src der">推导</span>），和报告里该循环的迭代延迟对照，差出来的那一点是模块间的衔接开销。</p>
+  </div>
+  <div class="lab">
+    <div class="lab-bar"><div class="seg" id="mac-seg"><button data-v="1" aria-pressed="true">二分类路径（每步）</button><button data-v="2">4 分类头（每步）</button></div></div>
+    <div class="kind-legend" id="kind-legend"></div>
+    <div class="bar1" id="mac-bar"></div>
+    <div class="info" id="mac-info" style="margin-top:8px"></div>
+    <div id="mac-rows" style="margin-top:8px"></div>
+  </div>
+  <div class="lab">
+    <div class="lab-title"><h4>整个心拍：10 个时间步 + 可能的 4 分类头</h4><span class="tagline">宽度按周期数成比例</span></div>
+    <div class="bigbar" id="beat-bar"></div>
+    <div class="info" id="beat-info" style="margin-top:8px"></div>
+    <h4 style="margin-top:16px">心拍延迟计算器 <span class="src der">推导</span></h4>
+    <div class="ctrls">
+      <label class="ctrl"><span>正常心拍占比</span><output id="o-p"></output><input type="range" id="i-p" min="0" max="100" step="1" value="89"></label>
+      <label class="ctrl"><span>时钟频率（MHz）</span><output id="o-f"></output><input type="range" id="i-f" min="50" max="100" step="1" value="100"></label>
+    </div>
+    <div class="info" id="calc-out"></div>
+    <p class="small">公式：平均周期 = 最好 × p + 最坏 × (1 − p)。最好和最坏周期来自综合报告。布线后周期 9.808 ns，对应最高约 102 MHz，所以滑块上限取 100。这里没有算 DMA 和软件开销。</p>
+  </div>
+</section>
+
+<section id="s-micro" class="step" data-sec="微观流水线">
+  <div class="step-head"><span class="step-no">03</span><div><p class="eyebrow">全网逐状态调度 · LIF 深入</p><h2>一个神经元怎样经过硬件流水线</h2></div></div>
+  <div class="prose wide">
+    <p>宏观上各层串行；各层内部可以包含<b>流水循环、非流水控制状态、读入与输出循环</b>。II=1 指报告中的流水循环每拍可启动一个迭代，不能推广成每个模块都同拍开始、结束。下面首先展开六个 LIF：整数值由已核对 C++ 的功能模型给出，阶段来自 <code>*.verbose.sched.rpt</code>，绑定来自 HLS/RTL。<b>这是 HLS 调度与功能值推演，不是实测 RTL 波形。</b></p>
+  </div>
+  <div class="lab hw-panel" id="hd-root">
+    <div class="lab-title"><h4>LIF：六个实例，同一算法，不同硬件</h4><span class="tagline">算法时间步 t ≠ 神经元位置 ≠ 硬件周期</span></div>
+    <div id="hd-beat"></div>
+    <div class="lab-bar"><label class="hw-pick">LIF 实例<select id="hd-layer" aria-label="选择 LIF 硬件实例"></select></label><button class="btn" id="hd-tensor">打开该层完整真实数据</button></div>
+    <div id="hd-ctrls" class="ctrls"></div>
+    <div id="hd-meta" class="info"></div>
+    <div id="hd-player"></div>
+    <div class="hw-stalls"><label><input type="checkbox" id="hd-empty">教学停顿：输入 FIFO 空</label><label><input type="checkbox" id="hd-full">教学停顿：输出 FIFO 满</label><span id="hd-stall-state" aria-live="polite"></span></div>
+    <p class="small">停顿开关只冻结下方教学 token；真实模型结果不改变。同步 RAM 读响应和流水寄存器跟随有效信号推进，握手示意不用于证明 RTL 时序。</p>
+    <div class="cv-scroll"><canvas id="hd-cv" style="display:block;width:100%;min-width:1080px;height:474px" tabindex="0" role="img" aria-label="LIF 四条硬件流水泳道，点击阶段查看实际调度操作"></canvas></div>
+    <div id="hd-active" class="info" aria-live="polite"></div>
+    <div id="hd-memory" class="hw-mem"></div>
+    <div class="hw-grid"><div><h4>所选神经元：精确整数链</h4><div id="hd-values"></div></div><div><h4>所选阶段：真实运算与绑定</h4><div id="hd-ops"></div></div></div>
+    <details><summary>同一个神经元的 10 个时间步：两条 t−2 状态链</summary><div id="hd-history"></div></details>
+    <div id="hd-notes" class="note"></div>
+    <details><summary>六个 LIF 的流水与 DSP 对照</summary><div id="hd-compare"></div></details>
+  </div>
+  <div class="lab">
+    <div class="lab-title"><h4>卷积 2 的计算循环（深度 27）</h4><span class="tagline">模块 forward_14_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4，II=1，1392 次迭代</span></div>
+    <div class="lab-bar"><div class="transport"><button class="btn primary" id="g1-play">▶ 播放</button><button class="btn" id="g1-step">单周期</button></div></div>
+    <div class="cv-scroll"><canvas id="g1-cv" class="w1000 h-420"></canvas></div>
+    <div class="info" id="g1-info"></div>
+    <div id="g1-table" style="margin-top:12px"></div>
+    <div class="figwrap" id="fig2-host" style="margin-top:14px"></div>
+  </div>
+  <div class="lab">
+    <div class="lab-title"><h4>FC 484→128 的点积循环（深度 5）</h4><span class="tagline">模块 forward_5_Pipeline_DOT_I，II=1，484 次迭代</span></div>
+    <div class="lab-bar"><div class="transport"><button class="btn primary" id="g2-play">▶ 播放</button><button class="btn" id="g2-step">单周期</button></div></div>
+    <div class="cv-scroll"><canvas id="g2-cv" class="w1000 h-280"></canvas></div>
+    <div class="info" id="g2-info"></div>
+    <div id="g2-table" style="margin-top:12px"></div>
+    <div class="figwrap" id="fig3-host" style="margin-top:14px"></div>
+  </div>
+</section>
+
+<section id="s-struct" class="step" data-sec="计算结构">
+  <div class="step-head"><span class="step-no">04</span><div><p class="eyebrow">算法变成了什么硬件</p><h2>乘法、存储和并行度</h2></div></div>
+  <div class="prose wide">
+    <p><b>乘法如何绑定。</b>RTL 里共有 <span id="mac-n"></span> 处 <code>mac_muladd</code>（乘加）实例化和 <span id="mul-n"></span> 处 <code>mul</code> 实例化，另有取模/除法模块和大量 <code>sparsemux</code>。运算出现次数、HLS 预估 DSP 和布线后 DSP 是三种口径：一项运算可以跨多个状态出现，常量乘也可能被优化成逻辑；不能用 MAC 路数直接当最终 DSP 数。FC 484→128 的 HLS 模块是 130 DSP，布线后模块是 98；卷积2分别为 31 和 42。下方按证据逐层查看。<span class="src rpt">HLS / RTL / 实现报告</span></p>
+  </div>
+  <div class="lab hw-panel" id="hs-root">
+    <div class="lab-title"><h4>全网硬件地图：点击一个层</h4><span class="tagline">同一物理共享模块只计一次资源</span></div>
+    <div id="hs-topology" class="hw-topology" role="group" aria-label="全网硬件层选择"></div>
+    <div id="hs-shared" class="note"></div>
+    <div class="lab-bar"><label class="hw-pick">硬件层<select id="hs-layer" aria-label="选择全网硬件层"></select></label><button class="btn" id="hs-to-lif">在微观流水线中深入该 LIF</button></div>
+    <div class="seg" id="hs-tabs" role="group" aria-label="硬件详情类型"><button data-v="path" aria-pressed="true">数据通路</button><button data-v="ops">运算绑定</button><button data-v="schedule">内部调度</button><button data-v="resource">资源与存储</button></div>
+    <div id="hs-meta" class="info"></div>
+    <div id="hs-content"></div>
+    <div id="hs-accounting" class="hw-accounting"></div>
+  </div>
+  <div class="lab"><h4>按层的资源（HLS 综合预估）</h4><div id="res-host"></div>
+    <p class="small" id="res-note" style="margin-top:8px"></p></div>
+  <div class="split s2" style="margin-top:14px">
+    <div class="lab" style="margin-top:0"><h4>BRAM 用在哪里（共 192 块 18Kb）</h4><div id="bram-host"></div>
+      <p class="small" style="margin-top:8px">各项相加恰好等于顶层报告的 192。<span class="src rpt">报告</span> 其中 FC 484→128 的权重独占 128 块：源码把权重数组在输出维度完全分块，128 个输出各有一块 484×8 位的小 ROM，每块占一整块 BRAM，虽然只用了 3.8 Kb。<span class="src der">推导</span></p></div>
+    <div class="lab" style="margin-top:0"><h4>算子与并行度小结</h4><div id="par-host"></div></div>
+  </div>
+  <div class="lab"><h4>存储器明细（csynth 存储器表）</h4><div id="mem-host"></div></div>
+  <div class="prose wide" style="margin-top:18px"><p><b>整数 LIF 神经元的数据通路。</b>结构来自 <code>lif1d_integer.h</code> 的源码。它是每个 (通道, 位置) 上的一个小状态机，膜电位放在两块存储 V0、V1 里（综合结果里 LIF1 的两块各占 6 块 BRAM，合计 12 块）。注释写“读一块、写另一块”，但按源码的实际写法，每次调用读和写落在<b>同一块</b>，块号每调用一次翻转一次，所以偶数步和奇数步各用一块、互不相通（第 02 节“验证时发现的一件事”，已由 C++ 导出的张量验证）。<span class="src">源码</span> <span class="src rpt">报告</span></p></div>
+  <div class="lab"><div class="figwrap" id="fig4-host"></div></div>
+</section>
+
+<section id="s-ii" class="step" data-sec="延迟从哪来">
+  <div class="step-head"><span class="step-no">05</span><div><p class="eyebrow">为什么 II=1，延迟为什么是这个数</p><h2>迭代数、流水深度与模块延迟</h2></div></div>
+  <div class="prose wide">
+    <p><b>II。</b>综合日志里 “Pipelining result” 共 <span id="pl-n"></span> 条，全部是 final II = 1；“II Violation” 为 <span id="viol-n"></span> 条。<span class="src rpt">报告</span> FC 的 <code>acc[o] += …</code> 存在累加依赖；调度里乘法在前面的流水级，acc 的读、加、写分布在最后两级，这是对 FC 调度的观察。<span class="src der">推导</span> LIF 每次调用在同一 bank 内读写，第 t 步接第 t−2 步的状态，偶数步、奇数步分别形成一条状态链；循环内不同迭代处理不同的 (通道, 位置)。<span class="src">源码</span> LIF 的 II=1 以综合报告为依据，不能用“读一块、写另一块”解释。</p>
+    <p><b>延迟。</b>下表比较的是报告中的具体流水循环或 LIF 模块，不是把全部网络层简化成同一种“读 N、算 N、写 N”。II=1 时，循环延迟主要由迭代数、流水填充与排空决定；模块延迟还包含调用与控制开销，因此“报告延迟 − 迭代数”不能直接当作流水深度。FC 点积每个迭代接收一个输入，多个输出神经元并行更新；池化则先收完整通道，再走池化循环。实际阶段和控制状态可在全网硬件地图中分别查看。<span class="src rpt">报告</span></p>
+  </div>
+  <div class="lab"><div id="lat-host"></div></div>
+</section>
+
+<section id="s-num" class="step" data-sec="数字对照">
+  <div class="step-head"><span class="step-no">06</span><div><p class="eyebrow">三套数字并排</p><h2>HLS 预估、Vivado 实现、论文</h2></div></div>
+  <div class="lab"><div id="cmp-host"></div></div>
+  <div class="prose wide" style="margin-top:14px">
+    <ul class="defs" id="cmp-notes"></ul>
+  </div>
+</section>
+
+<section id="s-check" class="step" data-sec="集成注意与局限">
+  <div class="step-head"><span class="step-no">07</span><div><p class="eyebrow">集成清单 · 没检查的东西</p><h2>用这个 kernel 之前要知道的事</h2></div></div>
+  <ul class="checklist">
+    <li><b>一次启动处理一个心拍。</b>顶层是 <code>ap_ctrl_hs</code> 块级握手（<code>ap_start</code> / <code>ap_done</code>），每次启动读 24 个输入字，往两路输出各写 1 个字。即使是正常心拍，第二路也会写一个 0，接收端要按每次启动收两个字。<span class="src">源码</span></li>
+    <li><b>RR 特征不在 kernel 里算。</b>输入里的 8 个字节是调用方事先算好并量化的两组 RR 特征（第一级、第二级各用各的量化尺度），kernel 只负责拼接。<span class="src">源码</span></li>
+    <li><b>权重固化在逻辑里。</b>权重、乘数、移位、LIF 参数都是头文件里的常量，运行时不能改，也没有权重加载接口。<span class="src">源码</span></li>
+    <li><b>状态每个心拍清零。</b>LIF 膜电位在心拍开始时复位。10 个时间步之间，偶数步和奇数步各有一条互不相通的膜电位链（第 t 步接第 t−2 步，见第 02 节）。<span class="src">源码</span></li>
+    <li><b>时序余量很小。</b>布线后最差路径裕量 +0.192 ns、保持裕量 +0.027 ns，换种子或小改动就可能变。<span class="src rpt">报告</span></li>
+    <li><b>DSP 已满。</b>实现后 DSP 220 / 220，不能再加乘法单元。<span class="src rpt">报告</span></li>
+  </ul>
+  <div class="note warn" style="margin-top:18px;max-width:80ch">
+    <b>这个页面没有覆盖的：</b>
+    <ul style="margin:8px 0 0 18px;padding:0;display:grid;gap:4px">
+      <li>没有做 C/RTL 协同仿真：功能模型对齐的是 CPU 上编译的 C++，不是综合出来的 RTL；板上输入量化的实际脚本也不在仓库里（第 02 节）。</li>
+      <li>Vivado 实现只对 IP 单独做，不含 DMA、互联和 ARM；系统级的 LUT、时序、功耗没有测。</li>
+      <li>功耗是 Vivado 无激励向量的估算，可信度“中”，不是实测。</li>
+      <li>旧卷积/FC 甘特图的“分组”是按操作归纳的；新增全网明细保留逐状态调度，LIF 泳道分类是教学编排，周期图为 HLS 调度与功能值推演。</li>
+      <li>HLS DSP：层内220 + 主干 LIF 复位地址3 + 共享重量化4 = 227；布线后顶层220。两阶段差值不用于猜测具体优化原因；实现报告不能细分的部分明确保留为未细分。</li>
+      <li>“怎么改才能更快或更省”的假设没有重新综合验证，页面里没有做这类结论。</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>生成方式：<code>hls_facts.py</code>、<code>compute_structure.py</code> 提取事实，<code>build_kernel_data.py</code> 汇总并自检，图由 <code>gen_kernel_diagrams.py</code> 生成，页面由 <code>make_walkthrough.py</code> 组装。综合与实现在本机 Vitis / Vivado 2026.1 上完成。论文数字取自 Sensors 2026 的 Table 15 和 Table 16。</p>
+</footer>

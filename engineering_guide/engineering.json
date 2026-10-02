@@ -1,0 +1,1008 @@
+{
+  "root": "E:\\0Project\\dual_head_cascaded_qcsnn - 副本",
+  "files": [
+    {
+      "id": "preprocess",
+      "path": "ecg_data_preprocessing_mit_bih_intra_patient.ipynb",
+      "title": "MIT-BIH预处理Notebook",
+      "role": "Python/Jupyter数据或模型代码；生成参数接入HLS，训练代码本身不综合为FPGA。",
+      "domain": "训练",
+      "includes": [],
+      "sourceType": "notebook",
+      "sha256": "7e5ae433eaa58ef0d520be96666f8b5f9c1a7ae07fcf19974a8ae1ad2ca23d3d",
+      "sections": [
+        {
+          "title": "Notebook代码单元 1",
+          "start": 49,
+          "end": 80,
+          "cell": 0,
+          "code": "# =============================\n# SIGNAL PROCESSING (unchanged)\n# =============================\ndef bandpass_filter(ecg_signal, lowcut=BANDPASS_LOW, highcut=BANDPASS_HIGH, fs=FS, order=4):\n    nyq = 0.5 * fs\n    low = lowcut / nyq\n    high = highcut / nyq\n    b, a = signal.butter(order, [low, high], btype='band')\n    return signal.filtfilt(b, a, ecg_signal)\n\ndef notch_filter(ecg_signal, freq=NOTCH_FREQ, fs=FS, Q=30):\n    b, a = signal.iirnotch(freq, Q, fs)\n    return signal.filtfilt(b, a, ecg_signal)\n\ndef preprocess_signal(ecg_signal):\n    filtered = bandpass_filter(ecg_signal)\n    filtered = notch_filter(filtered)\n    return filtered.astype(np.float32)\n\ndef normalize_beat(beat):\n    mean = np.mean(beat)\n    std = np.std(beat)\n    if std < 1e-8:\n        return beat - mean\n    return (beat - mean) / std\n\n\n# =============================\n# HELPERS (unchanged)\n# =============================\ndef list_records(in_dir: str):\n    hea_files = glob.glob(os.path.join(in_dir, \"*.hea\"))",
+          "note": "行号为此代码单元内的代码行，不是.ipynb JSON文件行；仅展示已有流程，不能据此证明所有保存权重来自这次训练。"
+        }
+      ]
+    },
+    {
+      "id": "train",
+      "path": "ecg_qcsnn2_4_snnTorch_stratified_tts-scaled_input_mitbih_data_stage12_RR_features_intra_patient_split_SMOTE_v2_opt_f1_filtered.ipynb",
+      "title": "RRboth训练与导出Notebook",
+      "role": "Python/Jupyter数据或模型代码；生成参数接入HLS，训练代码本身不综合为FPGA。",
+      "domain": "训练",
+      "includes": [],
+      "sourceType": "notebook",
+      "sha256": "fb88729c2fdc624b2ad537c4204cf745aa4684f02fd83a759872aa5c4af5d90e",
+      "sections": [
+        {
+          "title": "Notebook代码单元 1",
+          "start": 10,
+          "end": 41,
+          "cell": 0,
+          "code": "import brevitas.nn as qnn\n# from brevitas.nn import QuantConv1d, QuantIdentity, QuantLinear, BatchNorm1dToQuantScaleBias\nfrom brevitas.quant import Int8WeightPerTensorFloat, Int8ActPerTensorFloat, Int32Bias\nfrom brevitas.export import export_qonnx\nfrom brevitas.core.scaling      import ScalingImplType\nfrom brevitas.core.restrict_val import RestrictValueType\nfrom brevitas.core.quant        import QuantType\n\n\nfrom qonnx.util.cleanup import cleanup as qonnx_cleanup\nfrom qonnx.core.modelwrapper import ModelWrapper\nfrom qonnx.core.datatype import DataType\n#from finn.transformation.qonnx.convert_qonnx_to_finn import ConvertQONNXtoFINN\n\nimport optuna\n\nimport torchvision\nfrom torchvision import transforms\n\nimport matplotlib.pyplot as plt\nimport pandas as pd\nimport numpy as np\nimport itertools\nimport csv, copy, glob\nimport imblearn, imblearn.over_sampling\nfrom collections import Counter, OrderedDict\nfrom sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_curve, precision_recall_curve, auc\n\nfrom sklearn.model_selection import train_test_split, StratifiedKFold\nfrom sklearn.preprocessing import label_binarize, normalize\nfrom scipy.signal import butter, lfilter, freqz\n",
+          "note": "行号为此代码单元内的代码行，不是.ipynb JSON文件行；仅展示已有流程，不能据此证明所有保存权重来自这次训练。"
+        }
+      ]
+    },
+    {
+      "id": "config",
+      "path": "hls/hls_config.cfg",
+      "title": "HLS Component 配置",
+      "role": "决定芯片、时钟、唯一设计入口、编译兼容项和IP输出。当前绝对路径指向原目录。",
+      "domain": "构建",
+      "includes": [],
+      "sections": [
+        {
+          "title": "真正的编译入口",
+          "start": 7,
+          "end": 20,
+          "code": "part=xc7z020clg400-1\n\n[hls]\nclock=10ns\nsyn.top=topFunction\nsyn.file=E:/0Project/dual_head_cascaded_qcsnn/csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/topclass24_sd.cpp\n# constants24_sd.h includes <nlohmann/json.hpp> and <any> (host-side helpers), hence the json include dir and C++17.\n# -include skip_host_reader.h pre-defines the include guard of the host-only filereader24.h so it is skipped.\n# The two -D switches stop nlohmann from pulling in <filesystem>, which the bundled MinGW 8.3 headers\n# cannot get through the HLS front end (smoke test failed in fs_path.h without them, passed with them).\nsyn.file_cflags=E:/0Project/dual_head_cascaded_qcsnn/csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/topclass24_sd.cpp,-std=c++17 -include E:/0Project/dual_head_cascaded_qcsnn/hls/shim/skip_host_reader.h -DJSON_HAS_FILESYSTEM=0 -DJSON_HAS_EXPERIMENTAL_FILESYSTEM=0 -IE:/0Project/dual_head_cascaded_qcsnn/csnn_cpp/external/json/include\npackage.output.format=ip_catalog\npackage.output.file=E:/0Project/dual_head_cascaded_qcsnn/hls/qcsnn_topFunction_ip.zip\npackage.output.syn=false",
+          "note": "syn.top选择函数；syn.file选择设计翻译单元。当前没有配置TB，脚本不执行csim/cosim。"
+        }
+      ],
+      "sha256": "22b8738cc6eb6d8f8d799654fae305f3336c3b7cea6f20862a8c61bbc68f265d"
+    },
+    {
+      "id": "component",
+      "path": "hls/work_csynth/vitis-comp.json",
+      "title": "work_csynth HLS Component",
+      "role": "由工具生成的HLS Component描述；配置关联../hls_config.cfg。",
+      "domain": "构建",
+      "includes": [],
+      "sections": [
+        {
+          "title": "当前Component名字与配置",
+          "start": 1,
+          "end": 9,
+          "code": "{\n  \"name\": \"work_csynth\",\n  \"type\": \"HLS\",\n  \"configuration\": {\n    \"componentType\": \"HLS\",\n    \"configFiles\": [\"..\\/hls_config.cfg\"],\n    \"work_dir\": \".\"\n  }\n}",
+          "note": "name=work_csynth，type=HLS；实际综合文件和参数仍由关联的cfg控制。"
+        }
+      ],
+      "sha256": "b4b524bf811cc007b83d73bd6a2942ba48f2c779b73e3c72a65c668abdb49a6f"
+    },
+    {
+      "id": "top",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/topclass24_sd.cpp",
+      "title": "顶层包装与外部接口",
+      "role": "AXIS解包 → 网络对象 → 双预测回包；HLS只需把该.cpp加入设计源。",
+      "domain": "设计",
+      "includes": [
+        "hls_stream.h",
+        "qcsnn24_rrboth_sd.h",
+        "modeleval24_sd.h",
+        "../constants24_sd.h"
+      ],
+      "sections": [
+        {
+          "title": "topFunction：唯一HLS顶层",
+          "start": 111,
+          "end": 146,
+          "code": "extern \"C\" void topFunction(hls::stream<axi_fixed_t>& dmaInStream,\n                            hls::stream<axi_fixed_t>& dmaOut2Stream,\n                            hls::stream<axi_fixed_t>& dmaOut4Stream)\n{\n#pragma HLS INTERFACE axis port=dmaInStream\n#pragma HLS INTERFACE axis port=dmaOut2Stream\n#pragma HLS INTERFACE axis port=dmaOut4Stream\n#pragma HLS INTERFACE ap_ctrl_hs port=return\n#pragma HLS DATAFLOW\n\n    hls::stream<ap_int8_c> dataStream(\"dataStream\");\n#pragma HLS STREAM variable=dataStream depth=FIXED_LENGTH1\n\n    ap_int8_c rr_stage1[RR_FEATURE_LENGTH];\n#pragma HLS ARRAY_PARTITION variable=rr_stage1 complete dim=1\n\n    ap_int8_c rr_stage2[RR_FEATURE_LENGTH];\n#pragma HLS ARRAY_PARTITION variable=rr_stage2 complete dim=1\n\n    hls::stream<ap_int8_c> pred2Stream(\"pred2Stream\");\n#pragma HLS STREAM variable=pred2Stream depth=2\n\n    hls::stream<ap_int8_c> pred4Stream(\"pred4Stream\");\n#pragma HLS STREAM variable=pred4Stream depth=2\n\n    // 1) Unpack AXI -> signal (180) + RR_s1 (4) + RR_s2 (4)\n    axi_to_input_data(dmaInStream, dataStream, rr_stage1, rr_stage2);\n\n    // 2) Evaluate network with separate RR arrays\n    static TopClass24_SD topClass24;\n    topClass24.evaluate(dataStream, rr_stage1, rr_stage2, pred2Stream, pred4Stream);\n\n    // 3) Pack scalar preds back to AXI (1 word each)\n    pred_to_axi(pred2Stream, dmaOut2Stream);\n    pred_to_axi(pred4Stream, dmaOut4Stream);\n}",
+          "note": "3条64位AXIS与ap_ctrl_hs；DATAFLOW作用于顶层过程。"
+        },
+        {
+          "title": "64位字拆成INT8",
+          "start": 10,
+          "end": 60,
+          "code": "static const int TOTAL_INPUT = FIXED_LENGTH1 + RR_FEATURE_LENGTH + RR_FEATURE_LENGTH;  // 188\nstatic const int WORDS_PER_ROW = (TOTAL_INPUT + 7) / 8;                                // 24 AXI words\n\n// ---------------------------------------------------------------------\n// AXI -> signal stream + RR arrays\n// ---------------------------------------------------------------------\nstatic void axi_to_input_data(hls::stream<axi_fixed_t>& axiStream,\n                              hls::stream<ap_int8_c>&   dataStream,\n                              ap_int8_c                 rr_stage1[RR_FEATURE_LENGTH],\n                              ap_int8_c                 rr_stage2[RR_FEATURE_LENGTH])\n{\n#pragma HLS INLINE\n\n    ap_int8_c buf[TOTAL_INPUT];\n#pragma HLS ARRAY_PARTITION variable=buf cyclic factor=8 dim=1\n\n    for (int w = 0; w < WORDS_PER_ROW; ++w) {\n#pragma HLS PIPELINE II=1\n        axi_fixed_t word = axiStream.read();\n\n        for (int j = 0; j < 8; ++j) {\n#pragma HLS UNROLL\n            int idx = w * 8 + j;\n            if (idx < TOTAL_INPUT) {\n                ap_int8_c temp;\n                temp.range(7, 0) = word.data.range(j * 8 + 7, j * 8);\n                buf[idx] = temp;\n            }\n        }\n\n#ifndef __SYNTHESIS__\n        if ((w == WORDS_PER_ROW - 1) && (word.last != 1)) {\n            std::cerr << \"[WARN] TLAST mismatch on input word \" << w << '\\n';\n        }\n#endif\n    }\n\n    // Signal (0-179) → dataStream\n    for (int i = 0; i < FIXED_LENGTH1; ++i) {\n#pragma HLS PIPELINE II=1\n        dataStream.write(buf[i]);\n    }\n\n    // RR_s1 (180-183) → rr_stage1 array\n    for (int i = 0; i < RR_FEATURE_LENGTH; ++i) {\n#pragma HLS UNROLL\n        rr_stage1[i] = buf[FIXED_LENGTH1 + i];\n    }\n\n    // RR_s2 (184-187) → rr_stage2 array\n    for (int i = 0; i < RR_FEATURE_LENGTH; ++i) {",
+          "note": "188个有效byte，共24个word；末4byte填充。TLAST告警只存在于非综合代码。"
+        },
+        {
+          "title": "预测重新打包",
+          "start": 65,
+          "end": 87,
+          "code": "\n// ---------------------------------------------------------------------\n// ap_int8_c scalar prediction -> AXI word\n// ---------------------------------------------------------------------\nstatic void pred_to_axi(hls::stream<ap_int8_c>&   inPred,\n                        hls::stream<axi_fixed_t>& outAxi)\n{\n#pragma HLS INLINE\n    axi_fixed_t word;\n    word.data = 0;\n    word.keep = 0;\n    word.strb = 0;\n    word.last = 1;\n\n    ap_int8_c p = inPred.read();\n    word.data.range(7, 0) = p.range(7, 0);\n\n    word.keep = 0x0F;\n    word.strb = 0x0F;\n\n    outAxi.write(word);\n}\n",
+          "note": "预测在低8bit，其余数据清0；keep/strb=0x0F，last=1。"
+        },
+        {
+          "title": "模型对象持久存在",
+          "start": 89,
+          "end": 105,
+          "code": "//---------------------------------------------------------------------\n// TopClass24_SD — wraps model + evaluator\n//---------------------------------------------------------------------\nclass TopClass24_SD {\npublic:\n    void evaluate(hls::stream<ap_int8_c>& dataStream,\n                  const ap_int8_c         rr_stage1[RR_FEATURE_LENGTH],\n                  const ap_int8_c         rr_stage2[RR_FEATURE_LENGTH],\n                  hls::stream<ap_int8_c>& out2Stream,\n                  hls::stream<ap_int8_c>& out4Stream)\n    {\n#pragma HLS INLINE\n        evaluator24.evaluate(qcsnn24, dataStream, rr_stage1, rr_stage2, out2Stream, out4Stream);\n    }\nprivate:\n    QCSNN24_RRBOTH_SD<NUM_STEPS> qcsnn24;\n    ModelEvaluation              evaluator24;",
+          "note": "static TopClass24_SD对象包含网络与评估包装；不是每个心拍新建硬件。"
+        }
+      ],
+      "sha256": "a78a823f6aa156aa200f9dca29eef4db666f7b505e773838bcd9a92d0142dc4b"
+    },
+    {
+      "id": "evaluation",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/modeleval24_sd.h",
+      "title": "模型调用包装",
+      "role": "把180个标量搬到内部流，RR分别传递，调用网络并读回两个预测。",
+      "domain": "设计",
+      "includes": [
+        "../constants24_sd.h",
+        "hls_stream.h",
+        "ap_int.h",
+        "qcsnn24_rrboth_sd.h",
+        "../filereader24.h"
+      ],
+      "sections": [
+        {
+          "title": "evaluate的整个职责",
+          "start": 14,
+          "end": 56,
+          "code": "    void evaluate(\n        hls4csnn1d_cblk_sd::QCSNN24_RRBOTH_SD<NUM_STEPS>& model24,\n        hls::stream<ap_int8_c>& datastream,     // IN:  180 signal samples only\n        const ap_int8_c rr_stage1[RR_FEATURE_LENGTH],  // IN: RR quantized with Stage 1 scale\n        const ap_int8_c rr_stage2[RR_FEATURE_LENGTH],  // IN: RR quantized with Stage 2 scale\n        hls::stream<ap_int8_c>& pred2stream,    // OUT: 1 scalar\n        hls::stream<ap_int8_c>& pred4stream     // OUT: 1 scalar\n    ) {\n#pragma HLS INLINE\n\n        // ----------------------------------------------------------\n        // 1) Collect signal input (180 scalars) -> input_stream\n        // ----------------------------------------------------------\n        hls::stream<ap_int8_c> input_stream(\"input_stream\");\n#pragma HLS STREAM variable=input_stream depth=FIXED_LENGTH1  // 180\n\n    in_write:\n        for (int i = 0; i < FIXED_LENGTH1; ++i) {  // 180 only\n#pragma HLS PIPELINE II=1\n            ap_int8_c v = datastream.read();\n            input_stream.write(v);\n        }\n\n        // ----------------------------------------------------------\n        // 2) Model forward with separate RR arrays\n        // ----------------------------------------------------------\n        hls::stream<ap_int8_c> out2_stream(\"out2_stream\");\n#pragma HLS STREAM variable=out2_stream depth=2\n\n        hls::stream<ap_int8_c> out4_stream(\"out4_stream\");\n#pragma HLS STREAM variable=out4_stream depth=2\n\n        // ===== CHANGE 2: Pass RR arrays to forward() =====\n        model24.forward(input_stream, rr_stage1, rr_stage2, out2_stream, out4_stream);\n\n        // ----------------------------------------------------------\n        // 3) Read ONE pred2 + ONE pred4 and push to output streams\n        // ----------------------------------------------------------\n        ap_int8_c pred2 = out2_stream.read();\n        ap_int8_c pred4 = out4_stream.read();\n\n        pred2stream.write(pred2);\n        pred4stream.write(pred4);",
+          "note": "它的INLINE让调用边界展开。FileReader只是被头文件顺带include，硬件路径没有使用它。"
+        }
+      ],
+      "sha256": "613fd07fe9790815de839eb894f276d47aca37e4320d59049fc622edf21aaa3c"
+    },
+    {
+      "id": "network",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/qcsnn24_rrboth_sd.h",
+      "title": "RRboth网络编排",
+      "role": "实例化模板层、连接stream、缓存10步特征、控制门控与提前退出。",
+      "domain": "设计",
+      "includes": [
+        "hls_stream.h",
+        "ap_int.h",
+        "../constants24_sd.h",
+        "includeheaders24_sd.h",
+        "conv1d_sd.h",
+        "batchnorm1d_sd.h",
+        "lif1d_integer.h",
+        "maxpool1d_sd.h",
+        "linear1d_sd.h",
+        "quantidentity1d_sd.h",
+        "../utils_sd.h"
+      ],
+      "sections": [
+        {
+          "title": "头文件依赖与尺寸",
+          "start": 1,
+          "end": 60,
+          "code": "#ifndef QCSNN24_RRBOTH_SD_H\n#define QCSNN24_RRBOTH_SD_H\n\n#include <hls_stream.h>\n#include <ap_int.h>\n#include \"../constants24_sd.h\"\n#include \"includeheaders24_sd.h\"\n\n#include \"conv1d_sd.h\"\n#include \"batchnorm1d_sd.h\"\n#include \"lif1d_integer.h\"\n#include \"maxpool1d_sd.h\"\n#include \"linear1d_sd.h\"\n#include \"quantidentity1d_sd.h\"\n#include \"../utils_sd.h\"\n\nnamespace hls4csnn1d_cblk_sd {\n\n/* ----------------------------- constants ----------------------------- */\nstatic const int RR_DIM = 4;\nstatic const int SIGNAL_LEN = FIXED_LENGTH1;                    // 180\n// ===== CHANGE 1: Input is now signal only =====\nstatic const int INPUT_LEN = SIGNAL_LEN;                        // 180 (was 184)\nstatic const int TRUNK_OUT = FIXED_LENGTH7;                     // 480\nstatic const int STAGE1_IN = TRUNK_OUT + RR_DIM;                // 484\nstatic const int STAGE2_IN = TRUNK_OUT + RR_DIM;                // 484\n\n/* ----------------------------- helpers ----------------------------- */\n\nstatic inline ap_int8_c gate_abnormal(ap_int<16> sum_norm, ap_int<16> sum_abn) {\n#pragma HLS INLINE\n    return (sum_abn > sum_norm) ? ap_int8_c(1) : ap_int8_c(0);\n}\n\nstatic inline ap_int8_c argmax4(ap_int<16> s0,\n                                ap_int<16> s1,\n                                ap_int<16> s2,\n                                ap_int<16> s3) {\n#pragma HLS INLINE\n    ap_int8_c best = 0;\n    ap_int<16> bestv = s0;\n    if (s1 > bestv) { bestv = s1; best = 1; }\n    if (s2 > bestv) { bestv = s2; best = 2; }\n    if (s3 > bestv) { bestv = s3; best = 3; }\n    return best;\n}\n\n/* ===================================================================\n * TwoStageQCSNN24_RRBoth_SD\n *   - shared trunk (net24) computed once per timestep\n *   - binary head (net2) gets trunk + RR features (484)\n *   - multi head (net4) gets trunk + RR features (484)\n *   \n *   ===== CHANGE 2: RR features now passed separately, bypass QuantIdentity =====\n * =================================================================== */\ntemplate<int NUM_STEPS>\nclass QCSNN24_RRBOTH_SD {\npublic:\n    QCSNN24_RRBOTH_SD()  = default;\n    ~QCSNN24_RRBOTH_SD() = default;",
+          "note": "当前版本明确选择lif1d_integer.h；旁边的RR-only/无RR版本不是这个顶层选择的网络。"
+        },
+        {
+          "title": "输入、状态复位与缓存",
+          "start": 63,
+          "end": 115,
+          "code": "    void forward(hls::stream<ap_int8_c>& input_stream,    // 180 signal samples only\n                 const ap_int8_c rr_stage1[RR_DIM],       // RR quantized with Stage 1 scale\n                 const ap_int8_c rr_stage2[RR_DIM],       // RR quantized with Stage 2 scale\n                 hls::stream<ap_int8_c>& pred2_stream,\n                 hls::stream<ap_int8_c>& pred4_stream) {\n#pragma HLS INTERFACE axis      port=input_stream\n#pragma HLS INTERFACE axis      port=pred2_stream\n#pragma HLS INTERFACE axis      port=pred4_stream\n#pragma HLS INTERFACE s_axilite port=rr_stage1 bundle=CTRL\n#pragma HLS INTERFACE s_axilite port=rr_stage2 bundle=CTRL\n#pragma HLS INTERFACE s_axilite port=return bundle=CTRL\n\n        /* ----------------------------------------------------------\n         * 0) Buffer signal samples (180) and copy RR to local arrays\n         * ---------------------------------------------------------- */\n        ap_int8_c sig_buf[SIGNAL_LEN];   // 180 signal samples\n#pragma HLS ARRAY_PARTITION variable=sig_buf cyclic factor=8 dim=1\n\n        ap_int8_c rr_s1[RR_DIM];         // RR for Stage 1 (pre-quantized)\n#pragma HLS ARRAY_PARTITION variable=rr_s1 complete dim=1\n\n        ap_int8_c rr_s2[RR_DIM];         // RR for Stage 2 (pre-quantized)\n#pragma HLS ARRAY_PARTITION variable=rr_s2 complete dim=1\n\n        // Read signal (180)\n        for (int k = 0; k < SIGNAL_LEN; ++k) {\n#pragma HLS PIPELINE II=1\n            sig_buf[k] = input_stream.read();\n        }\n\n        // Copy RR features (already quantized with correct scales)\n        for (int k = 0; k < RR_DIM; ++k) {\n#pragma HLS UNROLL\n            rr_s1[k] = rr_stage1[k];\n            rr_s2[k] = rr_stage2[k];\n        }\n\n        /* ----------------------------------------------------------\n         * 1) Reset states ONCE per record (matches utils.reset)\n         * ---------------------------------------------------------- */\n        trunk_lif1.reset();\n        trunk_lif2.reset();\n        trunk_lif3.reset();\n        bin_lif.reset();\n\n        /* ----------------------------------------------------------\n         * 2) Cache trunk output (480) for each timestep t\n         * ---------------------------------------------------------- */\n        ap_int8_c body_cache[NUM_STEPS][TRUNK_OUT];   // 480\n#pragma HLS ARRAY_PARTITION variable=body_cache cyclic factor=8 dim=2\n\n        ap_int<16> sum_bin0 = 0;\n        ap_int<16> sum_bin1 = 0;",
+          "note": "180点信号与两套4维RR；body_cache[10][480]为8位数据，4800byte，沿特征维8路分块。"
+        },
+        {
+          "title": "stream连接与FIFO深度",
+          "start": 116,
+          "end": 190,
+          "code": "\n        /* ==========================================================\n         * Declare ALL streams ONCE\n         * ========================================================== */\n\n        hls::stream<ap_int8_c> s_in(\"s_in\");\n#pragma HLS STREAM variable=s_in depth=SIGNAL_LEN\n\n        // trunk pipeline streams\n        hls::stream<ap_int8_c> s0(\"s0\");\n#pragma HLS STREAM variable=s0 depth=FIXED_LENGTH2\n        hls::stream<ap_int8_c> s1(\"s1\");\n#pragma HLS STREAM variable=s1 depth=FIXED_LENGTH2\n        hls::stream<ap_int8_c> s2(\"s2\");\n#pragma HLS STREAM variable=s2 depth=FIXED_LENGTH2\n        hls::stream<ap_int8_c> s3(\"s3\");\n#pragma HLS STREAM variable=s3 depth=FIXED_LENGTH3\n\n        hls::stream<ap_int8_c> s4(\"s4\");\n#pragma HLS STREAM variable=s4 depth=FIXED_LENGTH3\n        hls::stream<ap_int8_c> s5(\"s5\");\n#pragma HLS STREAM variable=s5 depth=FIXED_LENGTH4\n        hls::stream<ap_int8_c> s6(\"s6\");\n#pragma HLS STREAM variable=s6 depth=FIXED_LENGTH4\n        hls::stream<ap_int8_c> s7(\"s7\");\n#pragma HLS STREAM variable=s7 depth=FIXED_LENGTH4\n        hls::stream<ap_int8_c> s8(\"s8\");\n#pragma HLS STREAM variable=s8 depth=FIXED_LENGTH5\n\n        hls::stream<ap_int8_c> s9(\"s9\");\n#pragma HLS STREAM variable=s9 depth=FIXED_LENGTH5\n        hls::stream<ap_int8_c> s10(\"s10\");\n#pragma HLS STREAM variable=s10 depth=FIXED_LENGTH6\n        hls::stream<ap_int8_c> s11(\"s11\");\n#pragma HLS STREAM variable=s11 depth=FIXED_LENGTH6\n        hls::stream<ap_int8_c> s12(\"s12\");\n#pragma HLS STREAM variable=s12 depth=FIXED_LENGTH6\n        hls::stream<ap_int8_c> s_body(\"s_body\");\n#pragma HLS STREAM variable=s_body depth=TRUNK_OUT\n\n        // ===== CHANGE 4: Binary head streams - QuantIdentity only processes trunk (480) =====\n        hls::stream<ap_int8_c> s_bin_qi_in(\"s_bin_qi_in\");   // Trunk spikes (480)\n#pragma HLS STREAM variable=s_bin_qi_in depth=TRUNK_OUT\n        hls::stream<ap_int8_c> s_bin_qi_out(\"s_bin_qi_out\"); // Trunk remapped (480)\n#pragma HLS STREAM variable=s_bin_qi_out depth=TRUNK_OUT\n        hls::stream<ap_int8_c> s_bin_fc(\"s_bin_fc\");         // Trunk + RR (484)\n#pragma HLS STREAM variable=s_bin_fc depth=STAGE1_IN\n        hls::stream<ap_int8_c> s_bin_lif_in(\"s_bin_lif_in\");\n#pragma HLS STREAM variable=s_bin_lif_in depth=2\n        hls::stream<ap_int8_c> s_bin_out(\"s_bin_out\");\n#pragma HLS STREAM variable=s_bin_out depth=2\n\n        // ===== CHANGE 5: Multi head streams - QuantIdentity only processes trunk (480) =====\n        hls::stream<ap_int8_c> s_m_qi1_in(\"s_m_qi1_in\");     // Trunk spikes (480)\n#pragma HLS STREAM variable=s_m_qi1_in depth=TRUNK_OUT\n        hls::stream<ap_int8_c> s_m_qi1_out(\"s_m_qi1_out\");   // Trunk remapped (480)\n#pragma HLS STREAM variable=s_m_qi1_out depth=TRUNK_OUT\n        hls::stream<ap_int8_c> s_m_fc1(\"s_m_fc1\");           // Trunk + RR (484)\n#pragma HLS STREAM variable=s_m_fc1 depth=STAGE2_IN\n        hls::stream<ap_int8_c> s_m_lif1_out(\"s_m_lif1_out\");\n#pragma HLS STREAM variable=s_m_lif1_out depth=FIXED_LENGTH8\n\n        hls::stream<ap_int8_c> s_m_qi2(\"s_m_qi2\");\n#pragma HLS STREAM variable=s_m_qi2 depth=FIXED_LENGTH8\n        hls::stream<ap_int8_c> s_m_fc2(\"s_m_fc2\");\n#pragma HLS STREAM variable=s_m_fc2 depth=FIXED_LENGTH8\n        hls::stream<ap_int8_c> s_m_lif2_in(\"s_m_lif2_in\");\n#pragma HLS STREAM variable=s_m_lif2_in depth=FIXED_LENGTH9\n        hls::stream<ap_int8_c> s_m_out(\"s_m_out\");\n#pragma HLS STREAM variable=s_m_out depth=FIXED_LENGTH9\n\n        /* ----------------------------------------------------------\n         * 3) STAGE-1: trunk + binary head (with RR bypass)\n         * ---------------------------------------------------------- */\n    STAGE1_LOOP:",
+          "note": "每个层对象的输入输出由流连接；depth是综合FIFO容量，不代表软件仿真队列容量。"
+        },
+        {
+          "title": "第一时间步的层调用",
+          "start": 191,
+          "end": 227,
+          "code": "        for (int t = 0; t < NUM_STEPS; ++t) {\n\n            // (a) refill s_in with signal only (180)\n            for (int k = 0; k < SIGNAL_LEN; ++k) {\n#pragma HLS PIPELINE II=1\n                s_in.write(sig_buf[k]);\n            }\n\n            // (b) trunk (net24)\n            trunk_conv1.forward(\n                s_in, s0,\n                qcsnet24_cblk1_qconv1d_weights,\n                qcsnet24_cblk1_qconv1d_scale_multiplier,\n                qcsnet24_cblk1_qconv1d_right_shift,\n                qcsnet24_cblk1_qconv1d_bias,\n                qcsnet24_cblk1_qconv1d_input_zero_point,\n                qcsnet24_cblk1_qconv1d_weight_sum);\n\n            trunk_bn1.forward(\n                s0, s1,\n                qcsnet24_cblk1_batch_norm_weight,\n                qcsnet24_cblk1_batch_norm_bias,\n                qcsnet24_cblk1_batch_norm_scale_multiplier,\n                qcsnet24_cblk1_batch_norm_right_shift);\n\n            trunk_lif1.forward(\n                s1, s2,\n                qcsnet24_cblk1_leaky_beta_int,\n                qcsnet24_cblk1_leaky_theta_int,\n                qcsnet24_cblk1_leaky_scale_int);\n\n            trunk_mp1.forward(s2, s3);\n\n            trunk_qi2.forward(s3, s4, qcsnet24_cblk2_input_act_scale_int);\n\n            trunk_conv2.forward(\n                s4, s5,",
+          "note": "逐函数调用：层内pipeline/UNROLL与层间调度是不同粒度。"
+        },
+        {
+          "title": "缓存与RR旁路",
+          "start": 272,
+          "end": 300,
+          "code": "                qcsnet24_cblk3_leaky_scale_int);\n\n            trunk_mp3.forward(s12, s_body);\n\n            // ===== CHANGE 6: Cache body + feed trunk to QuantIdentity (480 only) =====\n            for (int i = 0; i < TRUNK_OUT; ++i) {\n#pragma HLS PIPELINE II=1\n                ap_int8_c v = s_body.read();\n                body_cache[t][i] = v;\n                s_bin_qi_in.write(v);   // Trunk spikes (480) → QuantIdentity\n            }\n\n            // ===== CHANGE 7: QuantIdentity processes trunk only (480) =====\n            bin_qi.forward(s_bin_qi_in, s_bin_qi_out, qcsnet2_lblk1_input_act_scale_int);\n\n            // ===== CHANGE 8: Concatenate remapped trunk + pre-quantized RR =====\n            // First: trunk (480 remapped values)\n            for (int i = 0; i < TRUNK_OUT; ++i) {\n#pragma HLS PIPELINE II=1\n                s_bin_fc.write(s_bin_qi_out.read());\n            }\n            // Then: RR (4 pre-quantized values, bypass QuantIdentity)\n            for (int i = 0; i < RR_DIM; ++i) {\n#pragma HLS PIPELINE II=1\n                s_bin_fc.write(rr_s1[i]);  // Stage 1 RR\n            }\n\n            // binary head (net2): linear(484->2) -> lif\n            bin_fc.forward(",
+          "note": "pool3写入当前时间步缓存；前480值经过QI，RR直接追加到FC输入。"
+        },
+        {
+          "title": "门控与第二头",
+          "start": 309,
+          "end": 365,
+          "code": "            bin_lif.forward(\n                s_bin_lif_in, s_bin_out,\n                qcsnet2_lblk1_leaky_beta_int,\n                qcsnet2_lblk1_leaky_theta_int,\n                qcsnet2_lblk1_leaky_scale_int);\n\n            ap_int8_c b0 = s_bin_out.read();\n            ap_int8_c b1 = s_bin_out.read();\n\n            sum_bin0 += (ap_int<16>)b0;\n            sum_bin1 += (ap_int<16>)b1;\n        }\n\n        // (d) gate decision\n        ap_int8_c pred2 = gate_abnormal(sum_bin0, sum_bin1);\n        pred2_stream.write(pred2);\n\n        if (pred2 == 0) {\n            pred4_stream.write(ap_int8_c(0));\n            return;\n        }\n\n        /* ----------------------------------------------------------\n         * 4) STAGE-2: multi head with RR bypass\n         * ---------------------------------------------------------- */\n        multi_lif1.reset();\n        multi_lif2.reset();\n\n        ap_int<16> sum4_0 = 0, sum4_1 = 0, sum4_2 = 0, sum4_3 = 0;\n\n    STAGE2_LOOP:\n        for (int t = 0; t < NUM_STEPS; ++t) {\n\n            // ===== CHANGE 9: Feed cached trunk to QuantIdentity (480 only) =====\n            for (int i = 0; i < TRUNK_OUT; ++i) {\n#pragma HLS PIPELINE II=1\n                s_m_qi1_in.write(body_cache[t][i]);\n            }\n\n            // ===== CHANGE 10: QuantIdentity processes trunk only (480) =====\n            multi_qi1.forward(s_m_qi1_in, s_m_qi1_out, qcsnet4_lblk1_input_act_scale_int);\n\n            // ===== CHANGE 11: Concatenate remapped trunk + pre-quantized RR =====\n            // First: trunk (480 remapped values)\n            for (int i = 0; i < TRUNK_OUT; ++i) {\n#pragma HLS PIPELINE II=1\n                s_m_fc1.write(s_m_qi1_out.read());\n            }\n            // Then: RR (4 pre-quantized values, bypass QuantIdentity)\n            for (int i = 0; i < RR_DIM; ++i) {\n#pragma HLS PIPELINE II=1\n                s_m_fc1.write(rr_s2[i]);  // Stage 2 RR\n            }\n\n            // multi head: fc(484->128) -> lif -> qi -> fc(128->4) -> lif\n            multi_fc1.forward(\n                s_m_fc1, s_m_lif1_out,",
+          "note": "正常仍向两路输出写结果并return；异常分支重置多分类LIF并读取对应时间步缓存。"
+        },
+        {
+          "title": "模板实例定义",
+          "start": 413,
+          "end": 444,
+          "code": "    Conv1D_SD<1, 16, 3, 1, SIGNAL_LEN>                   trunk_conv1;\n    BatchNorm1D_SD<16, 178>                              trunk_bn1;\n    LIF1D_SD_Integer<16, 178>                            trunk_lif1;\n    MaxPool1D_SD<2, 2, 16, 178>                          trunk_mp1;\n\n    QuantIdentityPerTensor_Int8<16, 89>                  trunk_qi2;\n    Conv1D_SD<16, 16, 3, 1, 89>                          trunk_conv2;\n    BatchNorm1D_SD<16, 87>                               trunk_bn2;\n    LIF1D_SD_Integer<16, 87>                             trunk_lif2;\n    MaxPool1D_SD<2, 2, 16, 87>                           trunk_mp2;\n\n    QuantIdentityPerTensor_Int8<16, 43>                  trunk_qi3;\n    Conv1D_SD<16, 24, 3, 1, 43>                          trunk_conv3;\n    BatchNorm1D_SD<24, 41>                               trunk_bn3;\n    LIF1D_SD_Integer<24, 41>                             trunk_lif3;\n    MaxPool1D_SD<2, 2, 24, 41>                           trunk_mp3;\n\n    /* ==================== BINARY HEAD (net2) =================== */\n    // ===== CHANGE 12: QuantIdentity now processes trunk only (480) =====\n    QuantIdentityPerTensor_Int8<TRUNK_OUT, 1>            bin_qi;       // 480 (was 484)\n    Linear1D_SD<STAGE1_IN, 2>                            bin_fc;       // 484->2 (unchanged)\n    LIF1D_SD_Integer<2, 1>                               bin_lif;\n\n    /* ===================== MULTI HEAD (net4) =================== */\n    // ===== CHANGE 13: QuantIdentity now processes trunk only (480) =====\n    QuantIdentityPerTensor_Int8<TRUNK_OUT, 1>            multi_qi1;    // 480 (was 484)\n    Linear1D_SD<STAGE2_IN, FIXED_LENGTH8>                multi_fc1;    // 484->128 (unchanged)\n    LIF1D_SD_Integer<FIXED_LENGTH8, 1>                   multi_lif1;\n\n    QuantIdentityPerTensor_Int8<FIXED_LENGTH8, 1>        multi_qi2;\n    Linear1D_SD<FIXED_LENGTH8, FIXED_LENGTH9>            multi_fc2;\n    LIF1D_SD_Integer<FIXED_LENGTH9, 1>                   multi_lif2;",
+          "note": "这里决定层的尺寸和成员。一个类模板会被固定尺寸实例化，C++对象数不等于最终物理模块数。"
+        }
+      ],
+      "sha256": "e75439eb6fba4fe0b4f51d0a66c32fa19ad0147e93074d65d25668199c9c0e56"
+    },
+    {
+      "id": "constants",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/constants24_sd.h",
+      "title": "数字类型与维度常量",
+      "role": "ap_int类型、10个时间步、张量尺寸、AXIS载荷和重量化公共函数。",
+      "domain": "设计",
+      "includes": [
+        "hls_stream.h",
+        "ap_fixed.h",
+        "ap_axi_sdata.h",
+        "array",
+        "any",
+        "map",
+        "nlohmann/json.hpp"
+      ],
+      "sections": [
+        {
+          "title": "位宽与网络尺寸",
+          "start": 17,
+          "end": 89,
+          "code": "typedef std::map<std::string, json> JsonMap;\ntypedef ap_int<8> ap_int8_c; \ntypedef ap_int<32> acc32_t;\n\n// Constants\nconst int NUM_CLASSES_4 = 4;\n\n\n/**\n * Maximum number of layers and max length of layer names.\n * Adjust these based on your design constraints.\n */\nconst int MAX_LAYERS = 10; // Maximum number of layers per type\nstatic const int MAX_LAYER_NAME_LENGTH = 64;\n\n// Upper‑bound for synthesis loop (change to suit your application)\nstatic const int NUM_SAMPLES = 80; //4; //2489; //51002; //1385; //51013; \nstatic const int NUM_STEPS = 10;\n\n\nconst int FIXED_LENGTH1 = 180;\nconst int FIXED_LENGTH2 = 2848;\nconst int FIXED_LENGTH3 = 1424;\n\nconst int FIXED_LENGTH4 = 1392;\nconst int FIXED_LENGTH5 = 688;\nconst int FIXED_LENGTH6 = 984;\nconst int FIXED_LENGTH7 = 480;\nconst int FIXED_LENGTH8 = 128;\nconst int FIXED_LENGTH9 = 4;\n\nconst int RR_FEATURE_LENGTH = 4;\n  \n\n\n// ──────────── Dimensional bookkeeping ────────────\n// Layer‑0 input row ...........................................\nconst int CONV_IN_LENGTH1   = 180;     // 1 × 180\nconst int STRIDE = 1;\n\n// Block‑1 .....................................................\nconst int OUT_CH1           = 16;\nconst int FEATURE_LENGTH1   = (CONV_IN_LENGTH1 - 3) / STRIDE + 1;   // (180‑3)/1 + 1  = 178\nconst int POOL1_IN_LEN      = FEATURE_LENGTH1;                // 178\nconst int POOL1_OUT_LEN     = (POOL1_IN_LEN - 2) / 2 + 1;     // (178‑2)//2 + 1 = 89\n\n// Block‑2 .....................................................\nconst int CONV_IN_LENGTH2   = POOL1_OUT_LEN;                  // 89\nconst int OUT_CH2           = 16;\nconst int FEATURE_LENGTH2   = (CONV_IN_LENGTH2 - 3) / STRIDE + 1;  // (89‑3)/1 + 1 = 87\nconst int POOL2_IN_LEN      = FEATURE_LENGTH2;                // 87\nconst int POOL2_OUT_LEN     = (POOL2_IN_LEN - 2) / 2 + 1;     // (87‑2)//2 + 1 = 43\n\n\n// Block‑3 .....................................................\nconst int CONV_IN_LENGTH3   = POOL2_OUT_LEN;                  // 43\nconst int OUT_CH3           = 24;\nconst int FEATURE_LENGTH3   = (CONV_IN_LENGTH3 - 3) / STRIDE + 1;  // (43‑3)/1 + 1 = 41\nconst int POOL3_IN_LEN      = FEATURE_LENGTH3;                // 41\nconst int POOL3_OUT_LEN     = (POOL3_IN_LEN - 2) / 2 + 1;     // (41‑2)//2 + 1 = 20\n\n\n// Dense head ..................................................\nconst int LINEAR_IN_SIZE1   = OUT_CH3 * POOL3_OUT_LEN;        // 24 × 20 = 480\nconst int LINEAR_OUT_SIZE1  = 128;\n\n\ntypedef std::array<ap_int8_c, FIXED_LENGTH1> array180_t;// Using std::array for compatibility\ntypedef std::array<ap_int8_c, FIXED_LENGTH1 + RR_FEATURE_LENGTH> array180rr_t;\n\ntypedef std::array<ap_int8_c, FIXED_LENGTH2> array2848_t;\ntypedef std::array<ap_int8_c, FIXED_LENGTH3> array1424_t;\ntypedef std::array<ap_int8_c, FIXED_LENGTH4> array1392_t;",
+          "note": "ap_int8_c是有符号8位，acc32_t是有符号32位。尺寸会改变综合电路结构。"
+        },
+        {
+          "title": "AXIS载荷类型",
+          "start": 109,
+          "end": 113,
+          "code": "\n// Define the AXI stream data type with an 8-bit wide data field.\ntypedef ap_axiu<64, 0, 0, 0> axi_fixed_t;\n\nstatic inline ap_int8_c sat_clip_int8(ap_int<32> value) {",
+          "note": "实际是ap_axiu<64,0,0,0>，含64位data、8位keep/strb和1位last。"
+        }
+      ],
+      "sha256": "00360f2b6dadd40be9fb22a20e0eeea82ba66220706cdb6c4cfa24967d8468ab"
+    },
+    {
+      "id": "weights",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/includeheaders24_sd.h",
+      "title": "参数头文件汇总",
+      "role": "把训练导出的Conv/BN/LIF/FC/QI参数接到当前模型。",
+      "domain": "参数",
+      "includes": [
+        "../weights_sd/qcsnet24_cblk1_batch_norm_bn.h",
+        "../weights_sd/qcsnet24_cblk1_qconv1d_weights.h",
+        "../weights_sd/qcsnet24_cblk1_leaky_lif.h",
+        "../weights_sd/qcsnet24_cblk2_batch_norm_bn.h",
+        "../weights_sd/qcsnet24_cblk2_qconv1d_weights.h",
+        "../weights_sd/qcsnet24_cblk2_leaky_lif.h",
+        "../weights_sd/qparams_qcsnet24_cblk2_input.h",
+        "../weights_sd/qcsnet24_cblk3_batch_norm_bn.h",
+        "../weights_sd/qcsnet24_cblk3_qconv1d_weights.h",
+        "../weights_sd/qcsnet24_cblk3_leaky_lif.h",
+        "../weights_sd/qparams_qcsnet24_cblk3_input.h",
+        "../weights_sd/qcsnet2_lblk1_qlinear_weights.h",
+        "../weights_sd/qcsnet2_lblk1_leaky_lif.h",
+        "../weights_sd/qparams_qcsnet2_lblk1_input.h",
+        "../weights_sd/qcsnet4_lblk1_qlinear_weights.h",
+        "../weights_sd/qcsnet4_lblk1_leaky_lif.h",
+        "../weights_sd/qparams_qcsnet4_lblk1_input.h",
+        "../weights_sd/qcsnet4_lblk2_qlinear_weights.h",
+        "../weights_sd/qcsnet4_lblk2_leaky_lif.h",
+        "../weights_sd/qparams_qcsnet4_lblk2_input.h"
+      ],
+      "sections": [
+        {
+          "title": "实际被包含的参数",
+          "start": 1,
+          "end": 28,
+          "code": "#ifndef INCLUDE_HEADERS4_SD_H\n#define INCLUDE_HEADERS4_SD_H\n\n#include \"../weights_sd/qcsnet24_cblk1_batch_norm_bn.h\"\n#include \"../weights_sd/qcsnet24_cblk1_qconv1d_weights.h\"\n#include \"../weights_sd/qcsnet24_cblk1_leaky_lif.h\"\n\n#include \"../weights_sd/qcsnet24_cblk2_batch_norm_bn.h\"\n#include \"../weights_sd/qcsnet24_cblk2_qconv1d_weights.h\"\n#include \"../weights_sd/qcsnet24_cblk2_leaky_lif.h\"\n#include \"../weights_sd/qparams_qcsnet24_cblk2_input.h\"\n\n#include \"../weights_sd/qcsnet24_cblk3_batch_norm_bn.h\"\n#include \"../weights_sd/qcsnet24_cblk3_qconv1d_weights.h\"\n#include \"../weights_sd/qcsnet24_cblk3_leaky_lif.h\"\n#include \"../weights_sd/qparams_qcsnet24_cblk3_input.h\"\n\n#include \"../weights_sd/qcsnet2_lblk1_qlinear_weights.h\"\n#include \"../weights_sd/qcsnet2_lblk1_leaky_lif.h\"\n#include \"../weights_sd/qparams_qcsnet2_lblk1_input.h\"\n\n#include \"../weights_sd/qcsnet4_lblk1_qlinear_weights.h\"\n#include \"../weights_sd/qcsnet4_lblk1_leaky_lif.h\"\n#include \"../weights_sd/qparams_qcsnet4_lblk1_input.h\"\n\n#include \"../weights_sd/qcsnet4_lblk2_qlinear_weights.h\"\n#include \"../weights_sd/qcsnet4_lblk2_leaky_lif.h\"\n#include \"../weights_sd/qparams_qcsnet4_lblk2_input.h\"",
+          "note": "真实目录是model24/weights_sd。const数组经综合可成为ROM、banked ROM或逻辑常量。"
+        }
+      ],
+      "sha256": "11870a90c40553d55234cafd846252d89c3fde2858f61d02ff7904233ad30fd7"
+    },
+    {
+      "id": "weight-example",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/weights_sd/qcsnet24_cblk1_qconv1d_weights.h",
+      "title": "Conv1导出参数示例",
+      "role": "权重尺寸、重量化乘数、右移量及权重数组；编译时接入。",
+      "domain": "参数",
+      "includes": [
+        "ap_int.h",
+        "../constants24_sd.h"
+      ],
+      "sections": [
+        {
+          "title": "静态导出头",
+          "start": 1,
+          "end": 24,
+          "code": "#ifndef QCSNET24_CBLK1_QCONV1D_WEIGHTS_H\n#define QCSNET24_CBLK1_QCONV1D_WEIGHTS_H\n\n#include <ap_int.h>\n\n#include \"../constants24_sd.h\"\n\nnamespace hls4csnn1d_cblk_sd {\n\nconst int qcsnet24_cblk1_qconv1d_OUT_CH = 16;\nconst int qcsnet24_cblk1_qconv1d_IN_CH  = 1;\nconst int qcsnet24_cblk1_qconv1d_KERNEL_SIZE = 3;\nconst int qcsnet24_cblk1_qconv1d_STRIDE = 1;\n\nconst ap_int<8> qcsnet24_cblk1_qconv1d_input_zero_point = 0;\n\nconst ap_int<32> qcsnet24_cblk1_qconv1d_scale_multiplier[16] = {\n  1608539567, 1608539567, 1608539567, 1608539567, 1608539567, 1608539567, 1608539567, 1608539567, 1608539567, 1608539567, 1608539567, 1608539567, 1608539567, 1608539567, 1608539567, 1608539567\n};\n\nconst int qcsnet24_cblk1_qconv1d_right_shift[16] = {\n  38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38, 38\n};\n",
+          "note": "展示头文件原文。当前没有通过AXI上传权重的接口；改变权重后需重新生成硬件。"
+        }
+      ],
+      "sha256": "a969adc48a5df510eafcfa1ba81ad6b4a45d8ba1258a7509ad23fa2ae2292b0a"
+    },
+    {
+      "id": "conv",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/conv1d_sd.h",
+      "title": "Conv1D模板",
+      "role": "先读输入缓冲；输出位置流水，输入通道和核抽头展开。",
+      "domain": "层模板",
+      "includes": [
+        "hls_stream.h",
+        "ap_int.h",
+        "../constants24_sd.h"
+      ],
+      "sections": [
+        {
+          "title": "模板、接口与数组分块",
+          "start": 11,
+          "end": 43,
+          "code": "template<int IN_CH, int OUT_CH,\n         int KERNEL_SIZE, int STRIDE,\n         int IN_LEN,\n         bool USE_BIAS = false,\n         bool USE_ASYMMETRIC = false>\nclass Conv1D_SD {\npublic:\n    Conv1D_SD() {}\n\n    void forward(hls::stream<ap_int8_c>& in_stream,\n                 hls::stream<ap_int8_c>& out_stream,\n                 const ap_int8_c weights[OUT_CH][IN_CH][KERNEL_SIZE],\n                 const ap_int<32> scale_multiplier[OUT_CH],\n                 const int right_shift[OUT_CH],\n                 const acc32_t bias[OUT_CH],\n                 const ap_int<8> input_zero_point,\n                 const acc32_t weight_sum[OUT_CH]) {\n    #pragma HLS ARRAY_PARTITION variable=weights complete dim=1\n    #pragma HLS ARRAY_PARTITION variable=weights complete dim=2\n    #pragma HLS ARRAY_PARTITION variable=scale_multiplier complete dim=1\n    #pragma HLS ARRAY_PARTITION variable=right_shift complete dim=1\n\n    #pragma HLS INTERFACE mode=s_axilite port=scale_multiplier\n    #pragma HLS INTERFACE mode=s_axilite port=right_shift\n    #pragma HLS INTERFACE mode=s_axilite port=bias\n    #pragma HLS INTERFACE mode=s_axilite port=input_zero_point\n    #pragma HLS INTERFACE mode=s_axilite port=weight_sum\n    \n        const int OUT_LEN = (IN_LEN - KERNEL_SIZE) / STRIDE + 1;\n\n        // Channel-first input buffer\n        ap_int8_c input_buffer[IN_CH][IN_LEN];\n    #pragma HLS ARRAY_PARTITION variable=input_buffer complete dim=1",
+          "note": "USE_BIAS/USE_ASYMMETRIC默认false，本网络没有覆盖这两个开关。"
+        },
+        {
+          "title": "缓冲与并行内积",
+          "start": 45,
+          "end": 97,
+          "code": "        // Read input\n        for (int ic = 0; ic < IN_CH; ++ic) {\n            for (int i = 0; i < IN_LEN; ++i) {\n            #pragma HLS PIPELINE II=1\n                input_buffer[ic][i] = in_stream.read();\n            }\n        }\n\n#ifndef __SYNTHESIS__\n        int conv_sat_hi = 0, conv_sat_lo = 0;\n#endif\n\n        // Convolution computation\n        for (int oc = 0; oc < OUT_CH; ++oc) {\n            for (int w = 0; w < OUT_LEN; ++w) {\n            #pragma HLS PIPELINE II=1\n                acc32_t acc = 0;\n\n                // Integer MACs (int8×int8→int32)\n                for (int ic = 0; ic < IN_CH; ++ic) {\n                #pragma HLS UNROLL\n                    for (int k = 0; k < KERNEL_SIZE; ++k) {\n                    #pragma HLS UNROLL\n                        const int t = w * STRIDE + k;\n                        acc += (acc32_t)input_buffer[ic][t] * (acc32_t)weights[oc][ic][k];\n                    }\n                }\n\n                // Optional: Add bias (already in accumulator domain)\n                // Compile-time conditional - no runtime overhead\n                if (USE_BIAS) {\n                    acc += bias[oc];\n                }\n\n                // Optional: Asymmetric quantization correction\n                // Compile-time conditional - no runtime overhead\n                if (USE_ASYMMETRIC) {\n                    acc -= (acc32_t)input_zero_point * weight_sum[oc];\n                }\n\n                // Requantize to next layer's int8 scale\n                ap_int8_c y_q = requantize(acc, scale_multiplier[oc], right_shift[oc]);\n#ifndef __SYNTHESIS__\n                if (y_q == ap_int8_c(127))  ++conv_sat_hi;\n                if (y_q == ap_int8_c(-128)) ++conv_sat_lo;\n#endif\n                out_stream.write(y_q);\n            }\n        }\n\n#ifndef __SYNTHESIS__\n        static int conv_once = 0;\n        if (conv_once++ < 1) {",
+          "note": "内积UNROLL生成并行操作；此实现使用整段buffer，文件下面的注释滑窗版本没有生效。"
+        }
+      ],
+      "sha256": "b04d22909c8cc78802d58d9007d933cfa07b177663de5053955dc67184c97105"
+    },
+    {
+      "id": "bn",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/batchnorm1d_sd.h",
+      "title": "推理BN模板",
+      "role": "INT8仿射变换与RNE重量化，使用导出的weight/bias。",
+      "domain": "层模板",
+      "includes": [
+        "hls_stream.h",
+        "ap_int.h",
+        "../constants24_sd.h"
+      ],
+      "sections": [
+        {
+          "title": "独立BN层的推理循环",
+          "start": 79,
+          "end": 116,
+          "code": "                 const ap_int8_c weight[CH],\n                 const ap_int<32> bias[CH],\n                 const ap_int<32> scale_multiplier[CH],\n                 const int right_shift[CH]) {\n    #pragma HLS ARRAY_PARTITION variable=weight complete dim=1\n    #pragma HLS ARRAY_PARTITION variable=bias complete dim=1\n    #pragma HLS ARRAY_PARTITION variable=scale_multiplier complete dim=1\n    #pragma HLS ARRAY_PARTITION variable=right_shift complete dim=1\n    #pragma HLS INTERFACE mode=s_axilite port=weight\n    #pragma HLS INTERFACE mode=s_axilite port=bias\n    #pragma HLS INTERFACE mode=s_axilite port=scale_multiplier\n    #pragma HLS INTERFACE mode=s_axilite port=right_shift\n\n        // Process in channel-first order: [CH][LEN]\n        CHANNEL_LOOP:\n        for (int c = 0; c < CH; ++c) {\n            FEATURE_LOOP:\n            for (int i = 0; i < LEN; ++i) {\n            #pragma HLS PIPELINE II=1\n                ap_int8_c x = in_stream.read();\n                \n                // Compute: y = x * weight[c] + bias[c]\n                // All in int8/int32 domain\n                acc32_t acc = (acc32_t)x * (acc32_t)weight[c];\n                \n                if (USE_BIAS) {\n                    acc += (acc32_t)bias[c];\n                }\n                \n                // Requantize to next layer's scale\n                ap_int8_c y = requantize_rne_abs(acc, scale_multiplier[c], right_shift[c]);\n                \n                out_stream.write(y);\n            }\n        }\n    }\n};\n",
+          "note": "不用运行时统计均值方差；代码仍保留独立BN层。"
+        }
+      ],
+      "sha256": "8f60f023400ed2b5a702e427789e18ef259d07efa5f9e5a99b4c522b2af7dfe1"
+    },
+    {
+      "id": "lif",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/lif1d_integer.h",
+      "title": "有状态整数LIF模板",
+      "role": "类成员V0/V1保存膜电位；逐坐标流水更新，调用末翻转bank。",
+      "domain": "层模板",
+      "includes": [
+        "hls_stream.h",
+        "ap_int.h"
+      ],
+      "sections": [
+        {
+          "title": "模板与每心拍reset",
+          "start": 10,
+          "end": 43,
+          "code": "enum ResetModeInt { RESET_SUBTRACT_INT = 0, RESET_ZERO_INT = 1 };\n\ntemplate<\n    int OUT_CH,\n    int FEATURE_LEN,\n    int FRAC_BITS = 12,\n    ResetModeInt RESET_MODE = RESET_SUBTRACT_INT\n>\nclass LIF1D_SD_Integer {\npublic:\n    LIF1D_SD_Integer() : bank(false) { reset(); }\n\n    // Call once per new sample/window\n    void reset() {\n    #pragma HLS INLINE\n        for (int c = 0; c < OUT_CH; ++c) {\n            for (int t = 0; t < FEATURE_LEN; ++t) {\n            #pragma HLS PIPELINE II=1\n                V0[c][t] = 0;\n                V1[c][t] = 0;\n            }\n        }\n        bank = false; // deterministic start: read V0, write V1\n    }\n\n    // Integer-only forward (delayed reset, strict '>')\n    // Inputs: int8 from BN, scales/params in Q(FRAC_BITS)\n    void forward(hls::stream<ap_int<8>>& in,\n                 hls::stream<ap_int<8>>& out_spk,\n                 const ap_int<16> beta_q,\n                 const ap_int<16> theta_q,\n                 const ap_int<16> act_scale_q) {\n    #pragma HLS INLINE off\n        const int SHIFT = FRAC_BITS;",
+          "note": "模板尺寸决定状态存储大小。每心拍显式reset才是应分析的运行控制流程。"
+        },
+        {
+          "title": "bank与输入读取",
+          "start": 44,
+          "end": 74,
+          "code": "        const ap_int<16> ONE_Q   = ap_int<16>(1) << SHIFT; // 1.0 in Q\n        const ap_int<16> BETA_MAX= ONE_Q;\n        const ap_int<40> ROUND   = ap_int<40>(1) << (SHIFT - 1);\n\n        // clamp beta to [0, 1]\n        ap_int<16> beta_c = beta_q;\n        if (beta_c < 0)          beta_c = 0;\n        else if (beta_c > BETA_MAX) beta_c = BETA_MAX;\n\n        const bool rd = bank;     // read from this bank\n        const bool wr = !bank;    // write to the other bank\n\n        // Optional storage binding\n        // #pragma HLS BIND_STORAGE variable=V0 type=ram_1p impl=bram\n        // #pragma HLS BIND_STORAGE variable=V1 type=ram_1p impl=bram\n\n        for (int c = 0; c < OUT_CH; ++c) {\n            for (int t = 0; t < FEATURE_LEN; ++t) {\n            #pragma HLS PIPELINE II=1\n                // ---- Input: int8 → Q(FRAC_BITS) ----\n                const ap_int<8>  qi   = in.read(); // [-128,127]\n                const ap_int<24> x_q  = (ap_int<24>)qi * (ap_int<24>)act_scale_q; // QF\n\n                // ---- Previous membrane at (c,t) from previous call ----\n                ap_int<24> v_prev_q;\n                if (rd) v_prev_q = V1[c][t];\n                else     v_prev_q = V0[c][t];\n\n                // ---- Delayed reset signal from previous membrane ----\n                ap_int<16> r_prev_q = 0; // {0, ONE_Q}\n                if (v_prev_q > theta_q) r_prev_q = ONE_Q;",
+          "note": "BIND_STORAGE两行是注释。代码实际同bank读写，偶奇时间步沿t−2状态链传递。"
+        },
+        {
+          "title": "整数表达式如何综合",
+          "start": 76,
+          "end": 114,
+          "code": "                // ---- v_beta = round((beta * v_prev) >> F) ----\n                ap_int<40> prod_b = (ap_int<40>)beta_c * (ap_int<40>)v_prev_q;\n                if (prod_b >= 0) prod_b += ROUND; else prod_b -= ROUND;\n                ap_int<24> v_beta_q = (ap_int<24>)(prod_b >> SHIFT); // QF\n\n                // ---- base = v_beta + x ----\n                ap_int<24> base_q = v_beta_q + x_q; // QF\n\n                // ---- Apply reset mechanism (delayed) ----\n                ap_int<24> v_next_q;\n                if (RESET_MODE == RESET_SUBTRACT_INT) {\n                    // subtract: base - round((r_prev * theta) >> F)\n                    ap_int<40> prod_r = (ap_int<40>)r_prev_q * (ap_int<40>)theta_q;\n                    if (prod_r >= 0) prod_r += ROUND; else prod_r -= ROUND;\n                    ap_int<24> sub_reset_q = (ap_int<24>)(prod_r >> SHIFT); // 0 or theta_q\n                    v_next_q = base_q - sub_reset_q;\n                } else { // RESET_ZERO_INT\n                    // zero: (1 - r_prev) * base   (since r_prev ∈ {0,1})\n                    if (r_prev_q == ONE_Q) v_next_q = 0;\n                    else                    v_next_q = base_q;\n                }\n\n                // ---- Spike from NEW membrane: strict '>' ----\n                ap_int<8> spk = 0;\n                if (v_next_q > theta_q) spk = 1;\n\n                // ---- Write new membrane to the other bank ----\n                if (wr) V0[c][t] = v_next_q;\n                else    V1[c][t] = v_next_q;\n\n                // ---- Emit spike {0,1} ----\n                out_spk.write(spk);\n            }\n        }\n\n        // advance \"time\" for next call\n        bank = !bank;\n    }\n",
+          "note": "乘法、符号舍入、24位截断、严格比较和写回是可综合C++；最终绑定由报告确认。"
+        },
+        {
+          "title": "状态是对象成员",
+          "start": 115,
+          "end": 120,
+          "code": "private:\n    // Membrane per (channel, position), in Q(FRAC_BITS)\n    ap_int<24> V0[OUT_CH][FEATURE_LEN];\n    ap_int<24> V1[OUT_CH][FEATURE_LEN];\n    bool bank;\n};",
+          "note": "状态属于顶层static对象内部，形成长期存在的存储，不是宿主CPU每步临时变量。"
+        }
+      ],
+      "sha256": "931f1350da8accf047859b45ea9f6ac7d6800d195072764bdcd439f977cdafa7"
+    },
+    {
+      "id": "fc",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/linear1d_sd.h",
+      "title": "Linear模板",
+      "role": "输入维串行复用；输出维展开，独立累加器和权重存储通路。",
+      "domain": "层模板",
+      "includes": [
+        "hls_stream.h",
+        "ap_int.h",
+        "../constants24_sd.h",
+        "iostream"
+      ],
+      "sections": [
+        {
+          "title": "权重与累加器分块",
+          "start": 19,
+          "end": 65,
+          "code": "template<int INPUT_SIZE, int OUTPUT_SIZE,\n         bool USE_BIAS = false,\n         bool USE_ASYMMETRIC = false>\nclass Linear1D_SD {\npublic:\n    Linear1D_SD() {}\n\n    void forward(hls::stream<ap_int8_c>& in_stream,\n                 hls::stream<ap_int8_c>& out_stream,\n                 const ap_int8_c weights[OUTPUT_SIZE][INPUT_SIZE],\n                 const ap_int<32> scale_multiplier[OUTPUT_SIZE],\n                 const int right_shift[OUTPUT_SIZE],\n                 const acc32_t bias[OUTPUT_SIZE],\n                 const ap_int<8> input_zero_point,\n                 const acc32_t weight_sum[OUTPUT_SIZE]) {\n        // Partition only along OUTPUT_SIZE so we can read weights for all outputs in parallel.\n        // Do NOT partition along INPUT_SIZE to avoid massive replication.\n    #pragma HLS ARRAY_PARTITION variable=weights complete dim=1\n    #pragma HLS ARRAY_PARTITION variable=scale_multiplier complete dim=1\n    #pragma HLS ARRAY_PARTITION variable=right_shift complete dim=1\n\n    #pragma HLS INTERFACE mode=s_axilite port=scale_multiplier\n    #pragma HLS INTERFACE mode=s_axilite port=right_shift\n    #pragma HLS INTERFACE mode=s_axilite port=bias\n    #pragma HLS INTERFACE mode=s_axilite port=input_zero_point\n    #pragma HLS INTERFACE mode=s_axilite port=weight_sum\n\n        // 1) Read input vector\n        ap_int8_c in_vec[INPUT_SIZE];\n    #pragma HLS ARRAY_PARTITION variable=in_vec complete dim=1\n\n        READ_IN:\n        for (int i = 0; i < INPUT_SIZE; ++i) {\n        #pragma HLS PIPELINE II=1\n            in_vec[i] = in_stream.read();\n        }\n\n        // 2) Accumulators for all outputs\n        acc32_t acc[OUTPUT_SIZE];\n    #pragma HLS ARRAY_PARTITION variable=acc complete dim=1\n\n        INIT_ACC:\n        for (int o = 0; o < OUTPUT_SIZE; ++o) {\n        #pragma HLS UNROLL\n            acc[o] = 0;\n        }\n",
+          "note": "只沿OUTPUT_SIZE分块权重，保留INPUT_SIZE的存储深度；in_vec和acc完全分块。"
+        },
+        {
+          "title": "输入顺序、输出并行",
+          "start": 67,
+          "end": 78,
+          "code": "        //    For each input element, update all outputs in parallel.\n        DOT_I:\n        for (int i = 0; i < INPUT_SIZE; ++i) {\n        #pragma HLS PIPELINE II=1\n            ap_int8_c x = in_vec[i];\n\n            DOT_O:\n            for (int o = 0; o < OUTPUT_SIZE; ++o) {\n            #pragma HLS UNROLL\n                acc[o] += (acc32_t)x * (acc32_t)weights[o][i];\n            }\n        }",
+          "note": "484次输入迭代，每次更新128个输出，既有时间复用也有空间并行。"
+        },
+        {
+          "title": "输出重量化",
+          "start": 86,
+          "end": 111,
+          "code": "        for (int o = 0; o < OUTPUT_SIZE; ++o) {\n        #pragma HLS PIPELINE II=1\n            acc32_t tmp = acc[o];\n\n            if (USE_BIAS) {\n                tmp += bias[o];\n            }\n\n            if (USE_ASYMMETRIC) {\n                tmp -= (acc32_t)input_zero_point * weight_sum[o];\n            }\n\n            ap_int8_c y_q = requantize(tmp, scale_multiplier[o], right_shift[o]);\n\n        #ifndef __SYNTHESIS__\n            if (y_q == ap_int8_c(127))  ++lin_sat_hi;\n            if (y_q == ap_int8_c(-128)) ++lin_sat_lo;\n        #endif\n\n            out_stream.write(y_q);\n        }\n\n    #ifndef __SYNTHESIS__\n        static int lin_once = 0;\n        if (lin_once++ < 1) {\n            std::cout << \"[Linear1D_SD] sat_hi=\" << lin_sat_hi",
+          "note": "最后逐输出重量化并写FIFO。源码32位累加与HLS范围收窄需分开看。"
+        }
+      ],
+      "sha256": "3b81a134be7b05a215c3fa302951d5902baa7286cb221883771cee454c4e9bca"
+    },
+    {
+      "id": "pool",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/maxpool1d_sd.h",
+      "title": "MaxPool模板",
+      "role": "每通道缓冲后，2点比较与选择。",
+      "domain": "层模板",
+      "includes": [
+        "hls_stream.h",
+        "ap_fixed.h",
+        "../constants24_sd.h"
+      ],
+      "sections": [
+        {
+          "title": "实际池化代码",
+          "start": 9,
+          "end": 55,
+          "code": "\ntemplate<int POOL_SIZE, int STRIDE, int CH, int IN_LEN>\nclass MaxPool1D_SD {\npublic:\n    void forward(hls::stream<ap_int8_c>& in,\n                 hls::stream<ap_int8_c>& out) {\n        \n        const int OUT_LEN = (IN_LEN - POOL_SIZE) / STRIDE + 1;\n        \n        // Buffer to store one channel's worth of data\n        ap_int8_c buffer[IN_LEN];\n        #pragma HLS ARRAY_PARTITION variable=buffer complete\n        \n        CH_LOOP:\n        for (int c = 0; c < CH; ++c) {\n            \n            // First, read all input data for this channel into buffer\n            READ_CHANNEL:\n            for (int i = 0; i < IN_LEN; ++i) {\n                #pragma HLS PIPELINE II=1\n                buffer[i] = in.read();\n            }\n            \n            // Now perform pooling from the buffer\n            POOL_LOOP:\n            for (int out_pos = 0; out_pos < OUT_LEN; ++out_pos) {\n                #pragma HLS PIPELINE II=1\n                \n                // Calculate window start position\n                int window_start = out_pos * STRIDE;\n                \n                // Find maximum in the pooling window\n                ap_int8_c max_val = buffer[window_start];\n                \n                WINDOW_LOOP:\n                for (int w = 1; w < POOL_SIZE; ++w) {\n                    ap_int8_c val = buffer[window_start + w];\n                    if (val > max_val) {\n                        max_val = val;\n                    }\n                }\n                \n                out.write(max_val);\n            }\n        }\n    }\n};",
+          "note": "源码使用INT8 max；输入为0/1时可等价理解为OR，器件映射以报告为准。"
+        }
+      ],
+      "sha256": "56c0774131fa46376a1a78e57f666438e236c03800a8049275d037996b5a4488"
+    },
+    {
+      "id": "qi",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/quantidentity1d_sd.h",
+      "title": "脉冲重新量化模板",
+      "role": "将非零spike映射成q_one并写出INT8。",
+      "domain": "层模板",
+      "includes": [
+        "hls_stream.h",
+        "ap_int.h"
+      ],
+      "sections": [
+        {
+          "title": "尺度与映射",
+          "start": 10,
+          "end": 52,
+          "code": "// -----------------------------------------------------------------------------\n// Per-tensor QuantIdentity: spikes {0,1} -> int8 {0, q_one}, q_one = round(1/s)\n// act_scale_next_q is s encoded in Q(FRAC_BITS) (per-tensor, zp = 0).\n// -----------------------------------------------------------------------------\ntemplate<int OUT_CH, int FEATURE_LEN, int FRAC_BITS = 12>\nclass QuantIdentityPerTensor_Int8 {\npublic:\n    QuantIdentityPerTensor_Int8() {}\n\n    // Forward: in_spk -> out_q (II=1, channel-major C then L)\n    void forward(hls::stream<ap_int<8>>& in_spk,     // {0,1}\n                 hls::stream<ap_int<8>>& out_q,      // {0, q_one}\n                 const ap_int<16> act_scale_next_q)  // Q(FRAC_BITS), s_next > 0\n    {\n    #pragma HLS INLINE off\n        const ap_int<32> ONE_Q = ap_int<32>(1) << FRAC_BITS; // 1.0 in Q\n        ap_int<16> q_one_tmp;\n\n        // q_one = round((1<<F)/s) = (ONE_Q + s/2)/s for s>0\n        if (act_scale_next_q > 0) {\n            q_one_tmp = (ap_int<16>)((ONE_Q + (act_scale_next_q >> 1)) / act_scale_next_q);\n        } else {\n            q_one_tmp = 127;  // fallback (should not happen)\n        }\n\n        // Saturate to int8\n        ap_int<8> q_one;\n        if (q_one_tmp > 127)         q_one = 127;\n        else if (q_one_tmp < -128)   q_one = -128;\n        else                         q_one = (ap_int<8>)q_one_tmp;\n\n        for (int c = 0; c < OUT_CH; ++c) {\n            for (int t = 0; t < FEATURE_LEN; ++t) {\n            #pragma HLS PIPELINE II=1\n                ap_int<8> s = in_spk.read(); // 0 or 1\n                ap_int<8> q = 0;\n                if (s != 0) q = q_one;       // 1 -> q_one\n                out_q.write(q);\n            }\n        }\n    }\n};\n",
+          "note": "尺度由const参数传入，除法可常量折叠；两个QI480对象在RTL中复用物理模块。"
+        }
+      ],
+      "sha256": "89895717e2e5ebb023077e72f9e2061941fdda8a429065e31716c245de54c234"
+    },
+    {
+      "id": "reader",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/filereader24.h",
+      "title": "CPU端FileReader",
+      "role": "从CSV读ECG/RR，用float32和nearbyintf量化，属于宿主测试工具。",
+      "domain": "CPU验证",
+      "includes": [
+        "algorithm",
+        "ap_int.h",
+        "any",
+        "array",
+        "filesystem",
+        "iomanip",
+        "sstream",
+        "fstream",
+        "hls_stream.h",
+        "iostream",
+        "map",
+        "nlohmann/json.hpp",
+        "random",
+        "sstream",
+        "string",
+        "sys/stat.h",
+        "cerrno",
+        "sys/types.h",
+        "vector",
+        "dirent.h",
+        "sys/types.h",
+        "string.h",
+        "constants24_sd.h",
+        "./weights_sd/qparams_qcsnet24_cblk1_input.h",
+        "./weights_sd/rr_stats.h",
+        "./weights_sd/qparams_qcsnet2_lblk1_input.h",
+        "./weights_sd/qparams_qcsnet4_lblk1_input.h"
+      ],
+      "sections": [
+        {
+          "title": "宿主量化代码",
+          "start": 307,
+          "end": 324,
+          "code": "// Quantize signal samples (0-179) using trunk input scale\nstatic inline ap_int8_c quantize_input_sample(float x_real) {\n    // x_q = round(x_real / scale) + zero_point, then clamp to int8\n    const float inv_s = 1.0f / qcsnet24_cblk1_input_scale;\n    float qf = std::nearbyintf(x_real * inv_s) + static_cast<float>(qcsnet24_cblk1_input_zero_point);\n    int qi = static_cast<int>(qf);\n    if (qi > 127)  qi = 127;\n    if (qi < -128) qi = -128;\n    return ap_int8_c(qi);\n}\n\n// ===== CHANGE 5: Add quantization function for RR using head scales =====\n// Quantize RR features using head QuantIdentity scale (proper float->int8 quantization)\nstatic inline ap_int8_c quantize_rr_sample(float x_real, ap_int<16> scale_int, int frac_bits) {\n    // Convert scale_int back to float: scale = scale_int / 2^frac_bits\n    float scale = static_cast<float>(scale_int) / static_cast<float>(1 << frac_bits);\n    // x_q = round(x_real / scale), then clamp to int8\n    float qf = std::nearbyintf(x_real / scale);",
+          "note": "FPGA入口看到的是已量化的188个INT8，不在kernel中读CSV或做浮点预处理。"
+        }
+      ],
+      "sha256": "5e1ed4d9999deff0cf8b7c67cdbf9086abddde8f4166a24bea955f5d17ac54ad"
+    },
+    {
+      "id": "host-main",
+      "path": "csnn_cpp/src/cblk1/main.cpp",
+      "title": "CPU直接网络评估入口",
+      "role": "main读取数据后调用ModelEvaluation，绕过AXIS顶层包装。",
+      "domain": "CPU验证",
+      "includes": [
+        "iostream",
+        "fstream",
+        "string",
+        "iomanip",
+        "vector",
+        "hls_stream.h",
+        "ap_int.h",
+        "../../include/hls4csnn1d_sd/model24/cblk_sd/conv1d_sd.h",
+        "../../include/hls4csnn1d_sd/model24/cblk_sd/batchnorm1d_sd.h",
+        "../../include/hls4csnn1d_sd/model24/cblk_sd/lif1d_integer.h",
+        "../../include/hls4csnn1d_sd/model24/cblk_sd/maxpool1d_sd.h",
+        "../../include/hls4csnn1d_sd/model24/cblk_sd/linear1d_sd.h",
+        "../../include/hls4csnn1d_sd/model24/cblk_sd/quantidentity1d_sd.h",
+        "../../include/hls4csnn1d_sd/model24/constants24_sd.h",
+        "../../include/hls4csnn1d_sd/model24/filereader24.h",
+        "../../include/hls4csnn1d_sd/model24/cblk_sd/qcsnn24_rrboth_sd.h",
+        "../../include/hls4csnn1d_sd/model24/cblk_sd/modeleval24_sd.h"
+      ],
+      "sections": [
+        {
+          "title": "当前主机程序的模型include",
+          "start": 1,
+          "end": 32,
+          "code": "// testbench_qcsnn24_optionA.cpp\n#include <iostream>\n#include <fstream>\n#include <string>\n#include <iomanip>\n#include <vector>\n\n#include \"hls_stream.h\"\n#include \"ap_int.h\"\n\n// Include individual layer headers\n#include \"../../include/hls4csnn1d_sd/model24/cblk_sd/conv1d_sd.h\"\n#include \"../../include/hls4csnn1d_sd/model24/cblk_sd/batchnorm1d_sd.h\"\n#include \"../../include/hls4csnn1d_sd/model24/cblk_sd/lif1d_integer.h\"\n#include \"../../include/hls4csnn1d_sd/model24/cblk_sd/maxpool1d_sd.h\"\n#include \"../../include/hls4csnn1d_sd/model24/cblk_sd/linear1d_sd.h\"\n#include \"../../include/hls4csnn1d_sd/model24/cblk_sd/quantidentity1d_sd.h\"\n\n#include \"../../include/hls4csnn1d_sd/model24/constants24_sd.h\"\n#include \"../../include/hls4csnn1d_sd/model24/filereader24.h\"\n\n#include \"../../include/hls4csnn1d_sd/model24/cblk_sd/qcsnn24_rrboth_sd.h\"\n#include \"../../include/hls4csnn1d_sd/model24/cblk_sd/modeleval24_sd.h\"\n\n\n/* ================================================================\n *  Main Testbench (Two-Stage Option-A)\n * ================================================================ */\n\nint main(int argc, char** argv) {\n    std::cout << \"\\n=== QCSNN24 Option-A HLS Evaluation (Two-Stage, Gated, RR Bypass Fix) ===\\n\\n\";\n",
+          "note": "cblk1是目录名字；当前这份main也包含model24 RRboth。以真实include判断使用的版本。"
+        }
+      ],
+      "sha256": "5f478b38c034aa13dbfb5653b481c11c8c299c1b3840791b47a48765624d96ed"
+    },
+    {
+      "id": "tb",
+      "path": "csnn_cpp/include/hls4csnn1d_sd/model24/cblk_sd/topclass24_sd_tb.cpp",
+      "title": "AXIS顶层测试程序",
+      "role": "CSV量化、按24个字打包、调用topFunction并收双输出。",
+      "domain": "CPU验证",
+      "includes": [
+        "iostream",
+        "iomanip",
+        "string",
+        "hls_stream.h",
+        "topclass24_sd_tb.h",
+        "../filereader24.h",
+        "../constants24_sd.h"
+      ],
+      "sections": [
+        {
+          "title": "顶层testbench入口",
+          "start": 105,
+          "end": 139,
+          "code": "            std::cout << std::setw(6) << cm4[i][j] << \" \";\n        }\n        std::cout << \"\\n\";\n    }\n}\n\nint main(int argc, char** argv)\n{\n    std::cout << \"\\n=== QCSNN24 Top-Level AXI Testbench (RR Bypass Fix) ===\\n\\n\";\n\n    // ------------------------------------------------------------\n    // 1) Resolve dataset folder\n    // ------------------------------------------------------------\n    std::string folderPath =\n            \"/home/velox-217533/Projects/fau_projects/research/data/mitbih_processed_intra_patient_4class_180_center90_rr_features_filtered/single_test\";\n\n    if (argc >= 2) {\n        folderPath = argv[1];\n    }\n\n    // ------------------------------------------------------------\n    // 2) Load data\n    // ------------------------------------------------------------\n    FileReader reader;\n    reader.loadData(folderPath);\n\n    hls::stream<array180rr_t> dataStreamInternal;\n    reader.streamData(dataStreamInternal);\n\n#ifndef __SYNTHESIS__\n    const int NUM_SAMPLES_LOADED = (int)dataStreamInternal.size();\n#else\n    const int NUM_SAMPLES_LOADED = NUM_SAMPLES;\n#endif\n",
+          "note": "它是测试入口；当前hls_config没有设置tb.file，所以脚本不会自动运行它。"
+        }
+      ],
+      "sha256": "13e78d55b96b71f8888d4d79ea359a4660278cc847ada3d0fc67ad70b8b2b5df"
+    },
+    {
+      "id": "shim",
+      "path": "hls/shim/skip_host_reader.h",
+      "title": "综合前端兼容shim",
+      "role": "预定义主机FileReader头文件guard，跳过未被综合调用链使用的宿主代码。",
+      "domain": "构建",
+      "includes": [],
+      "sections": [
+        {
+          "title": "强制include的用途",
+          "start": 1,
+          "end": 9,
+          "code": "// Forced-include shim for Vitis HLS on Windows (MinGW headers).\n// filereader24.h is a host-only CSV reader that modeleval24_sd.h pulls into the synthesis translation unit.\n// It includes <filesystem>, <dirent.h> and calls POSIX mkdir(path, mode), none of which the bundled MinGW 8.3\n// headers accept in the HLS front end. The synthesizable path never uses FileReader (checked by grep), so\n// pre-defining its include guard makes the preprocessor skip the whole file. Upstream sources stay untouched.\n#ifndef SKIP_HOST_READER_SHIM_H\n#define SKIP_HOST_READER_SHIM_H\n#define FILE_READER_H\n#endif",
+          "note": "编译兼容手段，原作者源码未改；它不描述DSP、RAM或数据通路。"
+        }
+      ],
+      "sha256": "0340990415856e5d8ae44782fb0522608cd64c3296562a4ac85ae45065f8d0da"
+    },
+    {
+      "id": "synthesis",
+      "path": "hls/run_csynth.bat",
+      "title": "综合脚本",
+      "role": "加载2026.1 Vitis环境，调用v++读取配置并生成HLS工作目录。",
+      "domain": "构建",
+      "includes": [],
+      "sections": [
+        {
+          "title": "现有脚本命令",
+          "start": 1,
+          "end": 10,
+          "code": "@echo off\nREM C synthesis of the dual-head QCSNN IP with the local Vitis 2026.1 install.\nREM Output goes to hls\\work_csynth. The synthesis report is at\nREM   hls\\work_csynth\\hls\\syn\\report\\*_csynth.rpt   (exact folder may differ; search for csynth.rpt)\nREM Usage: double-click or run from any shell. Takes a while; expect minutes to hours.\ncall E:\\Xilinx\\2026.1\\Vitis\\settings64.bat\ncd /d \"%~dp0\"\nv++ -c --mode hls --config hls_config.cfg --work_dir work_csynth\necho.\necho exit code: %ERRORLEVEL%",
+          "note": "运行前核对hls_config的绝对源路径。当前脚本不会运行C/RTL协同仿真。"
+        }
+      ],
+      "sha256": "09c80c95173155b805d84b6a7c60f762ea66268044392886610155aba5940cf9"
+    },
+    {
+      "id": "implementation",
+      "path": "hls/run_package_impl.bat",
+      "title": "打包与OOC实现脚本",
+      "role": "vitis-run打包IP并执行IP单独的Vivado实现。",
+      "domain": "构建",
+      "includes": [],
+      "sections": [
+        {
+          "title": "打包与实现入口",
+          "start": 1,
+          "end": 13,
+          "code": "@echo off\nREM Step 1: export the synthesized IP (needs run_csynth.bat to have finished).\nREM Step 2: Vivado out-of-context synthesis + place&route of the IP alone -> real LUT/DSP/timing numbers.\nREM Uses the Vivado 2026.1 environment (it also sets up Vitis HLS).\ncall E:\\Xilinx\\2026.1\\Vivado\\settings64.bat\ncd /d \"%~dp0\"\necho ===== PACKAGE =====\ncall vitis-run --mode hls --package --config hls_config.cfg --work_dir work_csynth\necho package exit code: %ERRORLEVEL%\necho ===== IMPL =====\ncall vitis-run --mode hls --impl --config hls_config.cfg --work_dir work_csynth\necho impl exit code: %ERRORLEVEL%\necho exit code: done",
+          "note": "生成的是IP/OOC验证产物，不是包含PS、DMA、DDR的PYNQ系统bitstream。"
+        }
+      ],
+      "sha256": "576862e9d0f73b8c77b7f0fc8dd503e004b74cfed726364dff1cbc11f3d33219"
+    },
+    {
+      "id": "golden",
+      "path": "walkthrough/golden/golden_top.cpp",
+      "title": "未改动顶层的CPU参照",
+      "role": "包含作者topclass24_sd.cpp并调用topFunction，用于模型验证。",
+      "domain": "验证辅助",
+      "includes": [
+        "cstdio",
+        "cstdint",
+        "vector",
+        "cblk_sd/topclass24_sd.cpp"
+      ],
+      "sections": [
+        {
+          "title": "真实顶层参照程序",
+          "start": 1,
+          "end": 39,
+          "code": "// Drive the UNMODIFIED topFunction (csnn_cpp/.../topclass24_sd.cpp) with raw input words, exactly like the authors'\n// AXI testbench (input_row_to_axi): 188 int8 words packed 8 per 64-bit beat -> 24 beats, TLAST on the last.\n// Output per beat: pred2 (0 normal / 1 abnormal) and pred4 (0..3), read from the two output streams.\n#include <cstdio>\n#include <cstdint>\n#include <vector>\n#include \"cblk_sd/topclass24_sd.cpp\"   // defines topFunction (+ pulls in the whole kernel)\n\nint main(int argc, char** argv) {\n    if (argc < 3) { std::fprintf(stderr, \"usage: golden_top <words.bin> <preds.txt>\\n\"); return 2; }\n    FILE* f = std::fopen(argv[1], \"rb\");\n    std::vector<int8_t> buf;\n    int8_t tmp[188];\n    while (std::fread(tmp, 1, 188, f) == 188) buf.insert(buf.end(), tmp, tmp + 188);\n    std::fclose(f);\n    const size_t N = buf.size() / 188;\n    FILE* o = std::fopen(argv[2], \"w\");\n    for (size_t n = 0; n < N; ++n) {\n        hls::stream<axi_fixed_t> in, out2, out4;\n        const int8_t* b = &buf[n * 188];\n        for (int w = 0; w < 24; ++w) {\n            axi_fixed_t word;\n            word.data = 0; word.keep = 0; word.strb = 0; word.last = 0;\n            for (int j = 0; j < 8; ++j) {\n                int idx = w * 8 + j;\n                ap_uint<8> byte_val = 0;\n                if (idx < 188) { byte_val = (ap_uint<8>)(uint8_t)b[idx]; word.keep |= (ap_uint<8>)(1u << j); }\n                word.data.range(j * 8 + 7, j * 8) = byte_val;\n            }\n            word.strb = word.keep;\n            if (w == 23) word.last = 1;\n            in.write(word);\n        }\n        topFunction(in, out2, out4);\n        axi_fixed_t w2 = out2.read(), w4 = out4.read();\n        int p2 = (int)(int8_t)(uint8_t)w2.data.range(7, 0).to_uint();\n        int p4 = (int)(int8_t)(uint8_t)w4.data.range(7, 0).to_uint();\n        std::fprintf(o, \"%d %d\\n\", p2, p4);\n        if ((n + 1) % 200 == 0) { std::fprintf(stderr, \"%zu/%zu\\n\", n + 1, N); }",
+          "note": "CPU stream shim支持功能运行；它不能证明FPGA握手时序或RTL一致性。"
+        }
+      ],
+      "sha256": "41005dfb45dc1c5f41fd38963fc23e22dd9de14df28333850485112afa1b3e11"
+    }
+  ],
+  "pragmas": [
+    {
+      "id": "int",
+      "name": "ap_int<N>",
+      "kind": "库类型",
+      "meaning": "固定有符号位宽整数。",
+      "effect": "窄类型赋值丢高位；饱和要显式写判断。",
+      "fileId": "constants",
+      "sectionIndex": 0
+    },
+    {
+      "id": "stream",
+      "name": "hls::stream<T>",
+      "kind": "通道",
+      "meaning": "read/write以流传递标量。",
+      "effect": "综合为FIFO和握手；FIFO空/满影响推进。",
+      "fileId": "evaluation",
+      "sectionIndex": 0
+    },
+    {
+      "id": "axi",
+      "name": "ap_axiu<64,0,0,0>",
+      "kind": "库类型",
+      "meaning": "AXIS的数据与侧带字段。",
+      "effect": "64位data、8位keep/strb和1位last。",
+      "fileId": "constants",
+      "sectionIndex": 1
+    },
+    {
+      "id": "range",
+      "name": ".range(hi,lo)",
+      "kind": "位操作",
+      "meaning": "取出或设置特定bit区间。",
+      "effect": "通常形成位切片/接线，按低byte先打包。",
+      "fileId": "top",
+      "sectionIndex": 1
+    },
+    {
+      "id": "axis",
+      "name": "INTERFACE axis",
+      "kind": "接口指令",
+      "meaning": "把顶层stream暴露为AXI4-Stream。",
+      "effect": "本工程只有1输入、2输出三个AXIS口。",
+      "fileId": "top",
+      "sectionIndex": 0
+    },
+    {
+      "id": "ctrl",
+      "name": "INTERFACE ap_ctrl_hs",
+      "kind": "接口指令",
+      "meaning": "启动、完成、空闲、就绪控制握手。",
+      "effect": "当前没有顶层AXI-Lite控制寄存器；接PS需明确适配。",
+      "fileId": "top",
+      "sectionIndex": 0
+    },
+    {
+      "id": "dataflow",
+      "name": "DATAFLOW",
+      "kind": "调度指令",
+      "meaning": "顶层过程通过通道协作。",
+      "effect": "作用于该区域；网络内部仍按其控制流程调用层。",
+      "fileId": "top",
+      "sectionIndex": 0
+    },
+    {
+      "id": "pipeline",
+      "name": "PIPELINE II=1",
+      "kind": "循环指令",
+      "meaning": "请求每拍启动新迭代。",
+      "effect": "实际II和深度以csynth/schedule为准。",
+      "fileId": "lif",
+      "sectionIndex": 2
+    },
+    {
+      "id": "unroll",
+      "name": "UNROLL",
+      "kind": "循环指令",
+      "meaning": "展开指定循环维度。",
+      "effect": "FC输出维并行、输入维复用；不直接等于最终DSP数。",
+      "fileId": "fc",
+      "sectionIndex": 1
+    },
+    {
+      "id": "complete",
+      "name": "ARRAY_PARTITION complete",
+      "kind": "存储指令",
+      "meaning": "将指定维度完全拆分。",
+      "effect": "FC输出权重可同时读，输入深度继续存为ROM。",
+      "fileId": "fc",
+      "sectionIndex": 0
+    },
+    {
+      "id": "cyclic",
+      "name": "ARRAY_PARTITION cyclic factor=8",
+      "kind": "存储指令",
+      "meaning": "按索引模8拆成8路访问。",
+      "effect": "输入拆8byte、特征缓存多bank，改变访问并行度。",
+      "fileId": "network",
+      "sectionIndex": 1
+    },
+    {
+      "id": "depth",
+      "name": "STREAM depth",
+      "kind": "通道指令",
+      "meaning": "指定综合FIFO深度。",
+      "effect": "容量与读写调度共同影响资源和阻塞。",
+      "fileId": "network",
+      "sectionIndex": 2
+    },
+    {
+      "id": "inline",
+      "name": "INLINE / INLINE off",
+      "kind": "函数指令",
+      "meaning": "展开或保留综合函数边界。",
+      "effect": "不保证一个C++对象独占一套电路；QI480会物理共享。",
+      "fileId": "lif",
+      "sectionIndex": 0
+    },
+    {
+      "id": "axilite",
+      "name": "子函数 s_axilite",
+      "kind": "接口上下文",
+      "meaning": "层模板和网络forward写有子函数接口指令。",
+      "effect": "真正IP外部端口按综合顶层和component.xml确定。",
+      "fileId": "network",
+      "sectionIndex": 1
+    },
+    {
+      "id": "binding",
+      "name": "BIND_STORAGE / BIND_OP",
+      "kind": "绑定指令",
+      "meaning": "用于显式指定存储或运算绑定。",
+      "effect": "当前LIF BIND_STORAGE仅为注释，生效源码未用BIND_OP。当前映射由工具推导。",
+      "fileId": "lif",
+      "sectionIndex": 1
+    }
+  ],
+  "workflow": [
+    {
+      "id": "train",
+      "title": "训练与导出",
+      "input": "根目录PyTorch/Brevitas/snnTorch notebook及MIT-BIH数据",
+      "tool": "Python / Jupyter",
+      "output": "INT8权重、BN、Q12 LIF与量化参数头",
+      "status": "仓库含训练与导出流程",
+      "commands": [],
+      "note": "README的notebooks/目录描述与当前布局不同。已保存参数的训练来源不能仅由文件名证明。"
+    },
+    {
+      "id": "cpu",
+      "title": "CPU功能验证",
+      "input": "CSV、model24头文件和FileReader",
+      "tool": "C++ / g++与HLS整数头",
+      "output": "输入量化字、预测与逐层参照",
+      "status": "现有golden参照可用",
+      "commands": [
+        "node walkthrough/qa_numeric.js"
+      ],
+      "note": "这是复查已保存C++参照的命令。编译CPP时需要HLS整数库与stream shim；当前没有本工程CMake。"
+    },
+    {
+      "id": "hls",
+      "title": "Vitis HLS综合",
+      "input": "唯一design .cpp＋include链＋静态参数＋新配置",
+      "tool": "Vitis 2026.1 / v++",
+      "output": "RTL、csynth、verbose.sched/bind",
+      "status": "已有综合工作产物",
+      "commands": [
+        "python engineering_guide/make_hls_config.py",
+        "call E:\\Xilinx\\2026.1\\Vitis\\settings64.bat",
+        "v++ -c --mode hls --config engineering_guide/hls_current.cfg --work_dir engineering_guide/work_hls"
+      ],
+      "note": "命令需在工程根目录的cmd或已配置工具环境执行。新cfg指向当前副本；这里只生成配置，不自动启动综合。"
+    },
+    {
+      "id": "ip",
+      "title": "IP打包与OOC实现",
+      "input": "同一个HLS工作目录",
+      "tool": "vitis-run / Vivado 2026.1",
+      "output": "IP ZIP、OOC project.xpr、RTL和routed DCP",
+      "status": "已有IP/OOC产物",
+      "commands": [
+        "call E:\\Xilinx\\2026.1\\Vivado\\settings64.bat",
+        "vitis-run --mode hls --package --config engineering_guide/hls_current.cfg --work_dir engineering_guide/work_hls",
+        "vitis-run --mode hls --impl --config engineering_guide/hls_current.cfg --work_dir engineering_guide/work_hls"
+      ],
+      "note": "CPU验证、HLS综合、OOC实现、板级生成是不同工程步骤。当前配置没有TB，没有自动cosim。"
+    },
+    {
+      "id": "board",
+      "title": "板级系统集成",
+      "input": "HLS IP＋PS/DMA/DDR＋控制适配＋时钟复位",
+      "tool": "Vivado Block Design / PYNQ",
+      "output": "整系统.bit及匹配.hwh，板端程序",
+      "status": "待完成板级工程",
+      "commands": [],
+      "note": "已有bd_0.hwh是单IP OOC包装；没有可部署的配套PYNQ overlay。当前ap_ctrl_hs需控制驱动，两条输出需要独立接收路径。"
+    }
+  ],
+  "facts": {
+    "callChain": [
+      {
+        "fileId": "config",
+        "label": "HLS配置",
+        "detail": "选择top与design.cpp",
+        "sectionIndex": 0
+      },
+      {
+        "fileId": "top",
+        "label": "topFunction",
+        "detail": "解包 / 调用 / 回包",
+        "sectionIndex": 0
+      },
+      {
+        "fileId": "top",
+        "label": "TopClass24_SD",
+        "detail": "static对象和网络成员",
+        "sectionIndex": 3
+      },
+      {
+        "fileId": "evaluation",
+        "label": "ModelEvaluation",
+        "detail": "内部流搬运与预测收集",
+        "sectionIndex": 0
+      },
+      {
+        "fileId": "network",
+        "label": "QCSNN24_RRBOTH_SD",
+        "detail": "每步调用 / 缓存 / 门控",
+        "sectionIndex": 3
+      },
+      {
+        "fileId": "lif",
+        "label": "层模板",
+        "detail": "固定尺寸运算和状态",
+        "sectionIndex": 0
+      },
+      {
+        "fileId": "weights",
+        "label": "导出参数",
+        "detail": "include接入const数组",
+        "sectionIndex": 0
+      }
+    ],
+    "configPitfall": "hls/hls_config.cfg仍含不带“ - 副本”的原目录绝对路径。直接从副本运行原脚本会继续读取原目录。先生成engineering_guide/hls_current.cfg并核对syn.file、cflags和IP输出路径。",
+    "boardBoundary": "已有HLS综合、IP包和单IP Vivado OOC工程。bd_0.hwh属于OOC包装，板级PS/DMA/DDR系统与配套.bit/.hwh仍待完成。",
+    "lifState": "V0/V1是六个LIF对象的24位成员数组，最终归顶层static对象；每心拍显式reset。实际同bank读写，偶奇t−2链由源码控制。",
+    "dataflowBoundary": "topFunction含DATAFLOW，网络forward内部执行10步主干＋二分类、门控和必要的第二阶段。层内并行度由PIPELINE、UNROLL和ARRAY_PARTITION决定。",
+    "resourceBoundary": "代码表达式与pragma形成综合输入；DSP/RAM物理归属以HLS绑定和Vivado实现报告确认。HLS预估227 DSP、routed220 DSP，两套口径分开。",
+    "interfaces": "188 INT8输入，24个64位字；低byte先，末4byte padding。1输入/2输出AXIS，控制为ap_ctrl_hs；输出预测低8bit，keep/strb=0x0F，last=1。",
+    "versions": "本页以实际model24 RRboth include链和2026.1配置为依据。README中的notebooks/、src/入口及2025.1描述需按实际文件修正。",
+    "changeTargets": [
+      {
+        "title": "换权重 / 量化参数",
+        "detail": "更新model24/weights_sd导出头；重新核对CPU、综合和硬件包。",
+        "fileId": "weights"
+      },
+      {
+        "title": "改网络尺寸或连接",
+        "detail": "同步constants、模板实例、缓存/stream长度及参数维度。",
+        "fileId": "network"
+      },
+      {
+        "title": "调并行度 / 吞吐",
+        "detail": "先看当前UNROLL/PIPELINE与数组访问；修改后检查II、资源和时序。",
+        "fileId": "fc"
+      },
+      {
+        "title": "接PS / DMA / 板卡",
+        "detail": "核对top实际外部控制和AXIS协议，增加板级工程与控制适配。",
+        "fileId": "top"
+      }
+    ],
+    "changes": [
+      {
+        "title": "换权重与量化参数",
+        "note": "导出参数进入静态头文件；改动后重新核对CPU，再生成HLS和硬件包。",
+        "fileIds": [
+          "train",
+          "weights",
+          "weight-example"
+        ],
+        "check": "参数维度、输入量化与C++输出一致"
+      },
+      {
+        "title": "改网络结构与尺寸",
+        "note": "同步常量、模板实例、stream长度、缓存与导出参数形状。",
+        "fileIds": [
+          "constants",
+          "network"
+        ],
+        "check": "每层读写数量、固定尺寸和所有调用匹配"
+      },
+      {
+        "title": "改LIF状态与整数语义",
+        "note": "在有状态模板中改更新规则，确认每心拍reset和跨时间步状态；重新建立参照。",
+        "fileIds": [
+          "lif",
+          "network"
+        ],
+        "check": "负数Q12、阈值、bank读写与时间步一致"
+      },
+      {
+        "title": "调并行度与资源",
+        "note": "从真实循环维度、UNROLL/PIPELINE及数组访问开始，再检查综合结果。",
+        "fileIds": [
+          "conv",
+          "fc",
+          "config"
+        ],
+        "check": "II、FIFO/存储、DSP与布线时序"
+      },
+      {
+        "title": "改接口或接板级系统",
+        "note": "顶层决定真实IP外部端口，配套更改主机打包和板级控制。",
+        "fileIds": [
+          "top",
+          "constants",
+          "tb"
+        ],
+        "check": "24输入word、两输出路径、ap_ctrl_hs适配"
+      },
+      {
+        "title": "验证和构建工程",
+        "note": "核对当前副本配置，明确CPU验证、HLS综合、OOC和板级的先后与产物。",
+        "fileIds": [
+          "config",
+          "component",
+          "synthesis",
+          "implementation",
+          "golden"
+        ],
+        "check": "设计入口、工具环境、参照与输出路径"
+      }
+    ]
+  }
+}

@@ -1,0 +1,73 @@
+# Python / Jupyter caches and local environments
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+.pytest_cache/
+
+# JavaScript dependencies and local caches
+node_modules/
+npm-cache/
+
+# Local editor, OS and credential files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Compiled C/C++ and simulator outputs
+*.o
+*.obj
+*.d
+*.exe
+*.dll
+*.so
+*.a
+*.lib
+*.bin
+*.vcd
+*.wdb
+*.wlf
+*.log
+*.jou
+*.str
+*.bak
+*.tmp
+
+# Vitis / Vivado generated workspaces and hardware packages
+.Xil/
+.vitisWorkspace.json
+_ide/.wsdata/
+_ide/logs/
+/csnn_cpp/build/
+/csnn_cpp/export/
+/csnn_cpp/logs/
+/hls/work_*/
+/hls/*.zip
+*.dcp
+*.bit
+*.pdi
+*.xsa
+/engineering_guide/work_*/
+/engineering_guide/*.zip
+
+# Recreated ECG datasets and simulation work directories
+/walkthrough/data/rr_dataset/
+/walkthrough/data/full_test/
+/walkthrough/data/verify/
+/walkthrough/solution/
+/walkthrough/micro/sim/
+/walkthrough/golden/golden_layers
+/walkthrough/golden/golden_top
+/walkthrough/golden/make_words
+/walkthrough/golden/params_check
+
+# Local research attachments and working notes
+/output/
+/plan.md

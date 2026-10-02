@@ -1,0 +1,7 @@
+{
+  "name": "qcsnn-walkthrough-qa",
+  "private": true,
+  "devDependencies": {
+    "jsdom": "26.1.0"
+  }
+}

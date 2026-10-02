@@ -1,0 +1,224 @@
+--- upstream/qcsnn24_rrboth_sd.h
++++ patched/qcsnn24_rrboth_sd_dump.h
+@@ -1,10 +1,11 @@
+ #ifndef QCSNN24_RRBOTH_SD_H
+ #define QCSNN24_RRBOTH_SD_H
++#include "gold_dump.h"  // GOLD_ADDED
+ 
+ #include <hls_stream.h>
+ #include <ap_int.h>
+-#include "../constants24_sd.h"
+-#include "includeheaders24_sd.h"
++#include <constants24_sd.h>
++#include <includeheaders24_sd.h>
+ 
+ #include "conv1d_sd.h"
+ #include "batchnorm1d_sd.h"
+@@ -12,7 +13,7 @@
+ #include "maxpool1d_sd.h"
+ #include "linear1d_sd.h"
+ #include "quantidentity1d_sd.h"
+-#include "../utils_sd.h"
++#include <utils_sd.h>
+ 
+ namespace hls4csnn1d_cblk_sd {
+ 
+@@ -189,6 +190,7 @@
+          * ---------------------------------------------------------- */
+     STAGE1_LOOP:
+         for (int t = 0; t < NUM_STEPS; ++t) {
++            GOLD_STEP(1, t);  // GOLD_ADDED
+ 
+             // (a) refill s_in with signal only (180)
+             for (int k = 0; k < SIGNAL_LEN; ++k) {
+@@ -205,6 +207,7 @@
+                 qcsnet24_cblk1_qconv1d_bias,
+                 qcsnet24_cblk1_qconv1d_input_zero_point,
+                 qcsnet24_cblk1_qconv1d_weight_sum);
++            GOLD_TEE("conv1", s0);  // GOLD_ADDED
+ 
+             trunk_bn1.forward(
+                 s0, s1,
+@@ -212,16 +215,21 @@
+                 qcsnet24_cblk1_batch_norm_bias,
+                 qcsnet24_cblk1_batch_norm_scale_multiplier,
+                 qcsnet24_cblk1_batch_norm_right_shift);
++            GOLD_TEE("bn1", s1);  // GOLD_ADDED
+ 
+             trunk_lif1.forward(
+                 s1, s2,
+                 qcsnet24_cblk1_leaky_beta_int,
+                 qcsnet24_cblk1_leaky_theta_int,
+                 qcsnet24_cblk1_leaky_scale_int);
++            GOLD_TEE("lif1", s2);  // GOLD_ADDED
++            GOLD_LIF("lif1", trunk_lif1);  // GOLD_ADDED
+ 
+             trunk_mp1.forward(s2, s3);
++            GOLD_TEE("pool1", s3);  // GOLD_ADDED
+ 
+             trunk_qi2.forward(s3, s4, qcsnet24_cblk2_input_act_scale_int);
++            GOLD_TEE("qi2", s4);  // GOLD_ADDED
+ 
+             trunk_conv2.forward(
+                 s4, s5,
+@@ -231,6 +239,7 @@
+                 qcsnet24_cblk2_qconv1d_bias,
+                 qcsnet24_cblk2_qconv1d_input_zero_point,
+                 qcsnet24_cblk2_qconv1d_weight_sum);
++            GOLD_TEE("conv2", s5);  // GOLD_ADDED
+ 
+             trunk_bn2.forward(
+                 s5, s6,
+@@ -238,16 +247,21 @@
+                 qcsnet24_cblk2_batch_norm_bias,
+                 qcsnet24_cblk2_batch_norm_scale_multiplier,
+                 qcsnet24_cblk2_batch_norm_right_shift);
++            GOLD_TEE("bn2", s6);  // GOLD_ADDED
+ 
+             trunk_lif2.forward(
+                 s6, s7,
+                 qcsnet24_cblk2_leaky_beta_int,
+                 qcsnet24_cblk2_leaky_theta_int,
+                 qcsnet24_cblk2_leaky_scale_int);
++            GOLD_TEE("lif2", s7);  // GOLD_ADDED
++            GOLD_LIF("lif2", trunk_lif2);  // GOLD_ADDED
+ 
+             trunk_mp2.forward(s7, s8);
++            GOLD_TEE("pool2", s8);  // GOLD_ADDED
+ 
+             trunk_qi3.forward(s8, s9, qcsnet24_cblk3_input_act_scale_int);
++            GOLD_TEE("qi3", s9);  // GOLD_ADDED
+ 
+             trunk_conv3.forward(
+                 s9, s10,
+@@ -257,6 +271,7 @@
+                 qcsnet24_cblk3_qconv1d_bias,
+                 qcsnet24_cblk3_qconv1d_input_zero_point,
+                 qcsnet24_cblk3_qconv1d_weight_sum);
++            GOLD_TEE("conv3", s10);  // GOLD_ADDED
+ 
+             trunk_bn3.forward(
+                 s10, s11,
+@@ -264,14 +279,18 @@
+                 qcsnet24_cblk3_batch_norm_bias,
+                 qcsnet24_cblk3_batch_norm_scale_multiplier,
+                 qcsnet24_cblk3_batch_norm_right_shift);
++            GOLD_TEE("bn3", s11);  // GOLD_ADDED
+ 
+             trunk_lif3.forward(
+                 s11, s12,
+                 qcsnet24_cblk3_leaky_beta_int,
+                 qcsnet24_cblk3_leaky_theta_int,
+                 qcsnet24_cblk3_leaky_scale_int);
++            GOLD_TEE("lif3", s12);  // GOLD_ADDED
++            GOLD_LIF("lif3", trunk_lif3);  // GOLD_ADDED
+ 
+             trunk_mp3.forward(s12, s_body);
++            GOLD_TEE("pool3", s_body);  // GOLD_ADDED
+ 
+             // ===== CHANGE 6: Cache body + feed trunk to QuantIdentity (480 only) =====
+             for (int i = 0; i < TRUNK_OUT; ++i) {
+@@ -283,6 +302,7 @@
+ 
+             // ===== CHANGE 7: QuantIdentity processes trunk only (480) =====
+             bin_qi.forward(s_bin_qi_in, s_bin_qi_out, qcsnet2_lblk1_input_act_scale_int);
++            GOLD_TEE("bin_qi", s_bin_qi_out);  // GOLD_ADDED
+ 
+             // ===== CHANGE 8: Concatenate remapped trunk + pre-quantized RR =====
+             // First: trunk (480 remapped values)
+@@ -305,12 +325,15 @@
+                 qcsnet2_lblk1_qlinear_bias,
+                 qcsnet2_lblk1_qlinear_input_zero_point,
+                 qcsnet2_lblk1_qlinear_weight_sum);
++            GOLD_TEE("bin_fc", s_bin_lif_in);  // GOLD_ADDED
+ 
+             bin_lif.forward(
+                 s_bin_lif_in, s_bin_out,
+                 qcsnet2_lblk1_leaky_beta_int,
+                 qcsnet2_lblk1_leaky_theta_int,
+                 qcsnet2_lblk1_leaky_scale_int);
++            GOLD_TEE("bin_lif", s_bin_out);  // GOLD_ADDED
++            GOLD_LIF("bin_lif", bin_lif);  // GOLD_ADDED
+ 
+             ap_int8_c b0 = s_bin_out.read();
+             ap_int8_c b1 = s_bin_out.read();
+@@ -321,6 +344,7 @@
+ 
+         // (d) gate decision
+         ap_int8_c pred2 = gate_abnormal(sum_bin0, sum_bin1);
++        GOLD_SUMS2(sum_bin0, sum_bin1, pred2);  // GOLD_ADDED
+         pred2_stream.write(pred2);
+ 
+         if (pred2 == 0) {
+@@ -338,6 +362,7 @@
+ 
+     STAGE2_LOOP:
+         for (int t = 0; t < NUM_STEPS; ++t) {
++            GOLD_STEP(2, t);  // GOLD_ADDED
+ 
+             // ===== CHANGE 9: Feed cached trunk to QuantIdentity (480 only) =====
+             for (int i = 0; i < TRUNK_OUT; ++i) {
+@@ -347,6 +372,7 @@
+ 
+             // ===== CHANGE 10: QuantIdentity processes trunk only (480) =====
+             multi_qi1.forward(s_m_qi1_in, s_m_qi1_out, qcsnet4_lblk1_input_act_scale_int);
++            GOLD_TEE("m_qi1", s_m_qi1_out);  // GOLD_ADDED
+ 
+             // ===== CHANGE 11: Concatenate remapped trunk + pre-quantized RR =====
+             // First: trunk (480 remapped values)
+@@ -369,14 +395,18 @@
+                 qcsnet4_lblk1_qlinear_bias,
+                 qcsnet4_lblk1_qlinear_input_zero_point,
+                 qcsnet4_lblk1_qlinear_weight_sum);
++            GOLD_TEE("m_fc1", s_m_lif1_out);  // GOLD_ADDED
+ 
+             multi_lif1.forward(
+                 s_m_lif1_out, s_m_qi2,
+                 qcsnet4_lblk1_leaky_beta_int,
+                 qcsnet4_lblk1_leaky_theta_int,
+                 qcsnet4_lblk1_leaky_scale_int);
++            GOLD_TEE("m_lif1", s_m_qi2);  // GOLD_ADDED
++            GOLD_LIF("m_lif1", multi_lif1);  // GOLD_ADDED
+ 
+             multi_qi2.forward(s_m_qi2, s_m_fc2, qcsnet4_lblk2_input_act_scale_int);
++            GOLD_TEE("m_qi2", s_m_fc2);  // GOLD_ADDED
+ 
+             multi_fc2.forward(
+                 s_m_fc2, s_m_lif2_in,
+@@ -386,12 +416,15 @@
+                 qcsnet4_lblk2_qlinear_bias,
+                 qcsnet4_lblk2_qlinear_input_zero_point,
+                 qcsnet4_lblk2_qlinear_weight_sum);
++            GOLD_TEE("m_fc2", s_m_lif2_in);  // GOLD_ADDED
+ 
+             multi_lif2.forward(
+                 s_m_lif2_in, s_m_out,
+                 qcsnet4_lblk2_leaky_beta_int,
+                 qcsnet4_lblk2_leaky_theta_int,
+                 qcsnet4_lblk2_leaky_scale_int);
++            GOLD_TEE("m_lif2", s_m_out);  // GOLD_ADDED
++            GOLD_LIF("m_lif2", multi_lif2);  // GOLD_ADDED
+ 
+             ap_int8_c y0 = s_m_out.read();
+             ap_int8_c y1 = s_m_out.read();
+@@ -405,6 +438,7 @@
+         }
+ 
+         ap_int8_c pred4 = argmax4(sum4_0, sum4_1, sum4_2, sum4_3);
++        GOLD_SUMS4(sum4_0, sum4_1, sum4_2, sum4_3, pred4);  // GOLD_ADDED
+         pred4_stream.write(pred4);
+     }
+ 
+
+--- upstream/lif1d_integer.h
++++ patched/lif1d_integer.h
+@@ -112,6 +112,9 @@
+         bank = !bank;
+     }
+ 
++    // [golden-dump] read-only accessor
++    template <typename F> void visit(F&& f) const { f(&V0[0][0], &V1[0][0], OUT_CH * FEATURE_LEN, bank); }  // GOLD_ADDED
++
+ private:
+     // Membrane per (channel, position), in Q(FRAC_BITS)
+     ap_int<24> V0[OUT_CH][FEATURE_LEN];

@@ -1,0 +1,9024 @@
+{
+ "solution_dir": "solution",
+ "csynth": [
+  {
+   "module": "Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_1",
+   "file": "Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_1_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.091 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 186,
+    "max": 186,
+    "interval_min": 186,
+    "interval_max": 186,
+    "pipeline": "no"
+   },
+   "instances": [
+    {
+     "instance": "grp_Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_fu_152",
+     "module": "Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1",
+     "latency_min": 183,
+     "latency_max": 183
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 32,
+    "LUT": 301,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1",
+   "file": "Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.091 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 183,
+    "max": 183,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_48_3",
+     "latency_min": 181,
+     "latency_max": 181,
+     "iteration_latency": 3,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "180",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 25,
+    "LUT": 112,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "Block_entry_proc",
+   "file": "Block_entry_proc_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.268 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 2,
+    "max": 2,
+    "interval_min": 2,
+    "interval_max": 2,
+    "pipeline": "no"
+   },
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 202,
+    "LUT": 207,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "Loop_VITIS_LOOP_26_1_proc",
+   "file": "Loop_VITIS_LOOP_26_1_proc_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.825 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 25,
+    "max": 25,
+    "interval_min": 24,
+    "interval_max": 24,
+    "pipeline": "loop auto-rewind stp (delay=0 cycle(s))"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_26_1",
+     "latency_min": 23,
+     "latency_max": 23,
+     "iteration_latency": 1,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "24",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 7,
+    "LUT": 79,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "Loop_in_write_proc",
+   "file": "Loop_in_write_proc_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.300 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 181,
+    "max": 181,
+    "interval_min": 180,
+    "interval_max": 180,
+    "pipeline": "loop auto-rewind stp (delay=0 cycle(s))"
+   },
+   "loops": [
+    {
+     "name": "in_write",
+     "latency_min": 179,
+     "latency_max": 179,
+     "iteration_latency": 1,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "180",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 10,
+    "LUT": 77,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_10",
+   "file": "forward_10_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.540 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 1400,
+    "max": 1400,
+    "interval_min": 1400,
+    "interval_max": 1400,
+    "pipeline": "no"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_60_1_VITIS_LOOP_61_2",
+     "latency_min": 1398,
+     "latency_max": 1398,
+     "iteration_latency": 8,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "1392",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 3,
+    "FF": 286,
+    "LUT": 463,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_11",
+   "file": "forward_11_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.666 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 2856,
+    "max": 2856,
+    "interval_min": 2856,
+    "interval_max": 2856,
+    "pipeline": "no"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_60_1_VITIS_LOOP_61_2",
+     "latency_min": 2854,
+     "latency_max": 2854,
+     "iteration_latency": 8,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "2848",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 3,
+    "FF": 291,
+    "LUT": 465,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_12",
+   "file": "forward_12_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.540 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 134,
+    "max": 134,
+    "interval_min": 134,
+    "interval_max": 134,
+    "pipeline": "no"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_60_1",
+     "latency_min": 132,
+     "latency_max": 132,
+     "iteration_latency": 6,
+     "ii_achieved": 1,
+     "ii_target": "N/A",
+     "trip_count": "128",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 2,
+    "FF": 254,
+    "LUT": 397,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_13_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2",
+   "file": "forward_13_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.183 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 700,
+    "max": 700,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_46_1_VITIS_LOOP_47_2",
+     "latency_min": 698,
+     "latency_max": 698,
+     "iteration_latency": 12,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "688",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 313,
+    "LUT": 326,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_13_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+   "file": "forward_13_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.055 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 1009,
+    "max": 1009,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+     "latency_min": 1007,
+     "latency_max": 1007,
+     "iteration_latency": 25,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "984",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 30,
+    "FF": 2180,
+    "LUT": 9353,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_13",
+   "file": "forward_13_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.183 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 1712,
+    "max": 1712,
+    "interval_min": 1712,
+    "interval_max": 1712,
+    "pipeline": "no"
+   },
+   "instances": [
+    {
+     "instance": "grp_forward_13_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2_fu_214",
+     "module": "forward_13_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2",
+     "latency_min": 700,
+     "latency_max": 700
+    },
+    {
+     "instance": "grp_forward_13_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_316",
+     "module": "forward_13_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+     "latency_min": 1009,
+     "latency_max": 1009
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 30,
+    "FF": 2883,
+    "LUT": 11585,
+    "URAM": 0
+   },
+   "memories": [
+    {
+     "name": "input_buffer_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_3_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_4_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_5_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_6_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_7_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_8_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_9_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_10_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_11_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_12_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_13_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_14_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_15_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_16_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_17_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_18_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_19_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_20_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_21_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_22_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_23_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_24_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_25_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_26_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_27_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_28_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_29_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_30_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_31_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_32_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_33_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_34_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_35_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_36_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_37_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_38_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_39_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_40_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_41_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_42_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_43_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_44_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_45_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_46_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_47_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_48_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_49_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 2,
+     "words": 15,
+     "bits": 8,
+     "banks": 1
+    }
+   ]
+  },
+  {
+   "module": "forward_14_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2",
+   "file": "forward_14_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.213 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 1437,
+    "max": 1437,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_46_1_VITIS_LOOP_47_2",
+     "latency_min": 1435,
+     "latency_max": 1435,
+     "iteration_latency": 13,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "1424",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 350,
+    "LUT": 358,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_14_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+   "file": "forward_14_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.077 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 1419,
+    "max": 1419,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+     "latency_min": 1417,
+     "latency_max": 1417,
+     "iteration_latency": 27,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "1392",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 31,
+    "FF": 2303,
+    "LUT": 6965,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_14",
+   "file": "forward_14_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.213 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 2859,
+    "max": 2859,
+    "interval_min": 2859,
+    "interval_max": 2859,
+    "pipeline": "no"
+   },
+   "instances": [
+    {
+     "instance": "grp_forward_14_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2_fu_214",
+     "module": "forward_14_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2",
+     "latency_min": 1437,
+     "latency_max": 1437
+    },
+    {
+     "instance": "grp_forward_14_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_316",
+     "module": "forward_14_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+     "latency_min": 1419,
+     "latency_max": 1419
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 31,
+    "FF": 3043,
+    "LUT": 9325,
+    "URAM": 0
+   },
+   "memories": [
+    {
+     "name": "input_buffer_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_3_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_4_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_5_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_6_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_7_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_8_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_9_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_10_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_11_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_12_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_13_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_14_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_15_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_16_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_17_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_18_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_19_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_20_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_21_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_22_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_23_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_24_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_25_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_26_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_27_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_28_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_29_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_30_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_31_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_32_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_33_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_34_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_35_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_36_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_37_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_38_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_39_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_40_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_41_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_42_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_43_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_44_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_45_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_46_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_47_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_48_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_49_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 4,
+     "words": 30,
+     "bits": 8,
+     "banks": 1
+    }
+   ]
+  },
+  {
+   "module": "forward_1",
+   "file": "forward_1_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.422 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 1427,
+    "max": 1427,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_41_1_VITIS_LOOP_42_2",
+     "latency_min": 1425,
+     "latency_max": 1425,
+     "iteration_latency": 3,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "1424",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 17,
+    "LUT": 104,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_2",
+   "file": "forward_2_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.565 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 691,
+    "max": 691,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_41_1_VITIS_LOOP_42_2",
+     "latency_min": 689,
+     "latency_max": 689,
+     "iteration_latency": 3,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "688",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 16,
+    "LUT": 106,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_3",
+   "file": "forward_3_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.565 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 131,
+    "max": 131,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_41_1",
+     "latency_min": 129,
+     "latency_max": 129,
+     "iteration_latency": 3,
+     "ii_achieved": 1,
+     "ii_target": "N/A",
+     "trip_count": "128",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 14,
+    "LUT": 109,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP6",
+   "file": "forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP6_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.202 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 1403,
+    "max": 1403,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "CHANNEL_LOOP_FEATURE_LOOP",
+     "latency_min": 1401,
+     "latency_max": 1401,
+     "iteration_latency": 11,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "1392",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 1,
+    "FF": 434,
+    "LUT": 1194,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP9",
+   "file": "forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP9_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.202 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 995,
+    "max": 995,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "CHANNEL_LOOP_FEATURE_LOOP",
+     "latency_min": 993,
+     "latency_max": 993,
+     "iteration_latency": 11,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "984",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 1,
+    "FF": 434,
+    "LUT": 1396,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP",
+   "file": "forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.202 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 2859,
+    "max": 2859,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "CHANNEL_LOOP_FEATURE_LOOP",
+     "latency_min": 2857,
+     "latency_max": 2857,
+     "iteration_latency": 11,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "2848",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 1,
+    "FF": 436,
+    "LUT": 1197,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_DOT_I",
+   "file": "forward_4_Pipeline_DOT_I_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.872 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 489,
+    "max": 489,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "DOT_I",
+     "latency_min": 487,
+     "latency_max": 487,
+     "iteration_latency": 5,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "484",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 2,
+    "DSP": 2,
+    "FF": 139,
+    "LUT": 2681,
+    "URAM": 0
+   },
+   "memories": [
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet2_lblk1_qlinear_weightsE_0_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet2_lblk1_qlinear_weightsE_1_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    }
+   ]
+  },
+  {
+   "module": "forward_4_Pipeline_OUT_LOOP",
+   "file": "forward_4_Pipeline_OUT_LOOP_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.912 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 7,
+    "max": 7,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "OUT_LOOP",
+     "latency_min": 5,
+     "latency_max": 5,
+     "iteration_latency": 5,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "2",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 2,
+    "FF": 263,
+    "LUT": 272,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_POOL_LOOP11",
+   "file": "forward_4_Pipeline_POOL_LOOP11_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.774 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 22,
+    "max": 22,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "POOL_LOOP",
+     "latency_min": 20,
+     "latency_max": 20,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "20",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 24,
+    "LUT": 298,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_POOL_LOOP8",
+   "file": "forward_4_Pipeline_POOL_LOOP8_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.813 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 45,
+    "max": 45,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "POOL_LOOP",
+     "latency_min": 43,
+     "latency_max": 43,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "43",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 25,
+    "LUT": 478,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_POOL_LOOP",
+   "file": "forward_4_Pipeline_POOL_LOOP_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.670 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 91,
+    "max": 91,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "POOL_LOOP",
+     "latency_min": 89,
+     "latency_max": 89,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "89",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 26,
+    "LUT": 998,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_READ_CHANNEL10",
+   "file": "forward_4_Pipeline_READ_CHANNEL10_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.227 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 43,
+    "max": 43,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "READ_CHANNEL",
+     "latency_min": 41,
+     "latency_max": 41,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "41",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 335,
+    "LUT": 437,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_READ_CHANNEL7",
+   "file": "forward_4_Pipeline_READ_CHANNEL7_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.095 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 89,
+    "max": 89,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "READ_CHANNEL",
+     "latency_min": 87,
+     "latency_max": 87,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "87",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 705,
+    "LUT": 851,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_READ_CHANNEL",
+   "file": "forward_4_Pipeline_READ_CHANNEL_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.095 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 180,
+    "max": 180,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "READ_CHANNEL",
+     "latency_min": 178,
+     "latency_max": 178,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "178",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 1443,
+    "LUT": 1683,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_READ_IN",
+   "file": "forward_4_Pipeline_READ_IN_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "4.999 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 486,
+    "max": 486,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "READ_IN",
+     "latency_min": 484,
+     "latency_max": 484,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "484",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 3893,
+    "LUT": 77,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_194_3",
+   "file": "forward_4_Pipeline_VITIS_LOOP_194_3_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.091 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 183,
+    "max": 183,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_194_3",
+     "latency_min": 181,
+     "latency_max": 181,
+     "iteration_latency": 3,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "180",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 24,
+    "LUT": 121,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_25_112",
+   "file": "forward_4_Pipeline_VITIS_LOOP_25_112_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.757 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 130,
+    "max": 130,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_25_1",
+     "latency_min": 128,
+     "latency_max": 128,
+     "iteration_latency": 1,
+     "ii_achieved": 1,
+     "ii_target": "N/A",
+     "trip_count": "128",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 10,
+    "LUT": 56,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_25_113",
+   "file": "forward_4_Pipeline_VITIS_LOOP_25_113_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.560 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 6,
+    "max": 6,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_25_1",
+     "latency_min": 4,
+     "latency_max": 4,
+     "iteration_latency": 1,
+     "ii_achieved": 1,
+     "ii_target": "N/A",
+     "trip_count": "4",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 5,
+    "LUT": 51,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_24",
+   "file": "forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_24_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.321 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 1397,
+    "max": 1397,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_25_1_VITIS_LOOP_26_2",
+     "latency_min": 1395,
+     "latency_max": 1395,
+     "iteration_latency": 5,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "1392",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 1,
+    "FF": 46,
+    "LUT": 130,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_25",
+   "file": "forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_25_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.426 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 989,
+    "max": 989,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_25_1_VITIS_LOOP_26_2",
+     "latency_min": 987,
+     "latency_max": 987,
+     "iteration_latency": 5,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "984",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 1,
+    "FF": 42,
+    "LUT": 131,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_2",
+   "file": "forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_2_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.666 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 2853,
+    "max": 2853,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_25_1_VITIS_LOOP_26_2",
+     "latency_min": 2851,
+     "latency_max": 2851,
+     "iteration_latency": 5,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "2848",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 1,
+    "FF": 50,
+    "LUT": 133,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_25_1",
+   "file": "forward_4_Pipeline_VITIS_LOOP_25_1_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.475 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 4,
+    "max": 4,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_25_1",
+     "latency_min": 2,
+     "latency_max": 2,
+     "iteration_latency": 1,
+     "ii_achieved": 1,
+     "ii_target": "N/A",
+     "trip_count": "2",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 4,
+    "LUT": 48,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_277_4",
+   "file": "forward_4_Pipeline_VITIS_LOOP_277_4_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.221 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 482,
+    "max": 482,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_277_4",
+     "latency_min": 480,
+     "latency_max": 480,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "480",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 21,
+    "LUT": 101,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_289_5",
+   "file": "forward_4_Pipeline_VITIS_LOOP_289_5_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.222 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 482,
+    "max": 482,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_289_5",
+     "latency_min": 480,
+     "latency_max": 480,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "480",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 12,
+    "LUT": 88,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_294_6",
+   "file": "forward_4_Pipeline_VITIS_LOOP_294_6_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "4.826 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 6,
+    "max": 6,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_294_6",
+     "latency_min": 4,
+     "latency_max": 4,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "4",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 14,
+    "LUT": 93,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_343_7",
+   "file": "forward_4_Pipeline_VITIS_LOOP_343_7_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.573 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 483,
+    "max": 483,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_343_7",
+     "latency_min": 481,
+     "latency_max": 481,
+     "iteration_latency": 3,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "480",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 25,
+    "LUT": 132,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_353_8",
+   "file": "forward_4_Pipeline_VITIS_LOOP_353_8_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.222 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 482,
+    "max": 482,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_353_8",
+     "latency_min": 480,
+     "latency_max": 480,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "480",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 12,
+    "LUT": 88,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_358_9",
+   "file": "forward_4_Pipeline_VITIS_LOOP_358_9_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "4.826 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 6,
+    "max": 6,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_358_9",
+     "latency_min": 4,
+     "latency_max": 4,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "4",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 14,
+    "LUT": 93,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_47_2",
+   "file": "forward_4_Pipeline_VITIS_LOOP_47_2_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.339 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 182,
+    "max": 182,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_47_2",
+     "latency_min": 180,
+     "latency_max": 180,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "180",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 37,
+    "LUT": 167,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+   "file": "forward_4_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.912 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 2872,
+    "max": 2872,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+     "latency_min": 2870,
+     "latency_max": 2870,
+     "iteration_latency": 24,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "2848",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 5,
+    "FF": 938,
+    "LUT": 1392,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4_Pipeline_VITIS_LOOP_88_1",
+   "file": "forward_4_Pipeline_VITIS_LOOP_88_1_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.972 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 182,
+    "max": 182,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_88_1",
+     "latency_min": 180,
+     "latency_max": 180,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "180",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 19,
+    "LUT": 79,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_4",
+   "file": "forward_4_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.222 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 314837,
+    "max": 346569,
+    "interval_min": 314837,
+    "interval_max": 346569,
+    "pipeline": "no"
+   },
+   "instances": [
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_88_1_fu_5268",
+     "module": "forward_4_Pipeline_VITIS_LOOP_88_1",
+     "latency_min": 182,
+     "latency_max": 182
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_2_fu_5290",
+     "module": "forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_2",
+     "latency_min": 2853,
+     "latency_max": 2853
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_24_fu_5298",
+     "module": "forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_24",
+     "latency_min": 1397,
+     "latency_max": 1397
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_25_fu_5306",
+     "module": "forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_25",
+     "latency_min": 989,
+     "latency_max": 989
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_25_1_fu_5314",
+     "module": "forward_4_Pipeline_VITIS_LOOP_25_1",
+     "latency_min": 4,
+     "latency_max": 4
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_194_3_fu_5322",
+     "module": "forward_4_Pipeline_VITIS_LOOP_194_3",
+     "latency_min": 183,
+     "latency_max": 183
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_25_112_fu_5335",
+     "module": "forward_4_Pipeline_VITIS_LOOP_25_112",
+     "latency_min": 130,
+     "latency_max": 130
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_25_113_fu_5343",
+     "module": "forward_4_Pipeline_VITIS_LOOP_25_113",
+     "latency_min": 6,
+     "latency_max": 6
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_47_2_fu_5351",
+     "module": "forward_4_Pipeline_VITIS_LOOP_47_2",
+     "latency_min": 182,
+     "latency_max": 182
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_5359",
+     "module": "forward_4_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+     "latency_min": 2872,
+     "latency_max": 2872
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP_fu_5367",
+     "module": "forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP",
+     "latency_min": 2859,
+     "latency_max": 2859
+    },
+    {
+     "instance": "grp_forward_11_fu_5373",
+     "module": "forward_11",
+     "latency_min": 2856,
+     "latency_max": 2856
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_READ_CHANNEL_fu_5385",
+     "module": "forward_4_Pipeline_READ_CHANNEL",
+     "latency_min": 180,
+     "latency_max": 180
+    },
+    {
+     "instance": "grp_forward_1_fu_5746",
+     "module": "forward_1",
+     "latency_min": 1427,
+     "latency_max": 1427
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_POOL_LOOP_fu_5752",
+     "module": "forward_4_Pipeline_POOL_LOOP",
+     "latency_min": 91,
+     "latency_max": 91
+    },
+    {
+     "instance": "grp_forward_14_fu_5935",
+     "module": "forward_14",
+     "latency_min": 2859,
+     "latency_max": 2859
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP6_fu_5941",
+     "module": "forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP6",
+     "latency_min": 1403,
+     "latency_max": 1403
+    },
+    {
+     "instance": "grp_forward_10_fu_5947",
+     "module": "forward_10",
+     "latency_min": 1400,
+     "latency_max": 1400
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_READ_CHANNEL7_fu_5959",
+     "module": "forward_4_Pipeline_READ_CHANNEL7",
+     "latency_min": 89,
+     "latency_max": 89
+    },
+    {
+     "instance": "grp_forward_2_fu_6136",
+     "module": "forward_2",
+     "latency_min": 691,
+     "latency_max": 691
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_POOL_LOOP8_fu_6142",
+     "module": "forward_4_Pipeline_POOL_LOOP8",
+     "latency_min": 45,
+     "latency_max": 45
+    },
+    {
+     "instance": "grp_forward_13_fu_6233",
+     "module": "forward_13",
+     "latency_min": 1712,
+     "latency_max": 1712
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP9_fu_6239",
+     "module": "forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP9",
+     "latency_min": 995,
+     "latency_max": 995
+    },
+    {
+     "instance": "grp_forward_8_fu_6245",
+     "module": "forward_8",
+     "latency_min": 991,
+     "latency_max": 991
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_READ_CHANNEL10_fu_6257",
+     "module": "forward_4_Pipeline_READ_CHANNEL10",
+     "latency_min": 43,
+     "latency_max": 43
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_277_4_fu_6342",
+     "module": "forward_4_Pipeline_VITIS_LOOP_277_4",
+     "latency_min": 482,
+     "latency_max": 482
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_POOL_LOOP11_fu_6357",
+     "module": "forward_4_Pipeline_POOL_LOOP11",
+     "latency_min": 22,
+     "latency_max": 22
+    },
+    {
+     "instance": "grp_forward_fu_6402",
+     "module": "forward",
+     "latency_min": 500,
+     "latency_max": 500
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_289_5_fu_6411",
+     "module": "forward_4_Pipeline_VITIS_LOOP_289_5",
+     "latency_min": 482,
+     "latency_max": 482
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_294_6_fu_6417",
+     "module": "forward_4_Pipeline_VITIS_LOOP_294_6",
+     "latency_min": 6,
+     "latency_max": 6
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_READ_IN_fu_6426",
+     "module": "forward_4_Pipeline_READ_IN",
+     "latency_min": 486,
+     "latency_max": 486
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_DOT_I_fu_6915",
+     "module": "forward_4_Pipeline_DOT_I",
+     "latency_min": 489,
+     "latency_max": 489
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_OUT_LOOP_fu_7409",
+     "module": "forward_4_Pipeline_OUT_LOOP",
+     "latency_min": 7,
+     "latency_max": 7
+    },
+    {
+     "instance": "grp_forward_9_fu_7416",
+     "module": "forward_9",
+     "latency_min": 8,
+     "latency_max": 8
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_343_7_fu_7428",
+     "module": "forward_4_Pipeline_VITIS_LOOP_343_7",
+     "latency_min": 483,
+     "latency_max": 483
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_353_8_fu_7442",
+     "module": "forward_4_Pipeline_VITIS_LOOP_353_8",
+     "latency_min": 482,
+     "latency_max": 482
+    },
+    {
+     "instance": "grp_forward_4_Pipeline_VITIS_LOOP_358_9_fu_7448",
+     "module": "forward_4_Pipeline_VITIS_LOOP_358_9",
+     "latency_min": 6,
+     "latency_max": 6
+    },
+    {
+     "instance": "grp_forward_5_fu_7457",
+     "module": "forward_5",
+     "latency_min": 1114,
+     "latency_max": 1114
+    },
+    {
+     "instance": "grp_forward_12_fu_7719",
+     "module": "forward_12",
+     "latency_min": 134,
+     "latency_max": 134
+    },
+    {
+     "instance": "grp_forward_3_fu_7731",
+     "module": "forward_3",
+     "latency_min": 131,
+     "latency_max": 131
+    },
+    {
+     "instance": "grp_forward_6_fu_7737",
+     "module": "forward_6",
+     "latency_min": 278,
+     "latency_max": 278
+    },
+    {
+     "instance": "grp_forward_7_fu_7751",
+     "module": "forward_7",
+     "latency_min": 10,
+     "latency_max": 10
+    }
+   ],
+   "loops": [
+    {
+     "name": "STAGE1_LOOP",
+     "latency_min": 311980,
+     "latency_max": 311980,
+     "iteration_latency": 31198,
+     "ii_achieved": "-",
+     "ii_target": "-",
+     "trip_count": "10",
+     "pipelined": "no"
+    },
+    {
+     "name": "STAGE2_LOOP",
+     "latency_min": 31600,
+     "latency_max": 31600,
+     "iteration_latency": 3160,
+     "ii_achieved": "-",
+     "ii_target": "-",
+     "trip_count": "10",
+     "pipelined": "no"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 190,
+    "DSP": 227,
+    "FF": 33687,
+    "LUT": 53571,
+    "URAM": 0
+   },
+   "memories": [
+    {
+     "name": "body_cache_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 600,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "body_cache_1_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 600,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "body_cache_2_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 600,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "body_cache_3_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 600,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "body_cache_4_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 600,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "body_cache_5_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 600,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "body_cache_6_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 600,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "body_cache_7_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 600,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_U",
+     "bram18": 0,
+     "ff": 16,
+     "lut": 8,
+     "words": 60,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_1_U",
+     "bram18": 0,
+     "ff": 16,
+     "lut": 8,
+     "words": 60,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "input_buffer_2_U",
+     "bram18": 0,
+     "ff": 16,
+     "lut": 8,
+     "words": 60,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "sig_buf_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 3,
+     "words": 23,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "sig_buf_1_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 3,
+     "words": 23,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "sig_buf_2_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 3,
+     "words": 23,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "sig_buf_3_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 3,
+     "words": 23,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "sig_buf_4_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 3,
+     "words": 23,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "sig_buf_5_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 3,
+     "words": 23,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "sig_buf_6_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 3,
+     "words": 23,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "sig_buf_7_U",
+     "bram18": 0,
+     "ff": 8,
+     "lut": 3,
+     "words": 23,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_bin_lif_V0_446_U",
+     "bram18": 0,
+     "ff": 48,
+     "lut": 1,
+     "words": 2,
+     "bits": 24,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_bin_lif_V1_445_U",
+     "bram18": 0,
+     "ff": 48,
+     "lut": 1,
+     "words": 2,
+     "bits": 24,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_multi_lif1_V0_444_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 128,
+     "bits": 24,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_multi_lif1_V1_443_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 128,
+     "bits": 24,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_multi_lif2_V0_442_U",
+     "bram18": 0,
+     "ff": 48,
+     "lut": 2,
+     "words": 4,
+     "bits": 24,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_multi_lif2_V1_441_U",
+     "bram18": 0,
+     "ff": 48,
+     "lut": 2,
+     "words": 4,
+     "bits": 24,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_trunk_lif1_V0_U",
+     "bram18": 6,
+     "ff": 0,
+     "lut": 0,
+     "words": 2848,
+     "bits": 24,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_trunk_lif1_V1_U",
+     "bram18": 6,
+     "ff": 0,
+     "lut": 0,
+     "words": 2848,
+     "bits": 24,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_trunk_lif2_V0_U",
+     "bram18": 3,
+     "ff": 0,
+     "lut": 0,
+     "words": 1392,
+     "bits": 24,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_trunk_lif2_V1_U",
+     "bram18": 3,
+     "ff": 0,
+     "lut": 0,
+     "words": 1392,
+     "bits": 24,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_trunk_lif3_V0_U",
+     "bram18": 2,
+     "ff": 0,
+     "lut": 0,
+     "words": 984,
+     "bits": 24,
+     "banks": 1
+    },
+    {
+     "name": "topClass24_qcsnn24_trunk_lif3_V1_U",
+     "bram18": 2,
+     "ff": 0,
+     "lut": 0,
+     "words": 984,
+     "bits": 24,
+     "banks": 1
+    }
+   ]
+  },
+  {
+   "module": "forward_5_Pipeline_DOT_I",
+   "file": "forward_5_Pipeline_DOT_I_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.872 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 489,
+    "max": 489,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "DOT_I",
+     "latency_min": 487,
+     "latency_max": 487,
+     "iteration_latency": 5,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "484",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 128,
+    "DSP": 128,
+    "FF": 3119,
+    "LUT": 4949,
+    "URAM": 0
+   },
+   "memories": [
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_49_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_50_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_51_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_52_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_53_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_54_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_55_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_56_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_57_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_58_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_23_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_24_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_25_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_26_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_27_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_28_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_29_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_30_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_31_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_32_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_33_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_34_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_35_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_36_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_37_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_38_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_39_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_40_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_41_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_42_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_43_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_44_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_45_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_46_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_47_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_48_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_111_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_112_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_113_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_114_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_115_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_116_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_117_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_118_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_119_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_120_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_85_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_86_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_87_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_88_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_89_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_90_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_91_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_92_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_93_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_94_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_95_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_96_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_97_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_98_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_99_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_100_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_101_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_102_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_103_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_104_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_105_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_106_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_107_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_108_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_109_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_110_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_59_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_60_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_61_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_62_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_63_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_64_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_65_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_66_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_67_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_68_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_69_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_70_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_71_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_72_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_73_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_74_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_75_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_76_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_77_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_78_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_79_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_80_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_81_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_82_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_83_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_84_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_121_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_122_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_123_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_124_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_125_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_126_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_127_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_0_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_1_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_2_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_3_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_4_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_5_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_6_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_7_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_8_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_9_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_10_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_11_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_12_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_13_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_14_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_15_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 7,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_16_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_17_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_18_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_19_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_20_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_21_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weightsE_22_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 484,
+     "bits": 8,
+     "banks": 1
+    }
+   ]
+  },
+  {
+   "module": "forward_5_Pipeline_OUT_LOOP",
+   "file": "forward_5_Pipeline_OUT_LOOP_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.912 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 134,
+    "max": 134,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "OUT_LOOP",
+     "latency_min": 132,
+     "latency_max": 132,
+     "iteration_latency": 6,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "128",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 2,
+    "FF": 458,
+    "LUT": 2589,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_5_Pipeline_READ_IN",
+   "file": "forward_5_Pipeline_READ_IN_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "4.999 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 486,
+    "max": 486,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "READ_IN",
+     "latency_min": 484,
+     "latency_max": 484,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "484",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 3893,
+    "LUT": 77,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_5",
+   "file": "forward_5_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.912 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 1114,
+    "max": 1114,
+    "interval_min": 1114,
+    "interval_max": 1114,
+    "pipeline": "no"
+   },
+   "instances": [
+    {
+     "instance": "grp_forward_5_Pipeline_READ_IN_fu_2728",
+     "module": "forward_5_Pipeline_READ_IN",
+     "latency_min": 486,
+     "latency_max": 486
+    },
+    {
+     "instance": "grp_forward_5_Pipeline_DOT_I_fu_3218",
+     "module": "forward_5_Pipeline_DOT_I",
+     "latency_min": 489,
+     "latency_max": 489
+    },
+    {
+     "instance": "grp_forward_5_Pipeline_OUT_LOOP_fu_4090",
+     "module": "forward_5_Pipeline_OUT_LOOP",
+     "latency_min": 134,
+     "latency_max": 134
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 128,
+    "DSP": 130,
+    "FF": 7479,
+    "LUT": 7652,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_6_Pipeline_DOT_I",
+   "file": "forward_6_Pipeline_DOT_I_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.819 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 133,
+    "max": 133,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "DOT_I",
+     "latency_min": 131,
+     "latency_max": 131,
+     "iteration_latency": 5,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "128",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 4,
+    "DSP": 4,
+    "FF": 178,
+    "LUT": 844,
+    "URAM": 0
+   },
+   "memories": [
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weightsE_0_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 128,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weightsE_1_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 128,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weightsE_2_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 128,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weightsE_3_U",
+     "bram18": 1,
+     "ff": 0,
+     "lut": 0,
+     "words": 128,
+     "bits": 8,
+     "banks": 1
+    }
+   ]
+  },
+  {
+   "module": "forward_6_Pipeline_OUT_LOOP",
+   "file": "forward_6_Pipeline_OUT_LOOP_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.912 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 10,
+    "max": 10,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "OUT_LOOP",
+     "latency_min": 8,
+     "latency_max": 8,
+     "iteration_latency": 6,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "4",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 2,
+    "FF": 391,
+    "LUT": 594,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_6_Pipeline_READ_IN",
+   "file": "forward_6_Pipeline_READ_IN_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.091 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 130,
+    "max": 130,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "READ_IN",
+     "latency_min": 128,
+     "latency_max": 128,
+     "iteration_latency": 2,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "128",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 1042,
+    "LUT": 78,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_6",
+   "file": "forward_6_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.912 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 278,
+    "max": 278,
+    "interval_min": 278,
+    "interval_max": 278,
+    "pipeline": "no"
+   },
+   "instances": [
+    {
+     "instance": "grp_forward_6_Pipeline_READ_IN_fu_560",
+     "module": "forward_6_Pipeline_READ_IN",
+     "latency_min": 130,
+     "latency_max": 130
+    },
+    {
+     "instance": "grp_forward_6_Pipeline_DOT_I_fu_694",
+     "module": "forward_6_Pipeline_DOT_I",
+     "latency_min": 133,
+     "latency_max": 133
+    },
+    {
+     "instance": "grp_forward_6_Pipeline_OUT_LOOP_fu_838",
+     "module": "forward_6_Pipeline_OUT_LOOP",
+     "latency_min": 10,
+     "latency_max": 10
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 4,
+    "DSP": 6,
+    "FF": 1620,
+    "LUT": 1553,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_7",
+   "file": "forward_7_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.737 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 10,
+    "max": 10,
+    "interval_min": 10,
+    "interval_max": 10,
+    "pipeline": "no"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_60_1",
+     "latency_min": 8,
+     "latency_max": 8,
+     "iteration_latency": 6,
+     "ii_achieved": 1,
+     "ii_target": "N/A",
+     "trip_count": "4",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 1,
+    "FF": 222,
+    "LUT": 362,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_8",
+   "file": "forward_8_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.822 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 991,
+    "max": 991,
+    "interval_min": 991,
+    "interval_max": 991,
+    "pipeline": "no"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_60_1_VITIS_LOOP_61_2",
+     "latency_min": 989,
+     "latency_max": 989,
+     "iteration_latency": 7,
+     "ii_achieved": 1,
+     "ii_target": 1,
+     "trip_count": "984",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 1,
+    "FF": 251,
+    "LUT": 462,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_9",
+   "file": "forward_9_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "6.737 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 8,
+    "max": 8,
+    "interval_min": 8,
+    "interval_max": 8,
+    "pipeline": "no"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_60_1",
+     "latency_min": 6,
+     "latency_max": 6,
+     "iteration_latency": 6,
+     "ii_achieved": 1,
+     "ii_target": "N/A",
+     "trip_count": "2",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 1,
+    "FF": 218,
+    "LUT": 357,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward_Pipeline_VITIS_LOOP_41_1",
+   "file": "forward_Pipeline_VITIS_LOOP_41_1_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.526 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 483,
+    "max": 483,
+    "interval_min": 0,
+    "interval_max": 0,
+    "pipeline": "loop pipeline stp"
+   },
+   "loops": [
+    {
+     "name": "VITIS_LOOP_41_1",
+     "latency_min": 481,
+     "latency_max": 481,
+     "iteration_latency": 3,
+     "ii_achieved": 1,
+     "ii_target": "N/A",
+     "trip_count": "480",
+     "pipelined": "yes"
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 15,
+    "LUT": 104,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "forward",
+   "file": "forward_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "5.526 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 500,
+    "max": 500,
+    "interval_min": 500,
+    "interval_max": 500,
+    "pipeline": "no"
+   },
+   "instances": [
+    {
+     "instance": "grp_forward_Pipeline_VITIS_LOOP_41_1_fu_36",
+     "module": "forward_Pipeline_VITIS_LOOP_41_1",
+     "latency_min": 483,
+     "latency_max": 483
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 0,
+    "DSP": 0,
+    "FF": 203,
+    "LUT": 290,
+    "URAM": 0
+   }
+  },
+  {
+   "module": "topFunction",
+   "file": "topFunction_csynth.rpt",
+   "clock": {
+    "target_ns": "10.00 ns",
+    "estimated_ns": "7.300 ns",
+    "uncertainty_ns": "2.70 ns"
+   },
+   "latency": {
+    "min": 315050,
+    "max": 346782,
+    "interval_min": 314838,
+    "interval_max": 346570,
+    "pipeline": "dataflow"
+   },
+   "instances": [
+    {
+     "instance": "Loop_VITIS_LOOP_26_1_proc_U0",
+     "module": "Loop_VITIS_LOOP_26_1_proc",
+     "latency_min": 25,
+     "latency_max": 25
+    },
+    {
+     "instance": "Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_1_U0",
+     "module": "Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_1",
+     "latency_min": 186,
+     "latency_max": 186
+    },
+    {
+     "instance": "Loop_in_write_proc_U0",
+     "module": "Loop_in_write_proc",
+     "latency_min": 181,
+     "latency_max": 181
+    },
+    {
+     "instance": "forward_4_U0",
+     "module": "forward_4",
+     "latency_min": 314837,
+     "latency_max": 346569
+    },
+    {
+     "instance": "Block_entry_proc_U0",
+     "module": "Block_entry_proc",
+     "latency_min": 2,
+     "latency_max": 2
+    }
+   ],
+   "resources": {
+    "BRAM_18K": 192,
+    "DSP": 227,
+    "FF": 35388,
+    "LUT": 55187,
+    "URAM": 0
+   },
+   "memories": [
+    {
+     "name": "buf_r_U",
+     "bram18": 0,
+     "ff": 16,
+     "lut": 6,
+     "words": 24,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "buf_1_U",
+     "bram18": 0,
+     "ff": 16,
+     "lut": 6,
+     "words": 24,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "buf_2_U",
+     "bram18": 0,
+     "ff": 16,
+     "lut": 6,
+     "words": 24,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "buf_3_U",
+     "bram18": 0,
+     "ff": 16,
+     "lut": 6,
+     "words": 24,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "buf_4_U",
+     "bram18": 0,
+     "ff": 16,
+     "lut": 6,
+     "words": 24,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "buf_5_U",
+     "bram18": 0,
+     "ff": 16,
+     "lut": 6,
+     "words": 24,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "buf_6_U",
+     "bram18": 0,
+     "ff": 16,
+     "lut": 6,
+     "words": 24,
+     "bits": 8,
+     "banks": 1
+    },
+    {
+     "name": "buf_7_U",
+     "bram18": 0,
+     "ff": 16,
+     "lut": 6,
+     "words": 24,
+     "bits": 8,
+     "banks": 1
+    }
+   ]
+  }
+ ],
+ "log": {
+  "pipelines": [
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_26_1",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 1
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_48_3",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 3
+   },
+   {
+    "kind": "loop",
+    "name": "in_write",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 1
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_88_1",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_25_1_VITIS_LOOP_26_2",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 5
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_25_1_VITIS_LOOP_26_2",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 5
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_25_1_VITIS_LOOP_26_2",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 5
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_25_1",
+    "target_ii": "NA",
+    "final_ii": 1,
+    "depth": 1
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_194_3",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 3
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_47_2",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 24
+   },
+   {
+    "kind": "loop",
+    "name": "CHANNEL_LOOP_FEATURE_LOOP",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 11
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_60_1_VITIS_LOOP_61_2",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 8
+   },
+   {
+    "kind": "loop",
+    "name": "READ_CHANNEL",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "POOL_LOOP",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_41_1_VITIS_LOOP_42_2",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 3
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_46_1_VITIS_LOOP_47_2",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 13
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 27
+   },
+   {
+    "kind": "loop",
+    "name": "CHANNEL_LOOP_FEATURE_LOOP",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 11
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_60_1_VITIS_LOOP_61_2",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 8
+   },
+   {
+    "kind": "loop",
+    "name": "READ_CHANNEL",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "POOL_LOOP",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_41_1_VITIS_LOOP_42_2",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 3
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_46_1_VITIS_LOOP_47_2",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 12
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 25
+   },
+   {
+    "kind": "loop",
+    "name": "CHANNEL_LOOP_FEATURE_LOOP",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 11
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_60_1_VITIS_LOOP_61_2",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 7
+   },
+   {
+    "kind": "loop",
+    "name": "READ_CHANNEL",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "POOL_LOOP",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_277_4",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_41_1",
+    "target_ii": "NA",
+    "final_ii": 1,
+    "depth": 3
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_289_5",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_294_6",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "READ_IN",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "DOT_I",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 5
+   },
+   {
+    "kind": "loop",
+    "name": "OUT_LOOP",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 5
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_60_1",
+    "target_ii": "NA",
+    "final_ii": 1,
+    "depth": 6
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_25_1",
+    "target_ii": "NA",
+    "final_ii": 1,
+    "depth": 1
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_25_1",
+    "target_ii": "NA",
+    "final_ii": 1,
+    "depth": 1
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_343_7",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 3
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_353_8",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_358_9",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "READ_IN",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "DOT_I",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 5
+   },
+   {
+    "kind": "loop",
+    "name": "OUT_LOOP",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 6
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_60_1",
+    "target_ii": "NA",
+    "final_ii": 1,
+    "depth": 6
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_41_1",
+    "target_ii": "NA",
+    "final_ii": 1,
+    "depth": 3
+   },
+   {
+    "kind": "loop",
+    "name": "READ_IN",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 2
+   },
+   {
+    "kind": "loop",
+    "name": "DOT_I",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 5
+   },
+   {
+    "kind": "loop",
+    "name": "OUT_LOOP",
+    "target_ii": "1",
+    "final_ii": 1,
+    "depth": 6
+   },
+   {
+    "kind": "loop",
+    "name": "VITIS_LOOP_60_1",
+    "target_ii": "NA",
+    "final_ii": 1,
+    "depth": 6
+   }
+  ],
+  "violations": []
+ },
+ "rtl": [
+  {
+   "module": "",
+   "instances": []
+  },
+  {
+   "module": "_Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 3
+   },
+   "instances": []
+  },
+  {
+   "module": "_Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_1",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 4
+   },
+   "instances": [
+    "grp_Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_fu_152"
+   ],
+   "array_ports": {
+    "buf_i_0": {
+     "ce0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "buf_i_1": {
+     "ce0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "buf_i_2": {
+     "ce0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "buf_i_3": {
+     "ce0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "buf_i_4": {
+     "ce0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "buf_i_5": {
+     "ce0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "buf_i_6": {
+     "ce0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "buf_i_7": {
+     "ce0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    }
+   },
+   "call_starts": {
+    "grp_Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_fu_152": {
+     "stages": [
+      1
+     ],
+     "iters": []
+    }
+   }
+  },
+  {
+   "module": "_Block_entry_proc",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 3
+   },
+   "instances": []
+  },
+  {
+   "module": "_Loop_VITIS_LOOP_26_1_proc",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 1
+   },
+   "instances": []
+  },
+  {
+   "module": "_Loop_in_write_proc",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 1
+   },
+   "instances": []
+  },
+  {
+   "module": "_am_addmul_6ns_2ns_7ns_13_4_1",
+   "instances": []
+  },
+  {
+   "module": "_am_addmul_7ns_2ns_8ns_15_4_1",
+   "instances": []
+  },
+  {
+   "module": "_am_addmul_8ns_2ns_9ns_17_4_1",
+   "instances": []
+  },
+  {
+   "module": "_buf_r_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_buf_r_RAM_AUTO_1R1W_memcore",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d128_S",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d1392_A",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d1424_A",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d180_A",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d180_A_x",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d2848_A",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d2_S",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d2_S_x",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d2_S_x0",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d3_S",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d480_A",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d484_A",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d4_S",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d688_A",
+   "instances": []
+  },
+  {
+   "module": "_fifo_w8_d984_A",
+   "instances": []
+  },
+  {
+   "module": "_forward",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 18
+   },
+   "instances": [
+    "grp_forward_Pipeline_VITIS_LOOP_41_1_fu_36"
+   ],
+   "call_starts": {
+    "grp_forward_Pipeline_VITIS_LOOP_41_1_fu_36": {
+     "stages": [
+      17
+     ],
+     "iters": []
+    },
+    "grp_fu_71": {
+     "stages": [
+      1
+     ],
+     "iters": []
+    }
+   }
+  },
+  {
+   "module": "_forward_1",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 3
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_10",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 8
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_11",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 8
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_12",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 6
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_13",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 4
+   },
+   "instances": [
+    "grp_forward_13_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2_fu_214",
+    "grp_forward_13_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_316"
+   ],
+   "array_ports": {
+    "input_buffer_10": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_11": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_12": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_13": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_14": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_15": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_16": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_17": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_18": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_19": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_20": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_21": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_22": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_23": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_24": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_25": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_26": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_27": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_28": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_29": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_30": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_31": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_32": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_33": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_34": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_35": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_36": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_37": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_38": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_39": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_3": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_40": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_41": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_42": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_43": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_44": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_45": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_46": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_47": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_48": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_49": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_4": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_5": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_6": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_7": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_8": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_9": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    }
+   },
+   "call_starts": {
+    "grp_forward_13_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2_fu_214": {
+     "stages": [
+      1
+     ],
+     "iters": []
+    },
+    "grp_forward_13_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_316": {
+     "stages": [
+      3
+     ],
+     "iters": []
+    }
+   }
+  },
+  {
+   "module": "_forward_13_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 12
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_13_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 25
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_13_input_buffer_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_forward_14",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 4
+   },
+   "instances": [
+    "grp_forward_14_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2_fu_214",
+    "grp_forward_14_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_316"
+   ],
+   "array_ports": {
+    "input_buffer_10": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_11": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_12": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_13": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_14": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_15": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_16": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_17": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_18": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_19": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_20": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_21": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_22": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_23": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_24": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_25": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_26": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_27": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_28": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_29": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_30": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_31": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_32": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_33": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_34": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_35": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_36": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_37": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_38": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_39": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_3": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_40": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_41": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_42": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_43": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_44": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_45": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_46": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_47": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_48": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_49": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_4": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_5": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_6": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_7": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_8": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_9": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer": {
+     "ce0": {
+      "stages": [
+       2,
+       4
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    }
+   },
+   "call_starts": {
+    "grp_forward_14_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2_fu_214": {
+     "stages": [
+      1
+     ],
+     "iters": []
+    },
+    "grp_forward_14_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_316": {
+     "stages": [
+      3
+     ],
+     "iters": []
+    }
+   }
+  },
+  {
+   "module": "_forward_14_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 13
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_14_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 27
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_14_input_buffer_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_forward_2",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 3
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_3",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 3
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 80
+   },
+   "instances": [
+    "grp_forward_10_fu_5947",
+    "grp_forward_11_fu_5373",
+    "grp_forward_12_fu_7719",
+    "grp_forward_13_fu_6233",
+    "grp_forward_14_fu_5935",
+    "grp_forward_1_fu_5746",
+    "grp_forward_2_fu_6136",
+    "grp_forward_3_fu_7731",
+    "grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP6_fu_5941",
+    "grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP9_fu_6239",
+    "grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP_fu_5367",
+    "grp_forward_4_Pipeline_DOT_I_fu_6915",
+    "grp_forward_4_Pipeline_OUT_LOOP_fu_7409",
+    "grp_forward_4_Pipeline_POOL_LOOP11_fu_6357",
+    "grp_forward_4_Pipeline_POOL_LOOP8_fu_6142",
+    "grp_forward_4_Pipeline_POOL_LOOP_fu_5752",
+    "grp_forward_4_Pipeline_READ_CHANNEL10_fu_6257",
+    "grp_forward_4_Pipeline_READ_CHANNEL7_fu_5959",
+    "grp_forward_4_Pipeline_READ_CHANNEL_fu_5385",
+    "grp_forward_4_Pipeline_READ_IN_fu_6426",
+    "grp_forward_4_Pipeline_VITIS_LOOP_194_3_fu_5322",
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_112_fu_5335",
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_113_fu_5343",
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_24_fu_5298",
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_25_fu_5306",
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_2_fu_5290",
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_1_fu_5314",
+    "grp_forward_4_Pipeline_VITIS_LOOP_277_4_fu_6342",
+    "grp_forward_4_Pipeline_VITIS_LOOP_289_5_fu_6411",
+    "grp_forward_4_Pipeline_VITIS_LOOP_294_6_fu_6417",
+    "grp_forward_4_Pipeline_VITIS_LOOP_343_7_fu_7428",
+    "grp_forward_4_Pipeline_VITIS_LOOP_353_8_fu_7442",
+    "grp_forward_4_Pipeline_VITIS_LOOP_358_9_fu_7448",
+    "grp_forward_4_Pipeline_VITIS_LOOP_47_2_fu_5351",
+    "grp_forward_4_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_5359",
+    "grp_forward_4_Pipeline_VITIS_LOOP_88_1_fu_5268",
+    "grp_forward_5_fu_7457",
+    "grp_forward_6_fu_7737",
+    "grp_forward_7_fu_7751",
+    "grp_forward_8_fu_6245",
+    "grp_forward_9_fu_7416",
+    "grp_forward_fu_6402"
+   ],
+   "array_ports": {
+    "body_cache_1": {
+     "ce0": {
+      "stages": [
+       40,
+       59
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       40
+      ],
+      "iters": []
+     }
+    },
+    "body_cache_2": {
+     "ce0": {
+      "stages": [
+       40,
+       59
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       40
+      ],
+      "iters": []
+     }
+    },
+    "body_cache_3": {
+     "ce0": {
+      "stages": [
+       40,
+       59
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       40
+      ],
+      "iters": []
+     }
+    },
+    "body_cache_4": {
+     "ce0": {
+      "stages": [
+       40,
+       59
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       40
+      ],
+      "iters": []
+     }
+    },
+    "body_cache_5": {
+     "ce0": {
+      "stages": [
+       40,
+       59
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       40
+      ],
+      "iters": []
+     }
+    },
+    "body_cache_6": {
+     "ce0": {
+      "stages": [
+       40,
+       59
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       40
+      ],
+      "iters": []
+     }
+    },
+    "body_cache_7": {
+     "ce0": {
+      "stages": [
+       40,
+       59
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       40
+      ],
+      "iters": []
+     }
+    },
+    "body_cache": {
+     "ce0": {
+      "stages": [
+       40,
+       59
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       40
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_1": {
+     "ce0": {
+      "stages": [
+       7,
+       9
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       9
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       7
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer_2": {
+     "ce0": {
+      "stages": [
+       7,
+       9
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       9
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       7
+      ],
+      "iters": []
+     }
+    },
+    "input_buffer": {
+     "ce0": {
+      "stages": [
+       7,
+       9
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       9
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       7
+      ],
+      "iters": []
+     }
+    },
+    "sig_buf_1": {
+     "ce0": {
+      "stages": [
+       2,
+       5
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "sig_buf_2": {
+     "ce0": {
+      "stages": [
+       2,
+       5
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "sig_buf_3": {
+     "ce0": {
+      "stages": [
+       2,
+       5
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "sig_buf_4": {
+     "ce0": {
+      "stages": [
+       2,
+       5
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "sig_buf_5": {
+     "ce0": {
+      "stages": [
+       2,
+       5
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "sig_buf_6": {
+     "ce0": {
+      "stages": [
+       2,
+       5
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "sig_buf_7": {
+     "ce0": {
+      "stages": [
+       2,
+       5
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "sig_buf": {
+     "ce0": {
+      "stages": [
+       2,
+       5
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_bin_lif_V0_446": {
+     "ce0": {
+      "stages": [
+       2,
+       54
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       54
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2,
+       54
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_bin_lif_V1_445": {
+     "ce0": {
+      "stages": [
+       2,
+       54
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       54
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2,
+       54
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_multi_lif1_V0_444": {
+     "ce0": {
+      "stages": [
+       57,
+       69
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       69
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       57,
+       69
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_multi_lif1_V1_443": {
+     "ce0": {
+      "stages": [
+       57,
+       69
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       69
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       57,
+       69
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_multi_lif2_V0_442": {
+     "ce0": {
+      "stages": [
+       57,
+       75
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       75
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       57,
+       75
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_multi_lif2_V1_441": {
+     "ce0": {
+      "stages": [
+       57,
+       75
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       75
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       57,
+       75
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_trunk_lif1_V0": {
+     "ce0": {
+      "stages": [
+       2,
+       13
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       13
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2,
+       13
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_trunk_lif1_V1": {
+     "ce0": {
+      "stages": [
+       2,
+       13
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       13
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2,
+       13
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_trunk_lif2_V0": {
+     "ce0": {
+      "stages": [
+       2,
+       24
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       24
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2,
+       24
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_trunk_lif2_V1": {
+     "ce0": {
+      "stages": [
+       2,
+       24
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       24
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2,
+       24
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_trunk_lif3_V0": {
+     "ce0": {
+      "stages": [
+       2,
+       35
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       35
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2,
+       35
+      ],
+      "iters": []
+     }
+    },
+    "topClass24_qcsnn24_trunk_lif3_V1": {
+     "ce0": {
+      "stages": [
+       2,
+       35
+      ],
+      "iters": []
+     },
+     "ce1": {
+      "stages": [
+       35
+      ],
+      "iters": []
+     },
+     "we0": {
+      "stages": [
+       2,
+       35
+      ],
+      "iters": []
+     }
+    }
+   },
+   "call_starts": {
+    "grp_forward_10_fu_5947": {
+     "stages": [
+      23
+     ],
+     "iters": []
+    },
+    "grp_forward_11_fu_5373": {
+     "stages": [
+      12
+     ],
+     "iters": []
+    },
+    "grp_forward_12_fu_7719": {
+     "stages": [
+      68
+     ],
+     "iters": []
+    },
+    "grp_forward_13_fu_6233": {
+     "stages": [
+      30
+     ],
+     "iters": []
+    },
+    "grp_forward_14_fu_5935": {
+     "stages": [
+      19
+     ],
+     "iters": []
+    },
+    "grp_forward_1_fu_5746": {
+     "stages": [
+      14
+     ],
+     "iters": []
+    },
+    "grp_forward_2_fu_6136": {
+     "stages": [
+      25
+     ],
+     "iters": []
+    },
+    "grp_forward_3_fu_7731": {
+     "stages": [
+      70
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP6_fu_5941": {
+     "stages": [
+      21
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP9_fu_6239": {
+     "stages": [
+      32
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP_fu_5367": {
+     "stages": [
+      10
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_DOT_I_fu_6915": {
+     "stages": [
+      49
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_OUT_LOOP_fu_7409": {
+     "stages": [
+      51
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_POOL_LOOP11_fu_6357": {
+     "stages": [
+      38
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_POOL_LOOP8_fu_6142": {
+     "stages": [
+      27
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_POOL_LOOP_fu_5752": {
+     "stages": [
+      16
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_READ_CHANNEL10_fu_6257": {
+     "stages": [
+      36
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_READ_CHANNEL7_fu_5959": {
+     "stages": [
+      25
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_READ_CHANNEL_fu_5385": {
+     "stages": [
+      14
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_READ_IN_fu_6426": {
+     "stages": [
+      47
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_194_3_fu_5322": {
+     "stages": [
+      4
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_112_fu_5335": {
+     "stages": [
+      4
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_113_fu_5343": {
+     "stages": [
+      4
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_24_fu_5298": {
+     "stages": [
+      1
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_25_fu_5306": {
+     "stages": [
+      1
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_2_fu_5290": {
+     "stages": [
+      1
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_25_1_fu_5314": {
+     "stages": [
+      1
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_277_4_fu_6342": {
+     "stages": [
+      36
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_289_5_fu_6411": {
+     "stages": [
+      43
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_294_6_fu_6417": {
+     "stages": [
+      45
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_343_7_fu_7428": {
+     "stages": [
+      58
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_353_8_fu_7442": {
+     "stages": [
+      62
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_358_9_fu_7448": {
+     "stages": [
+      64
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_47_2_fu_5351": {
+     "stages": [
+      6
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_5359": {
+     "stages": [
+      8
+     ],
+     "iters": []
+    },
+    "grp_forward_4_Pipeline_VITIS_LOOP_88_1_fu_5268": {
+     "stages": [
+      1
+     ],
+     "iters": []
+    },
+    "grp_forward_5_fu_7457": {
+     "stages": [
+      66
+     ],
+     "iters": []
+    },
+    "grp_forward_6_fu_7737": {
+     "stages": [
+      72
+     ],
+     "iters": []
+    },
+    "grp_forward_7_fu_7751": {
+     "stages": [
+      74
+     ],
+     "iters": []
+    },
+    "grp_forward_8_fu_6245": {
+     "stages": [
+      34
+     ],
+     "iters": []
+    },
+    "grp_forward_9_fu_7416": {
+     "stages": [
+      53
+     ],
+     "iters": []
+    },
+    "grp_forward_fu_6402": {
+     "stages": [
+      41,
+      60
+     ],
+     "iters": []
+    }
+   }
+  },
+  {
+   "module": "_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 11
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP6",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 11
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP9",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 11
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_DOT_I",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 5
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet2_lblk1_qlinear_weibkb",
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet2_lblk1_qlinear_weicud",
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_OUT_LOOP",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 5
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_POOL_LOOP",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_POOL_LOOP11",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_POOL_LOOP8",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_READ_CHANNEL",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_READ_CHANNEL10",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_READ_CHANNEL7",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_READ_IN",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_194_3",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 3
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_25_1",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 1
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_25_112",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 1
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_25_113",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 1
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_2",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 5
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_24",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 5
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_25",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 5
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_277_4",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_289_5",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_294_6",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_343_7",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 3
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_353_8",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_358_9",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_47_2",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 24
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_Pipeline_VITIS_LOOP_88_1",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_4_body_cache_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_forward_4_input_buffer_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_forward_4_sig_buf_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_forward_4_topClass24_qcsnn24_bin_lif_V0_446_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_forward_4_topClass24_qcsnn24_multi_lif1_V0_444_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_forward_4_topClass24_qcsnn24_multi_lif2_V0_442_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_forward_4_topClass24_qcsnn24_trunk_lif1_V0_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_forward_4_topClass24_qcsnn24_trunk_lif2_V0_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_forward_4_topClass24_qcsnn24_trunk_lif3_V0_RAM_AUTO_1R1W",
+   "instances": []
+  },
+  {
+   "module": "_forward_5",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 6
+   },
+   "instances": [
+    "grp_forward_5_Pipeline_DOT_I_fu_3218",
+    "grp_forward_5_Pipeline_OUT_LOOP_fu_4090",
+    "grp_forward_5_Pipeline_READ_IN_fu_2728"
+   ],
+   "call_starts": {
+    "grp_forward_5_Pipeline_DOT_I_fu_3218": {
+     "stages": [
+      3
+     ],
+     "iters": []
+    },
+    "grp_forward_5_Pipeline_OUT_LOOP_fu_4090": {
+     "stages": [
+      5
+     ],
+     "iters": []
+    },
+    "grp_forward_5_Pipeline_READ_IN_fu_2728": {
+     "stages": [
+      1
+     ],
+     "iters": []
+    }
+   }
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 5
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei0iy",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei1iI",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei2iS",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei3i2",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei4jc",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei5jm",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei6jw",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei7jG",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei8jQ",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei9j0",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiAem",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiBew",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiCeG",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiDeQ",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiEe0",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiFfa",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiGfk",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiHfu",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiIfE",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiJfO",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiKfY",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiLf8",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiMgi",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiNgs",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiOgC",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiPgM",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiQgW",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiRg6",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiShg",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiThq",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiUhA",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiVhK",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiWhU",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiXh4",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiYie",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiZio",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib0s",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib1s",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib2s",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib3s",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib4t",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib5t",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib6t",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib7t",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib8t",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib9t",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibAo",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibBo",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibCo",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibDo",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibEo",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibFp",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibGp",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibHp",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibIp",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibJp",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibKp",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibLp",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibMq",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibNq",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibOq",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibPq",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibQq",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibRq",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibSr",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibTr",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibUr",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibVr",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibWr",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibXr",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibYs",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibZs",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibak",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibbk",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibck",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibdk",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibek",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibfk",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibgk",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibhl",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibil",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibjl",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibkl",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibll",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibml",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibnm",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibom",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibpm",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibqm",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibrm",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibsm",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibtn",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibun",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibvn",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibwn",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibxn",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibyn",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibzo",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weicau",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weicbu",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiccu",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weicdu",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiceu",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weicfu",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weicgu",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weidEe",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weieOg",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weifYi",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weig8j",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weihbi",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiibs",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weijbC",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weikbM",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weilbW",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weimb6",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weincg",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiocq",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weipcA",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiqcK",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weircU",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weisc4",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weitde",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiudo",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weivdy",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiwdI",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weixdS",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiyd2",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weizec",
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_OUT_LOOP",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 6
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_5_Pipeline_READ_IN",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_6",
+   "fsm": {
+    "kind": "state_machine",
+    "states": 6
+   },
+   "instances": [
+    "grp_forward_6_Pipeline_DOT_I_fu_694",
+    "grp_forward_6_Pipeline_OUT_LOOP_fu_838",
+    "grp_forward_6_Pipeline_READ_IN_fu_560"
+   ],
+   "call_starts": {
+    "grp_forward_6_Pipeline_DOT_I_fu_694": {
+     "stages": [
+      3
+     ],
+     "iters": []
+    },
+    "grp_forward_6_Pipeline_OUT_LOOP_fu_838": {
+     "stages": [
+      5
+     ],
+     "iters": []
+    },
+    "grp_forward_6_Pipeline_READ_IN_fu_560": {
+     "stages": [
+      1
+     ],
+     "iters": []
+    }
+   }
+  },
+  {
+   "module": "_forward_6_Pipeline_DOT_I",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 5
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_6_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weichv",
+   "instances": []
+  },
+  {
+   "module": "_forward_6_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weiciv",
+   "instances": []
+  },
+  {
+   "module": "_forward_6_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weicjv",
+   "instances": []
+  },
+  {
+   "module": "_forward_6_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weickv",
+   "instances": []
+  },
+  {
+   "module": "_forward_6_Pipeline_OUT_LOOP",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 6
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_6_Pipeline_READ_IN",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 2
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_7",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 6
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_8",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 7
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_9",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 6
+   },
+   "instances": []
+  },
+  {
+   "module": "_forward_Pipeline_VITIS_LOOP_41_1",
+   "fsm": {
+    "kind": "pipeline",
+    "stages_per_ii": 1,
+    "pipeline_depth_iters": 3
+   },
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_6ns_5ns_6ns_10_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_7ns_5ns_7ns_11_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8ns_5ns_8ns_12_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_5ns_11s_13_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_5ns_12s_14_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_7ns_10s_16_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_7ns_12s_16_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_7ns_13s_16_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_7ns_7s_15_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_7s_15s_15_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_7s_15s_16_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_7s_16s_16_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_7s_23s_23_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_8ns_12s_16_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_8ns_9s_16_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_8s_15s_16_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_8s_16s_16_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_8s_16s_17_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_8s_17s_17_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_8s_17s_18_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_8s_22s_22_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_8s_23s_23_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mac_muladd_8s_8s_24s_24_4_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_24s_12ns_36_1_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_24s_13ns_37_1_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_24s_32ns_55_2_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_31ns_16s_47_2_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_31ns_17s_48_2_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_31ns_20s_51_2_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_31ns_22s_53_2_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_31ns_24s_55_2_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_6ns_8ns_13_1_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_7ns_9ns_15_1_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_8ns_10ns_17_1_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_8s_7s_15_1_1",
+   "instances": []
+  },
+  {
+   "module": "_mul_8s_8s_16_1_1",
+   "instances": []
+  },
+  {
+   "module": "_start_for_Block_entry_proc_U0",
+   "instances": []
+  },
+  {
+   "module": "_start_for_Loop_in_write_proc_U0",
+   "instances": []
+  },
+  {
+   "module": "_udiv_13ns_8ns_3_17_seq_1",
+   "instances": []
+  },
+  {
+   "module": "_urem_6ns_3ns_2_10_1",
+   "instances": []
+  },
+  {
+   "module": "_urem_7ns_3ns_2_11_1",
+   "instances": []
+  },
+  {
+   "module": "_urem_8ns_3ns_2_12_1",
+   "instances": []
+  }
+ ],
+ "rtl_name_prefix": "topFunction"
+}

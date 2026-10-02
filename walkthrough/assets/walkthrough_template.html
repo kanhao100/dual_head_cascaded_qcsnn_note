@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="{{LANG}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESC}}">
+<!-- Offline page: use the local/system font fallbacks declared in the CSS. -->
+<style>
+{{CSS}}
+</style>
+</head>
+<body>
+<nav class="chipnav" aria-label="sections"><div class="inner" id="chipnav"></div></nav>
+<button class="themebtn" id="themebtn" aria-label="toggle theme">light / dark</button>
+<div class="shell">
+<aside class="rail" aria-label="sections">
+  <div class="rail-title">{{RAIL_TITLE}}</div>
+  <div id="railnav" style="display:flex;flex-direction:column;gap:2px"></div>
+  <div class="legend">
+    <div><span class="src">源码</span> C++ / RTL 直接可查</div>
+    <div><span class="src rpt">报告</span> csynth / cosim / impl / log</div>
+    <div><span class="src pap">论文</span> paper</div>
+    <div><span class="src der">推导</span> 由上述数字算出</div>
+    <div><span class="src ill">示意</span> 为讲解补全</div>
+  </div>
+</aside>
+<main>
+{{BODY}}
+</main>
+</div>
+<script>
+{{SCRIPTS}}
+;(function(){ HW.nav(); HW.themeButton(document.getElementById('themebtn')); })();
+</script>
+</body>
+</html>

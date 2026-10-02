@@ -1,0 +1,223 @@
+<style>
+.mc-tip{position:fixed;z-index:60;max-width:380px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:9px 12px;font-size:12.5px;line-height:1.6;display:none;pointer-events:none}
+.mc-tip b{font-weight:600}.mc-tip code{font-size:11px}
+.mc-fig{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:6px;overflow:auto}
+.mc-fig svg{display:block;font-family:var(--f-body)}
+.mc-node{cursor:pointer}.mc-node:focus-visible rect{outline:2px solid var(--sig)}
+.mc-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--ink2);margin:8px 0}
+.mc-legend i{display:inline-block;width:13px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:1.5px solid}
+.mc-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-top:14px}
+.mc-card{border:1px solid var(--line);border-radius:11px;background:var(--surface);padding:12px 14px;min-width:0}
+.mc-card h4{margin:0 0 6px;font-size:14.5px}.mc-card p{margin:0;font-size:13.2px;line-height:1.7;color:var(--ink2)}
+.mc-ticket{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px 10px;margin:10px 0 0}
+.mc-ticket div{border:1px solid var(--line);border-radius:8px;padding:5px 9px;background:var(--surface2);font:12px var(--f-mono);min-width:0}
+.mc-ticket div span{display:block;font:11px var(--f-body);color:var(--muted)}
+.mc-ticket div.on{border-color:var(--en);background:color-mix(in srgb,var(--en) 12%,var(--surface))}
+.mc-ticket div.off{opacity:.45}
+pre.mc-code{margin:10px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface2);padding:10px 12px;overflow:auto;font:12px/1.65 var(--f-mono);color:var(--ink2);white-space:pre}
+pre.mc-code .ln{color:var(--muted);user-select:none;display:inline-block;width:3.6em}
+pre.mc-code .hl{background:color-mix(in srgb,var(--en) 18%,transparent)}
+.mc-sig{display:inline-block;margin-right:10px;font:11.5px var(--f-mono);color:var(--ink2)}
+.mc-wave canvas{min-height:40px}
+.mc-wave-info{font-size:12px;line-height:1.9}
+table.t td.l,table.t th.l{text-align:left;white-space:normal;vertical-align:top}
+table.t td.g{color:var(--mwi);font-weight:600}
+.mc-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:14px;align-items:start}
+.mc-bar{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:10px;align-items:center;font-size:12.5px;margin:5px 0}
+.mc-bar .b{height:12px;border-radius:3px;background:var(--sig);min-width:2px}
+.mc-bar .v{font:12px var(--f-mono);color:var(--ink2)}
+.mc-note{font-size:12.5px;color:var(--muted);line-height:1.7;margin-top:8px}
+.mc-kv{display:grid;grid-template-columns:minmax(120px,170px) 1fr;gap:3px 12px;font-size:13px;line-height:1.65}.mc-kv dt{color:var(--muted)}.mc-kv dd{margin:0}
+.mc-cells{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:8px}.mc-cells div{border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:var(--surface2);min-width:0}.mc-cells span{display:block;font-size:10.5px;color:var(--muted)}.mc-cells code{display:block;font-size:11px}.mc-cells b{font:600 14px var(--f-mono)}
+details.mc-d{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:var(--surface2)}details.mc-d>summary{cursor:pointer;font-weight:600;color:var(--ink2)}
+</style>
+
+<header class="hero" id="top">
+  <p class="eyebrow">微架构 · LIF 神经元与卷积引擎 · Vitis HLS 2026.1 · xc7z020</p>
+  <h1 style="margin-top:12px">一个神经元，是 RAM 里的一个地址</h1>
+  <p class="lead">这一页写给熟悉 FPGA 的读者。它用 HLS 生成的 Verilog、综合与实现报告、以及我在 xsim 里跑的模块级仿真，讲清楚 QCSNN 里最重要的两个引擎：<b>LIF 神经元</b>和<b>卷积</b>，各自在 DSP48、BRAM、LUT 和 FIFO 上长什么样、一拍里发生什么、为什么这样组织。</p>
+  <div class="kpis" id="mc-kpis"></div>
+  <div class="mc-two" style="margin-top:16px">
+    <div class="note"><b>怎么读这一页。</b>每个数字旁边标了来源：<span class="src">RTL</span> 生成的 Verilog（给出文件和行号）；<span class="src rpt">报告</span> csynth / 实现报告；<span class="src pap">仿真</span> 我在 xsim 里跑 RTL 得到的结果；<span class="src der">推导</span> 由以上推出，算式写在旁边；<span class="src ill">示意</span> 图示，不对应具体信号。</div>
+    <div class="note warn"><b>这一页没有做的事。</b>没有整机级仿真（顶层怎么串起各模块、DMA、FIFO 真实深度）；没有时序和功耗仿真；没有门级或布线后仿真。仿真里的 FIFO 是我写的行为模型；LIF 的膜电位 RAM 用了端口行为与生成模块相同的行为模型（卷积的输入缓冲则直接用生成的 RAM 模块）；被测对象是 HLS 生成的各个计算模块本身。布线后资源只有层级汇总，不能逐实例对应。</div>
+  </div>
+</header>
+
+<section id="s-map" class="step" data-sec="三条规律">
+  <div class="step-head"><span class="step-no">01</span><div><p class="eyebrow">先看全局</p><h2>算法变成电路，只靠三个转换</h2></div></div>
+  <div class="prose wide">
+    <p>QCSNN 的每一层都是 HLS 里的一个函数，层与层之间用 8 位 FIFO 相连。RTL 目录里的 <code>fifo_w8_d2848_A</code>、<code>d1424</code>、<code>d1392</code>、<code>d984</code>、<code>d480</code>……这些文件名的深度，正好是各层整张特征图的元素数，说明层间缓冲按“整张图”配置，层与层按顺序执行而不是逐点重叠。<span class="src">RTL</span> <span class="src rpt">报告</span> 下面所有结论，都归结为同一套转换：</p>
+  </div>
+  <div class="mc-cards" id="mc-rules"></div>
+</section>
+
+<section id="s-lif" class="step" data-sec="LIF：结构">
+  <div class="step-head"><span class="step-no">02</span><div><p class="eyebrow">LIF 神经元 · 一</p><h2>一条 8 级流水线，服务 2,848 个神经元</h2></div></div>
+  <div class="prose wide">
+    <p>以 LIF1（16 通道 × 178 位置，模块 <code>topFunction_forward_11</code>）为例。模块里没有“神经元”这个实体：它是一个 <code>PIPELINE II=1</code> 的循环，每个时钟周期处理一个 (通道, 位置)，把膜电位从 RAM 读出来、更新、写回去，同时从输入 FIFO 取一个 INT8、往输出 FIFO 写一个 0/1。2,848 个神经元就是 2,848 次迭代，状态存在两块 24 位宽的 RAM 里，神经元编号就是 RAM 地址。<span class="src">RTL</span></p>
+    <p>下图每个方块都是 RTL 里真实存在的东西，颜色表示它被实现成什么。列是流水线阶段（<code>ap_enable_reg_pp0_iter0…7</code>），一个神经元每拍前进一列。把鼠标放在方块上看对应的 Verilog 信号和行号，点“播放”看一个真实神经元带着真实数字走过这条通路。</p>
+  </div>
+  <div class="lab">
+    <div class="lab-bar" id="lf-ex"></div>
+    <div class="mc-legend" id="lf-legend"></div>
+    <div id="lf-player"></div>
+    <div class="mc-fig"><div id="lf-fig"></div></div>
+    <div class="mc-ticket" id="lf-ticket" aria-live="polite"></div>
+    <div class="info" id="lf-info"></div>
+  </div>
+  <div class="mc-two" style="margin-top:14px">
+    <div class="prose"><p><b>三个乘法，HLS 都放进了 DSP48。</b>① 地址 <code>c×178 + t</code> 是一个 8×5 位常量乘加，放进 DSP48，省掉 12 位乘法的 LUT。② 输入 <code>x × 161</code> 也是 DSP48 乘加，加数端（C 口）接的不是 0，而是“上一次发放过则 −1743”：延迟复位被<b>折叠进了乘加的加数</b>，不需要单独的减法器。③ 泄漏 <code>v_prev × 1212</code> 是 24×12 位乘法，HLS 同样计作 DSP48。HLS 报告 LIF1 共 3 个 DSP，布线后层级汇总是 2 个，是哪一个被吸收或改用逻辑，报告里看不出来，我不下结论。<span class="src">RTL</span> <span class="src rpt">报告</span></p></div>
+    <div class="prose"><p><b>复位为什么能并进加数。</b>C++ 里是 <code>v_next = (v_beta + x_q) − sub</code>，其中 <code>sub</code> 在上一步发放过时等于 θ，否则为 0。整数加法满足结合律（24 位回绕也是模 2<sup>24</sup> 的加法），所以 <code>v_beta + (x_q − sub)</code> 与原式逐位相同。HLS 正是这样重排的：x_q − sub 由 DSP48 一次算出，只剩 v_beta 和它相加。<span class="src der">推导</span></p></div>
+  </div>
+</section>
+
+<section id="s-lif-time" class="step" data-sec="LIF：时序">
+  <div class="step-head"><span class="step-no">03</span><div><p class="eyebrow">LIF 神经元 · 二</p><h2>每一级在做什么，读和写隔了 4 拍</h2></div></div>
+  <div class="prose wide">
+    <p>下表是我对照 Verilog 和仿真波形整理的逐级动作（<code>iterN</code> 是第 N 级的使能寄存器）。要点：BRAM 地址在第 3 级发出、数据在第 4 级可用（块 RAM 读口带输出寄存器，1 拍延迟）；写回在第 7 级，写地址靠 4 个寄存器把读地址一路延迟下来。同一个神经元的读和写相隔 4 拍，而同一次调用里每个地址只访问一次，所以不会有读后写冲突，II = 1 成立。<span class="src">RTL</span> <span class="src pap">仿真</span></p>
+  </div>
+  <div class="lab"><div id="lf-stages"></div></div>
+  <div class="lab">
+    <div class="lab-title"><h4>RTL 仿真波形：LIF1 一次调用的前 87 个周期</h4><span class="tagline">xsim · 真实输入 · 点或悬停读数，左右方向键移动</span></div>
+    <div id="lf-wave"></div>
+    <p class="mc-note">读法：<code>iter</code> 一行是 8 位使能，从右往左逐拍点亮，第 8 拍起流水线满载，此后每拍同时有 8 个神经元在途。红虚线是第一次读 RAM 和第一次写 RAM，相隔 4 拍。波形采样点在时钟沿之前，所以数值反映的是上一个周期末的寄存器状态。</p>
+  </div>
+</section>
+
+<section id="s-lif-mem" class="step" data-sec="LIF：存储">
+  <div class="step-head"><span class="step-no">04</span><div><p class="eyebrow">LIF 神经元 · 三</p><h2>两块 RAM，读写落在同一块</h2></div></div>
+  <div class="prose wide">
+    <p><code>V0</code> 和 <code>V1</code> 各是一块 2,848×24 位的简单双口 RAM：写口（<code>address0/ce0/we0/d0</code>）和读口（<code>address1/ce1/q1</code>）分开，读口输出带寄存器。HLS 报告每块 6 个 BRAM18K。数据宽 24 位，一个 BRAM18K 最宽 18 位（36 位模式则只有 512 深）。常见的拼法是 1K×18 模式 3 块深 × 2 块宽，或 512×36 模式 6 块深，都是 6 块；容量下限 ⌈68,352 ÷ 18,432⌉ = 4 块，实际用了 6 块，利用率约 62%。<span class="src rpt">报告</span> <span class="src der">推导</span></p>
+    <p>注释里写的是“读一块、写另一块”（乒乓），生成的 RTL 却是：<code>rd_reg</code> 在调用开始时锁存 <code>bank_i</code>，读选择 <code>rd_reg ? V1 : V0</code>，写使能也是 <code>rd_reg == 0 → V0</code>、<code>rd_reg == 1 → V1</code>，也就是<b>读哪块就写哪块</b>；只有调用结束时 <code>bank_o = ~bank_i</code>。所以偶数次调用只碰 V0，奇数次只碰 V1，第 t 步接的是第 t−2 步。这与 C++ 源码的实际写法一致（注释与代码不符）：仿真里 V0、V1 两块 RAM 的内容在每次调用后都和“按源码”的模型逐个相同。<span class="src">RTL</span> <span class="src pap">仿真</span></p>
+  </div>
+  <div class="mc-two">
+    <div><pre class="mc-code" id="lf-code1"></pre></div>
+    <div><div class="lab" style="margin-top:0"><div class="lab-title"><h4>BRAM18K 拼装：V0（2,848 × 24 位）</h4><span class="tagline">示意 · 1K×18 模式</span></div><div class="mc-fig"><div id="lf-bram"></div></div><p class="mc-note" id="lf-bram-note"></p></div></div>
+  </div>
+  <div class="lab">
+    <div class="lab-title"><h4>如果写进“另一块”，仿真能不能看出来？</h4><span class="tagline">用同一批输入把两种读法各跑一遍</span></div>
+    <div id="lf-intended"></div>
+    <p class="mc-note">右表把我的模型改成“写另一块”再跑，对比 RTL 仿真输出的 LIF 脉冲。LIF1 的输入完全相同，差异只来自这一处；后面的层输入也随之变化，差异包含这一影响。结论：仿真对这两种读法有很强的分辨力，RTL 确实是“读写同一块”。<span class="src pap">仿真</span></p>
+  </div>
+</section>
+
+<section id="s-lif-stall" class="step" data-sec="LIF：握手">
+  <div class="step-head"><span class="step-no">05</span><div><p class="eyebrow">LIF 神经元 · 四</p><h2>没有逐级反压：一个全局暂停</h2></div></div>
+  <div class="prose wide">
+    <p>输入 FIFO 为空（<code>s1_empty_n=0</code>）会在第 3 级阻塞，输出 FIFO 为满（<code>s2_full_n=0</code>）会在第 7 级阻塞，两者都汇入同一组阻塞条件（<code>ap_block_pp0_stage0_subdone</code> / <code>_11001</code>）。它们同时作为所有 <code>ap_enable_reg_pp0_iterN</code>、计数器和 DSP48 的时钟使能（CE）：只要任一端口被阻塞，<b>整条流水线在同一拍冻结</b>，所有在途神经元原地不动，直到阻塞解除。代价是简单（没有逐级 skid buffer），副作用是上游或下游的一个停顿会让整条流水线都停。<span class="src">RTL</span></p>
+    <p>我用随机停顿验证这个结构：把 <code>empty_n</code> 和 <code>full_n</code> 各按 LFSR 随机拉低，LIF 六个模块输出的脉冲和 V0/V1 内容与不停顿时逐个相同，只有延迟变长。<span class="src pap">仿真</span></p>
+  </div>
+  <div class="lab">
+    <div class="lab-title"><h4>RTL 仿真波形：带随机停顿的 LIF1</h4><span class="tagline">红底 = 本拍被阻塞</span></div>
+    <div id="lf-wave2"></div>
+    <div id="lf-stall-table" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<section id="s-lif-six" class="step" data-sec="LIF：六个实例">
+  <div class="step-head"><span class="step-no">06</span><div><p class="eyebrow">LIF 神经元 · 五</p><h2>同一个算法，六种电路</h2></div></div>
+  <div class="prose wide">
+    <p>所有参数都是编译时常量，HLS 对每个实例分别做常量特化。下表每一格都来自该模块的 RTL（解析脚本 <code>micro/extract_micro.py</code>）：哪个乘法落在 DSP48、哪个被换成移位加法、复位加数是几、有没有地址乘加。<span class="src">RTL</span> 其中 β = 4096（导出值 4097 / 4098 被夹到 4096）的实例没有 β 乘法器，但并不等于“不泄漏”：负的膜电位每次调用仍会减 1，下面第二个例子会看到。</p>
+  </div>
+  <div class="lab"><div id="lf-six"></div></div>
+  <div class="lab">
+    <div class="lab-title"><h4>两个值得单独看的神经元</h4><span class="tagline">真实心拍 · 模型算出，RTL 仿真逐个核对过</span></div>
+    <div class="mc-two"><div id="lf-ex3"></div><div id="lf-exb"></div></div>
+  </div>
+</section>
+
+<section id="s-conv" class="step" data-sec="卷积：结构">
+  <div class="step-head"><span class="step-no">07</span><div><p class="eyebrow">卷积引擎 · 一</p><h2>每个周期一个输出点：48 次乘加并行</h2></div></div>
+  <div class="prose wide">
+    <p>以卷积 2（16→16 通道，核宽 3，输出 16×87，模块 <code>topFunction_forward_14</code>）为例。它由两个流水循环模块加一个共享乘法器组成：<b>装载模块</b>（13 级，1,424 次迭代）把 FIFO 里的一张 16×89 特征图写进 48 个小 RAM；<b>计算模块</b>（27 级，1,392 次迭代 = 16 个输出通道 × 87 个位置）每拍读出一个窗口，做 16×3 = 48 次乘加，重量化，写出一个 INT8。装载和计算按顺序执行，不重叠：1,437 + 1,419 = 2,856 个周期。<span class="src">RTL</span> <span class="src rpt">报告</span></p>
+  </div>
+  <div class="lab">
+    <div class="lab-title"><h4>计算模块框图（卷积 2）</h4><span class="tagline">颜色 = 实现方式；悬停看 RTL 信号与行号</span></div>
+    <div class="mc-legend" id="cv-legend"></div>
+    <div class="mc-fig"><div id="cv-fig"></div></div>
+    <div class="info" id="cv-info"></div>
+  </div>
+</section>
+
+<section id="s-conv-bank" class="step" data-sec="卷积：输入缓冲">
+  <div class="step-head"><span class="step-no">08</span><div><p class="eyebrow">卷积引擎 · 二</p><h2>48 个 bank 与 w mod 3 的旋转</h2></div></div>
+  <div class="prose wide">
+    <p>一个窗口要同时读 3 个相邻位置 × 16 个通道 = 48 个字节。单口 RAM 一拍只能读一个字，所以输入被按“通道 × (位置 mod 3)”拆成 16×3 = 48 个独立的 30×8 位 RAM，每拍每个 RAM 读一次。位置 p 存在 bank <code>p mod 3</code>、地址 ⌊p/3⌋；窗口的三个位置恰好落在三个不同的 bank，但哪个 bank 对应第几个抽头随 <code>w mod 3</code> 旋转，所以每个抽头前面有一个 3 选 1 多路选择器（48 个）。<span class="src">RTL</span></p>
+    <p>地址不用除法器：⌊p/3⌋ 用 <code>p×171 &gt;&gt; 9</code> 实现（171/512 ≈ 1/3，对 0…255 都精确，我逐个核对过），而 <code>w mod 3</code> 是一个 11 级流水的除法器。这个 11 级延迟是计算模块前 12 级几乎都在等求余的原因；它只增加深度，不影响吞吐。<span class="src">RTL</span> <span class="src der">推导</span></p>
+  </div>
+  <div class="lab">
+    <div class="lab-bar" id="cb-ctrl"></div>
+    <div id="cb-player"></div>
+    <div class="mc-fig"><div id="cb-fig"></div></div>
+    <div class="info" id="cb-info"></div>
+  </div>
+</section>
+
+<section id="s-conv-mac" class="step" data-sec="卷积：乘加阵列">
+  <div class="step-head"><span class="step-no">09</span><div><p class="eyebrow">卷积引擎 · 三</p><h2>权重是逻辑，不是存储</h2></div></div>
+  <div class="prose wide">
+    <p>48 个乘法器各自配一个 16 选 1 的常量表，用 4 位输出通道号 <code>oc</code> 选权重（RTL 里是 <code>sparsemux_33_4_7/8</code>）。常量表的 48 列和导出的权重文件逐列相同，我用脚本核对过：RTL 里的 48 张表正好等于参数文件里 16×3 个抽头的 48 列，一张不多一张不少。没有权重 BRAM，权重全在 LUT 里。<span class="src">RTL</span> <span class="src der">推导</span></p>
+    <p>48 个乘积里，30 个落在 DSP48（<code>mac_muladd</code>：乘加；其中 18 个的加数端接 LUT 乘法器的乘积，12 个接另一个 DSP 的输出，形成两级链），18 个用 LUT 实现（<code>mul_8s_8s_16</code>，每个 41 个 LUT）。常量表的位宽从 8 位被 HLS 收窄到 7 位的有 11 个，对应乘法器也变成 8×7 位。<span class="src">RTL</span> <span class="src rpt">报告</span></p>
+  </div>
+  <div class="mc-two">
+    <div class="lab" style="margin-top:0"><div class="lab-title"><h4>一张权重表：某个抽头在 16 个输出通道上的权重</h4><span class="tagline">RTL 常量，与参数文件逐列核对</span></div><div class="lab-bar" id="cm-ctrl"></div><div id="cm-table"></div></div>
+    <div class="lab" style="margin-top:0"><div class="lab-title"><h4>计算模块的 LUT 去了哪里</h4><span class="tagline">HLS 估计 vs 布线后</span></div><div id="cm-bars"></div></div>
+  </div>
+</section>
+
+<section id="s-conv-pipe" class="step" data-sec="卷积：27 级流水线">
+  <div class="step-head"><span class="step-no">10</span><div><p class="eyebrow">卷积引擎 · 四</p><h2>27 级流水线与量化尾巴</h2></div></div>
+  <div class="prose wide">
+    <p>27 级可以分成几段：计数与求余（0–11 级，主要在等 11 级除法器）；读 bank 与权重选择（11–13 级）；乘加与加法树（13–21 级，位宽从 16 位逐级长到 20 位）；乘数表与共享乘法器（21–23 级，31×20 → 51 位）；舍入与右移（24–25 级）；饱和与写 FIFO（25–26 级）。下图的每一列是真实调度里该级的操作数。<span class="src rpt">报告</span></p>
+    <p>重量化的实现很能说明问题：卷积 2 的乘数表只存低 30 位（它的乘数都在 [2<sup>30</sup>, 2<sup>31</sup>) 内，最高位恒为 1，HLS 把它折掉了）；移位量是每个输出通道一张表，所以“加半”用的偏置 <code>1 &lt;&lt; (shift−1)</code> 和算术右移都是<b>可变移位</b>（桶形移位器），而不是常量；饱和靠两次比较（高位 &gt; 0 → 127，低 12 位 &lt; −128 → −128），RTL 里看不到 C++ 那一步 32 位回绕的逻辑，位宽分析之后用不着它。<span class="src">RTL</span></p>
+  </div>
+  <div class="lab">
+    <div class="lab-title"><h4>27 级调度（按级统计操作数）</h4><span class="tagline">颜色 = 绑定方式；来自 verbose 调度报告</span></div>
+    <div class="mc-fig"><div id="cp-stages"></div></div>
+  </div>
+  <div class="lab">
+    <div class="lab-title"><h4>RTL 仿真波形：卷积 2 的前 150 个周期</h4><span class="tagline">xsim · 真实输入</span></div>
+    <div id="cp-wave"></div>
+    <p class="mc-note">读法：<code>mul_b</code> 是累加值（送给共享乘法器的 20 位被乘数），<code>mul_a</code> 是乘数表输出（对输出通道 0 恒为 1,876,239,292），<code>mul_p</code> 是 51 位乘积，<code>out</code> 是最后写进 FIFO 的 INT8。第 26 拍出第一个结果，此后每拍一个。图里还能看到 BN 之前 oc=0 的前 10 个累加值：−3810、−3175、3048、7620、5207、635、−1397、7493、2286、8255，与模型逐个相同。<span class="src pap">仿真</span></p>
+  </div>
+  <div class="lab">
+    <div class="lab-title"><h4>一个输出点的完整算术</h4><span class="tagline">真实心拍 · 模型算出，与上面波形里的同类数字同一路径</span></div>
+    <div id="cp-point"></div>
+  </div>
+</section>
+
+<section id="s-conv-cmp" class="step" data-sec="三层对比">
+  <div class="step-head"><span class="step-no">11</span><div><p class="eyebrow">卷积引擎 · 五</p><h2>三个卷积层，三种实现</h2></div></div>
+  <div class="prose wide">
+    <p>同一个模板，参数不同，电路就不同：卷积 1 只有 1 个输入通道，每拍 3 次乘法、自带一个重量化乘法器；卷积 2、3 各 48 次乘加，共用顶层的一个 31×20 位乘法器（2 个 DSP）。卷积 3 有 24 个输出通道，权重表是 24 选 1（5 位选择），HLS 估计的 LUT 比卷积 2 多出约三分之一（9,353 对 6,965）。<span class="src">RTL</span> <span class="src rpt">报告</span></p>
+  </div>
+  <div class="lab"><div id="cc-table"></div></div>
+</section>
+
+<section id="s-verify" class="step" data-sec="仿真与验证">
+  <div class="step-head"><span class="step-no">12</span><div><p class="eyebrow">怎么证明这一页没有说错</p><h2>RTL 仿真：模块级，和 C++ 对齐的模型逐位比较</h2></div></div>
+  <div class="prose wide">
+    <p>我写了测试平台，直接实例化 HLS 生成的各个模块（不是行为模型的重写），在 xsim 里仿真。<b>LIF 六个模块</b>：用行为 FIFO 喂输入，用与生成的 RAM 模块端口行为相同的双口 RAM 保存 V0/V1，每次调用后把 <code>bank_o</code> 回灌给 <code>bank_i</code>，每个用例连续调用 10 次（10 个时间步）。<b>卷积 2、3</b>：真实的装载模块把输入写进 48 个<b>真实的</b> bank RAM 模块，真实的计算模块读出，共享乘法器用同一个 <code>mul_31ns_20s_51_2_1</code> 模块。预期输出来自对 C++ 逐位验证过的整数模型，输入包括真实心拍和随机、全 ±127 之类的压力输入。</p>
+  </div>
+  <div class="lab"><div id="vf-table"></div></div>
+  <div class="mc-two" style="margin-top:14px">
+    <div class="note"><b>已经证明的。</b>在这些输入上，六个 LIF 模块和两个卷积模块的输出（脉冲、V0/V1 内容、bank 标志、INT8 特征图）与模型逐位相同；<code>bank</code> 读写同一块这一点在 RTL 里成立；随机 FIFO 停顿不改变结果；输入缓冲里没写过的地址（填随机垃圾）不影响结果。</div>
+    <div class="note warn"><b>没有证明的。</b>顶层模块如何串起这些子模块和控制它们的启动（整机级协同仿真）；真实 FIFO 深度和 DMA；布线后时序；以及没覆盖的输入。延迟对比的口径是从 <code>ap_start</code> 拉高到 <code>ap_done</code> 的周期数：卷积的两个流水模块与报告完全一致；LIF 模块测得比报告多 1 拍（LIF1 是 2,857 对 2,856），因为它的 FSM 在流水循环之后还有一个独立的收尾状态（<code>ap_ST_fsm_state10</code>，<code>ap_done</code> 在这里拉高），卷积的流水模块没有这个状态。</div>
+  </div>
+</section>
+
+<section id="s-ref" class="step" data-sec="文件与复现">
+  <div class="step-head"><span class="step-no">13</span><div><p class="eyebrow">查证据</p><h2>文件索引与复现命令</h2></div></div>
+  <div class="lab"><div id="rf-table"></div></div>
+  <div class="prose wide" style="margin-top:14px">
+    <p><b>复现。</b>在 <code>walkthrough/micro/</code> 下依次运行（需要本机的 Vivado 2026.1，路径写在 <code>gen_tb_lif.py</code> 里）：</p>
+  </div>
+  <pre class="mc-code">node export_lif_vectors.js          # 从已验证的模型导出每个 LIF 模块每次调用的输入与预期输出
+node export_conv_vectors.js         # 同上，卷积 2 / 3
+python run_all_lif.py               # 6 个 LIF 模块 × 8 个用例，xsim 仿真并比较
+python run_stall_lif.py             # 同一批，加随机 FIFO 停顿
+python run_all_conv.py              # 卷积 2 / 3：正常、预载垃圾、随机停顿
+node micro_checks.js                # bank 映射、“写另一块”对照
+python extract_micro.py             # 汇总成 micro_data.json
+python build_micro.py               # 生成 qcsnn_micro_arch.html</pre>
+</section>

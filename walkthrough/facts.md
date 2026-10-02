@@ -1,0 +1,634 @@
+# HLS facts
+
+## Pipelining results (log)
+
+- loop `VITIS_LOOP_26_1`: target II 1, **final II 1**, depth 1
+- loop `VITIS_LOOP_48_3`: target II 1, **final II 1**, depth 3
+- loop `in_write`: target II 1, **final II 1**, depth 1
+- loop `VITIS_LOOP_88_1`: target II 1, **final II 1**, depth 2
+- loop `VITIS_LOOP_25_1_VITIS_LOOP_26_2`: target II 1, **final II 1**, depth 5
+- loop `VITIS_LOOP_25_1_VITIS_LOOP_26_2`: target II 1, **final II 1**, depth 5
+- loop `VITIS_LOOP_25_1_VITIS_LOOP_26_2`: target II 1, **final II 1**, depth 5
+- loop `VITIS_LOOP_25_1`: target II NA, **final II 1**, depth 1
+- loop `VITIS_LOOP_194_3`: target II 1, **final II 1**, depth 3
+- loop `VITIS_LOOP_47_2`: target II 1, **final II 1**, depth 2
+- loop `VITIS_LOOP_58_3_VITIS_LOOP_59_4`: target II 1, **final II 1**, depth 24
+- loop `CHANNEL_LOOP_FEATURE_LOOP`: target II 1, **final II 1**, depth 11
+- loop `VITIS_LOOP_60_1_VITIS_LOOP_61_2`: target II 1, **final II 1**, depth 8
+- loop `READ_CHANNEL`: target II 1, **final II 1**, depth 2
+- loop `POOL_LOOP`: target II 1, **final II 1**, depth 2
+- loop `VITIS_LOOP_41_1_VITIS_LOOP_42_2`: target II 1, **final II 1**, depth 3
+- loop `VITIS_LOOP_46_1_VITIS_LOOP_47_2`: target II 1, **final II 1**, depth 13
+- loop `VITIS_LOOP_58_3_VITIS_LOOP_59_4`: target II 1, **final II 1**, depth 27
+- loop `CHANNEL_LOOP_FEATURE_LOOP`: target II 1, **final II 1**, depth 11
+- loop `VITIS_LOOP_60_1_VITIS_LOOP_61_2`: target II 1, **final II 1**, depth 8
+- loop `READ_CHANNEL`: target II 1, **final II 1**, depth 2
+- loop `POOL_LOOP`: target II 1, **final II 1**, depth 2
+- loop `VITIS_LOOP_41_1_VITIS_LOOP_42_2`: target II 1, **final II 1**, depth 3
+- loop `VITIS_LOOP_46_1_VITIS_LOOP_47_2`: target II 1, **final II 1**, depth 12
+- loop `VITIS_LOOP_58_3_VITIS_LOOP_59_4`: target II 1, **final II 1**, depth 25
+- loop `CHANNEL_LOOP_FEATURE_LOOP`: target II 1, **final II 1**, depth 11
+- loop `VITIS_LOOP_60_1_VITIS_LOOP_61_2`: target II 1, **final II 1**, depth 7
+- loop `READ_CHANNEL`: target II 1, **final II 1**, depth 2
+- loop `POOL_LOOP`: target II 1, **final II 1**, depth 2
+- loop `VITIS_LOOP_277_4`: target II 1, **final II 1**, depth 2
+- loop `VITIS_LOOP_41_1`: target II NA, **final II 1**, depth 3
+- loop `VITIS_LOOP_289_5`: target II 1, **final II 1**, depth 2
+- loop `VITIS_LOOP_294_6`: target II 1, **final II 1**, depth 2
+- loop `READ_IN`: target II 1, **final II 1**, depth 2
+- loop `DOT_I`: target II 1, **final II 1**, depth 5
+- loop `OUT_LOOP`: target II 1, **final II 1**, depth 5
+- loop `VITIS_LOOP_60_1`: target II NA, **final II 1**, depth 6
+- loop `VITIS_LOOP_25_1`: target II NA, **final II 1**, depth 1
+- loop `VITIS_LOOP_25_1`: target II NA, **final II 1**, depth 1
+- loop `VITIS_LOOP_343_7`: target II 1, **final II 1**, depth 3
+- loop `VITIS_LOOP_353_8`: target II 1, **final II 1**, depth 2
+- loop `VITIS_LOOP_358_9`: target II 1, **final II 1**, depth 2
+- loop `READ_IN`: target II 1, **final II 1**, depth 2
+- loop `DOT_I`: target II 1, **final II 1**, depth 5
+- loop `OUT_LOOP`: target II 1, **final II 1**, depth 6
+- loop `VITIS_LOOP_60_1`: target II NA, **final II 1**, depth 6
+- loop `VITIS_LOOP_41_1`: target II NA, **final II 1**, depth 3
+- loop `READ_IN`: target II 1, **final II 1**, depth 2
+- loop `DOT_I`: target II 1, **final II 1**, depth 5
+- loop `OUT_LOOP`: target II 1, **final II 1**, depth 6
+- loop `VITIS_LOOP_60_1`: target II NA, **final II 1**, depth 6
+
+## II violations (log) — each is a dependence the tool could not honour at that II
+
+
+## csynth modules (latency cycles / interval / loops)
+
+- `Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_1` latency 186–186, interval 186–186 (no)
+- `Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1` latency 183–183, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_48_3`: iteration latency 3, II 1 (target 1), trip 180
+- `Block_entry_proc` latency 2–2, interval 2–2 (no)
+- `Loop_VITIS_LOOP_26_1_proc` latency 25–25, interval 24–24 (loop auto-rewind stp (delay=0 cycle(s)))
+    - loop `VITIS_LOOP_26_1`: iteration latency 1, II 1 (target 1), trip 24
+- `Loop_in_write_proc` latency 181–181, interval 180–180 (loop auto-rewind stp (delay=0 cycle(s)))
+    - loop `in_write`: iteration latency 1, II 1 (target 1), trip 180
+- `forward_10` latency 1400–1400, interval 1400–1400 (no)
+    - loop `VITIS_LOOP_60_1_VITIS_LOOP_61_2`: iteration latency 8, II 1 (target 1), trip 1392
+- `forward_11` latency 2856–2856, interval 2856–2856 (no)
+    - loop `VITIS_LOOP_60_1_VITIS_LOOP_61_2`: iteration latency 8, II 1 (target 1), trip 2848
+- `forward_12` latency 134–134, interval 134–134 (no)
+    - loop `VITIS_LOOP_60_1`: iteration latency 6, II 1 (target N/A), trip 128
+- `forward_13_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2` latency 700–700, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_46_1_VITIS_LOOP_47_2`: iteration latency 12, II 1 (target 1), trip 688
+- `forward_13_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4` latency 1009–1009, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_58_3_VITIS_LOOP_59_4`: iteration latency 25, II 1 (target 1), trip 984
+- `forward_13` latency 1712–1712, interval 1712–1712 (no)
+- `forward_14_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2` latency 1437–1437, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_46_1_VITIS_LOOP_47_2`: iteration latency 13, II 1 (target 1), trip 1424
+- `forward_14_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4` latency 1419–1419, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_58_3_VITIS_LOOP_59_4`: iteration latency 27, II 1 (target 1), trip 1392
+- `forward_14` latency 2859–2859, interval 2859–2859 (no)
+- `forward_1` latency 1427–1427, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_41_1_VITIS_LOOP_42_2`: iteration latency 3, II 1 (target 1), trip 1424
+- `forward_2` latency 691–691, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_41_1_VITIS_LOOP_42_2`: iteration latency 3, II 1 (target 1), trip 688
+- `forward_3` latency 131–131, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_41_1`: iteration latency 3, II 1 (target N/A), trip 128
+- `forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP6` latency 1403–1403, interval 0–0 (loop pipeline stp)
+    - loop `CHANNEL_LOOP_FEATURE_LOOP`: iteration latency 11, II 1 (target 1), trip 1392
+- `forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP9` latency 995–995, interval 0–0 (loop pipeline stp)
+    - loop `CHANNEL_LOOP_FEATURE_LOOP`: iteration latency 11, II 1 (target 1), trip 984
+- `forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP` latency 2859–2859, interval 0–0 (loop pipeline stp)
+    - loop `CHANNEL_LOOP_FEATURE_LOOP`: iteration latency 11, II 1 (target 1), trip 2848
+- `forward_4_Pipeline_DOT_I` latency 489–489, interval 0–0 (loop pipeline stp)
+    - loop `DOT_I`: iteration latency 5, II 1 (target 1), trip 484
+- `forward_4_Pipeline_OUT_LOOP` latency 7–7, interval 0–0 (loop pipeline stp)
+    - loop `OUT_LOOP`: iteration latency 5, II 1 (target 1), trip 2
+- `forward_4_Pipeline_POOL_LOOP11` latency 22–22, interval 0–0 (loop pipeline stp)
+    - loop `POOL_LOOP`: iteration latency 2, II 1 (target 1), trip 20
+- `forward_4_Pipeline_POOL_LOOP8` latency 45–45, interval 0–0 (loop pipeline stp)
+    - loop `POOL_LOOP`: iteration latency 2, II 1 (target 1), trip 43
+- `forward_4_Pipeline_POOL_LOOP` latency 91–91, interval 0–0 (loop pipeline stp)
+    - loop `POOL_LOOP`: iteration latency 2, II 1 (target 1), trip 89
+- `forward_4_Pipeline_READ_CHANNEL10` latency 43–43, interval 0–0 (loop pipeline stp)
+    - loop `READ_CHANNEL`: iteration latency 2, II 1 (target 1), trip 41
+- `forward_4_Pipeline_READ_CHANNEL7` latency 89–89, interval 0–0 (loop pipeline stp)
+    - loop `READ_CHANNEL`: iteration latency 2, II 1 (target 1), trip 87
+- `forward_4_Pipeline_READ_CHANNEL` latency 180–180, interval 0–0 (loop pipeline stp)
+    - loop `READ_CHANNEL`: iteration latency 2, II 1 (target 1), trip 178
+- `forward_4_Pipeline_READ_IN` latency 486–486, interval 0–0 (loop pipeline stp)
+    - loop `READ_IN`: iteration latency 2, II 1 (target 1), trip 484
+- `forward_4_Pipeline_VITIS_LOOP_194_3` latency 183–183, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_194_3`: iteration latency 3, II 1 (target 1), trip 180
+- `forward_4_Pipeline_VITIS_LOOP_25_112` latency 130–130, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_25_1`: iteration latency 1, II 1 (target N/A), trip 128
+- `forward_4_Pipeline_VITIS_LOOP_25_113` latency 6–6, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_25_1`: iteration latency 1, II 1 (target N/A), trip 4
+- `forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_24` latency 1397–1397, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_25_1_VITIS_LOOP_26_2`: iteration latency 5, II 1 (target 1), trip 1392
+- `forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_25` latency 989–989, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_25_1_VITIS_LOOP_26_2`: iteration latency 5, II 1 (target 1), trip 984
+- `forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_2` latency 2853–2853, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_25_1_VITIS_LOOP_26_2`: iteration latency 5, II 1 (target 1), trip 2848
+- `forward_4_Pipeline_VITIS_LOOP_25_1` latency 4–4, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_25_1`: iteration latency 1, II 1 (target N/A), trip 2
+- `forward_4_Pipeline_VITIS_LOOP_277_4` latency 482–482, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_277_4`: iteration latency 2, II 1 (target 1), trip 480
+- `forward_4_Pipeline_VITIS_LOOP_289_5` latency 482–482, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_289_5`: iteration latency 2, II 1 (target 1), trip 480
+- `forward_4_Pipeline_VITIS_LOOP_294_6` latency 6–6, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_294_6`: iteration latency 2, II 1 (target 1), trip 4
+- `forward_4_Pipeline_VITIS_LOOP_343_7` latency 483–483, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_343_7`: iteration latency 3, II 1 (target 1), trip 480
+- `forward_4_Pipeline_VITIS_LOOP_353_8` latency 482–482, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_353_8`: iteration latency 2, II 1 (target 1), trip 480
+- `forward_4_Pipeline_VITIS_LOOP_358_9` latency 6–6, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_358_9`: iteration latency 2, II 1 (target 1), trip 4
+- `forward_4_Pipeline_VITIS_LOOP_47_2` latency 182–182, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_47_2`: iteration latency 2, II 1 (target 1), trip 180
+- `forward_4_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4` latency 2872–2872, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_58_3_VITIS_LOOP_59_4`: iteration latency 24, II 1 (target 1), trip 2848
+- `forward_4_Pipeline_VITIS_LOOP_88_1` latency 182–182, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_88_1`: iteration latency 2, II 1 (target 1), trip 180
+- `forward_4` latency 314837–346569, interval 314837–346569 (no)
+    - loop `STAGE1_LOOP`: iteration latency 31198, II - (target -), trip 10
+    - loop `STAGE2_LOOP`: iteration latency 3160, II - (target -), trip 10
+- `forward_5_Pipeline_DOT_I` latency 489–489, interval 0–0 (loop pipeline stp)
+    - loop `DOT_I`: iteration latency 5, II 1 (target 1), trip 484
+- `forward_5_Pipeline_OUT_LOOP` latency 134–134, interval 0–0 (loop pipeline stp)
+    - loop `OUT_LOOP`: iteration latency 6, II 1 (target 1), trip 128
+- `forward_5_Pipeline_READ_IN` latency 486–486, interval 0–0 (loop pipeline stp)
+    - loop `READ_IN`: iteration latency 2, II 1 (target 1), trip 484
+- `forward_5` latency 1114–1114, interval 1114–1114 (no)
+- `forward_6_Pipeline_DOT_I` latency 133–133, interval 0–0 (loop pipeline stp)
+    - loop `DOT_I`: iteration latency 5, II 1 (target 1), trip 128
+- `forward_6_Pipeline_OUT_LOOP` latency 10–10, interval 0–0 (loop pipeline stp)
+    - loop `OUT_LOOP`: iteration latency 6, II 1 (target 1), trip 4
+- `forward_6_Pipeline_READ_IN` latency 130–130, interval 0–0 (loop pipeline stp)
+    - loop `READ_IN`: iteration latency 2, II 1 (target 1), trip 128
+- `forward_6` latency 278–278, interval 278–278 (no)
+- `forward_7` latency 10–10, interval 10–10 (no)
+    - loop `VITIS_LOOP_60_1`: iteration latency 6, II 1 (target N/A), trip 4
+- `forward_8` latency 991–991, interval 991–991 (no)
+    - loop `VITIS_LOOP_60_1_VITIS_LOOP_61_2`: iteration latency 7, II 1 (target 1), trip 984
+- `forward_9` latency 8–8, interval 8–8 (no)
+    - loop `VITIS_LOOP_60_1`: iteration latency 6, II 1 (target N/A), trip 2
+- `forward_Pipeline_VITIS_LOOP_41_1` latency 483–483, interval 0–0 (loop pipeline stp)
+    - loop `VITIS_LOOP_41_1`: iteration latency 3, II 1 (target N/A), trip 480
+- `forward` latency 500–500, interval 500–500 (no)
+- `topFunction` latency 315050–346782, interval 314838–346570 (dataflow)
+
+## RTL modules
+
+- ``: {}
+- `_Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 3}
+- `_Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_1`: {'kind': 'state_machine', 'states': 4}
+    - buf_i_0: ce0@[2]
+    - buf_i_1: ce0@[2]
+    - buf_i_2: ce0@[2]
+    - buf_i_3: ce0@[2]
+    - buf_i_4: ce0@[2]
+    - buf_i_5: ce0@[2]
+    - buf_i_6: ce0@[2]
+    - buf_i_7: ce0@[2]
+    - starts `grp_Block_entry_buf_i_0_rd_buf_i_1_rd_buf_i_2_rd_buf_i_3_rd_buf_i_4_rd_buf_i_5_rd_bu_1_fu_152` at stage/state [1] iter []
+- `_Block_entry_proc`: {'kind': 'state_machine', 'states': 3}
+- `_Loop_VITIS_LOOP_26_1_proc`: {'kind': 'state_machine', 'states': 1}
+- `_Loop_in_write_proc`: {'kind': 'state_machine', 'states': 1}
+- `_am_addmul_6ns_2ns_7ns_13_4_1`: {}
+- `_am_addmul_7ns_2ns_8ns_15_4_1`: {}
+- `_am_addmul_8ns_2ns_9ns_17_4_1`: {}
+- `_buf_r_RAM_AUTO_1R1W`: {}
+- `_buf_r_RAM_AUTO_1R1W_memcore`: {}
+- `_fifo_w8_d128_S`: {}
+- `_fifo_w8_d1392_A`: {}
+- `_fifo_w8_d1424_A`: {}
+- `_fifo_w8_d180_A`: {}
+- `_fifo_w8_d180_A_x`: {}
+- `_fifo_w8_d2848_A`: {}
+- `_fifo_w8_d2_S`: {}
+- `_fifo_w8_d2_S_x`: {}
+- `_fifo_w8_d2_S_x0`: {}
+- `_fifo_w8_d3_S`: {}
+- `_fifo_w8_d480_A`: {}
+- `_fifo_w8_d484_A`: {}
+- `_fifo_w8_d4_S`: {}
+- `_fifo_w8_d688_A`: {}
+- `_fifo_w8_d984_A`: {}
+- `_forward`: {'kind': 'state_machine', 'states': 18}
+    - starts `grp_forward_Pipeline_VITIS_LOOP_41_1_fu_36` at stage/state [17] iter []
+    - starts `grp_fu_71` at stage/state [1] iter []
+- `_forward_1`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 3}
+- `_forward_10`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 8}
+- `_forward_11`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 8}
+- `_forward_12`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 6}
+- `_forward_13`: {'kind': 'state_machine', 'states': 4}
+    - input_buffer_10: ce0@[2, 4], we0@[2]
+    - input_buffer_11: ce0@[2, 4], we0@[2]
+    - input_buffer_12: ce0@[2, 4], we0@[2]
+    - input_buffer_13: ce0@[2, 4], we0@[2]
+    - input_buffer_14: ce0@[2, 4], we0@[2]
+    - input_buffer_15: ce0@[2, 4], we0@[2]
+    - input_buffer_16: ce0@[2, 4], we0@[2]
+    - input_buffer_17: ce0@[2, 4], we0@[2]
+    - input_buffer_18: ce0@[2, 4], we0@[2]
+    - input_buffer_19: ce0@[2, 4], we0@[2]
+    - input_buffer_20: ce0@[2, 4], we0@[2]
+    - input_buffer_21: ce0@[2, 4], we0@[2]
+    - input_buffer_22: ce0@[2, 4], we0@[2]
+    - input_buffer_23: ce0@[2, 4], we0@[2]
+    - input_buffer_24: ce0@[2, 4], we0@[2]
+    - input_buffer_25: ce0@[2, 4], we0@[2]
+    - input_buffer_26: ce0@[2, 4], we0@[2]
+    - input_buffer_27: ce0@[2, 4], we0@[2]
+    - input_buffer_28: ce0@[2, 4], we0@[2]
+    - input_buffer_29: ce0@[2, 4], we0@[2]
+    - input_buffer_30: ce0@[2, 4], we0@[2]
+    - input_buffer_31: ce0@[2, 4], we0@[2]
+    - input_buffer_32: ce0@[2, 4], we0@[2]
+    - input_buffer_33: ce0@[2, 4], we0@[2]
+    - input_buffer_34: ce0@[2, 4], we0@[2]
+    - input_buffer_35: ce0@[2, 4], we0@[2]
+    - input_buffer_36: ce0@[2, 4], we0@[2]
+    - input_buffer_37: ce0@[2, 4], we0@[2]
+    - input_buffer_38: ce0@[2, 4], we0@[2]
+    - input_buffer_39: ce0@[2, 4], we0@[2]
+    - input_buffer_3: ce0@[2, 4], we0@[2]
+    - input_buffer_40: ce0@[2, 4], we0@[2]
+    - input_buffer_41: ce0@[2, 4], we0@[2]
+    - input_buffer_42: ce0@[2, 4], we0@[2]
+    - input_buffer_43: ce0@[2, 4], we0@[2]
+    - input_buffer_44: ce0@[2, 4], we0@[2]
+    - input_buffer_45: ce0@[2, 4], we0@[2]
+    - input_buffer_46: ce0@[2, 4], we0@[2]
+    - input_buffer_47: ce0@[2, 4], we0@[2]
+    - input_buffer_48: ce0@[2, 4], we0@[2]
+    - input_buffer_49: ce0@[2, 4], we0@[2]
+    - input_buffer_4: ce0@[2, 4], we0@[2]
+    - input_buffer_5: ce0@[2, 4], we0@[2]
+    - input_buffer_6: ce0@[2, 4], we0@[2]
+    - input_buffer_7: ce0@[2, 4], we0@[2]
+    - input_buffer_8: ce0@[2, 4], we0@[2]
+    - input_buffer_9: ce0@[2, 4], we0@[2]
+    - input_buffer: ce0@[2, 4], we0@[2]
+    - starts `grp_forward_13_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2_fu_214` at stage/state [1] iter []
+    - starts `grp_forward_13_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_316` at stage/state [3] iter []
+- `_forward_13_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 12}
+- `_forward_13_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 25}
+- `_forward_13_input_buffer_RAM_AUTO_1R1W`: {}
+- `_forward_14`: {'kind': 'state_machine', 'states': 4}
+    - input_buffer_10: ce0@[2, 4], we0@[2]
+    - input_buffer_11: ce0@[2, 4], we0@[2]
+    - input_buffer_12: ce0@[2, 4], we0@[2]
+    - input_buffer_13: ce0@[2, 4], we0@[2]
+    - input_buffer_14: ce0@[2, 4], we0@[2]
+    - input_buffer_15: ce0@[2, 4], we0@[2]
+    - input_buffer_16: ce0@[2, 4], we0@[2]
+    - input_buffer_17: ce0@[2, 4], we0@[2]
+    - input_buffer_18: ce0@[2, 4], we0@[2]
+    - input_buffer_19: ce0@[2, 4], we0@[2]
+    - input_buffer_20: ce0@[2, 4], we0@[2]
+    - input_buffer_21: ce0@[2, 4], we0@[2]
+    - input_buffer_22: ce0@[2, 4], we0@[2]
+    - input_buffer_23: ce0@[2, 4], we0@[2]
+    - input_buffer_24: ce0@[2, 4], we0@[2]
+    - input_buffer_25: ce0@[2, 4], we0@[2]
+    - input_buffer_26: ce0@[2, 4], we0@[2]
+    - input_buffer_27: ce0@[2, 4], we0@[2]
+    - input_buffer_28: ce0@[2, 4], we0@[2]
+    - input_buffer_29: ce0@[2, 4], we0@[2]
+    - input_buffer_30: ce0@[2, 4], we0@[2]
+    - input_buffer_31: ce0@[2, 4], we0@[2]
+    - input_buffer_32: ce0@[2, 4], we0@[2]
+    - input_buffer_33: ce0@[2, 4], we0@[2]
+    - input_buffer_34: ce0@[2, 4], we0@[2]
+    - input_buffer_35: ce0@[2, 4], we0@[2]
+    - input_buffer_36: ce0@[2, 4], we0@[2]
+    - input_buffer_37: ce0@[2, 4], we0@[2]
+    - input_buffer_38: ce0@[2, 4], we0@[2]
+    - input_buffer_39: ce0@[2, 4], we0@[2]
+    - input_buffer_3: ce0@[2, 4], we0@[2]
+    - input_buffer_40: ce0@[2, 4], we0@[2]
+    - input_buffer_41: ce0@[2, 4], we0@[2]
+    - input_buffer_42: ce0@[2, 4], we0@[2]
+    - input_buffer_43: ce0@[2, 4], we0@[2]
+    - input_buffer_44: ce0@[2, 4], we0@[2]
+    - input_buffer_45: ce0@[2, 4], we0@[2]
+    - input_buffer_46: ce0@[2, 4], we0@[2]
+    - input_buffer_47: ce0@[2, 4], we0@[2]
+    - input_buffer_48: ce0@[2, 4], we0@[2]
+    - input_buffer_49: ce0@[2, 4], we0@[2]
+    - input_buffer_4: ce0@[2, 4], we0@[2]
+    - input_buffer_5: ce0@[2, 4], we0@[2]
+    - input_buffer_6: ce0@[2, 4], we0@[2]
+    - input_buffer_7: ce0@[2, 4], we0@[2]
+    - input_buffer_8: ce0@[2, 4], we0@[2]
+    - input_buffer_9: ce0@[2, 4], we0@[2]
+    - input_buffer: ce0@[2, 4], we0@[2]
+    - starts `grp_forward_14_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2_fu_214` at stage/state [1] iter []
+    - starts `grp_forward_14_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_316` at stage/state [3] iter []
+- `_forward_14_Pipeline_VITIS_LOOP_46_1_VITIS_LOOP_47_2`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 13}
+- `_forward_14_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 27}
+- `_forward_14_input_buffer_RAM_AUTO_1R1W`: {}
+- `_forward_2`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 3}
+- `_forward_3`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 3}
+- `_forward_4`: {'kind': 'state_machine', 'states': 80}
+    - body_cache_1: ce0@[40, 59], we0@[40]
+    - body_cache_2: ce0@[40, 59], we0@[40]
+    - body_cache_3: ce0@[40, 59], we0@[40]
+    - body_cache_4: ce0@[40, 59], we0@[40]
+    - body_cache_5: ce0@[40, 59], we0@[40]
+    - body_cache_6: ce0@[40, 59], we0@[40]
+    - body_cache_7: ce0@[40, 59], we0@[40]
+    - body_cache: ce0@[40, 59], we0@[40]
+    - input_buffer_1: ce0@[7, 9], ce1@[9], we0@[7]
+    - input_buffer_2: ce0@[7, 9], ce1@[9], we0@[7]
+    - input_buffer: ce0@[7, 9], ce1@[9], we0@[7]
+    - sig_buf_1: ce0@[2, 5], we0@[2]
+    - sig_buf_2: ce0@[2, 5], we0@[2]
+    - sig_buf_3: ce0@[2, 5], we0@[2]
+    - sig_buf_4: ce0@[2, 5], we0@[2]
+    - sig_buf_5: ce0@[2, 5], we0@[2]
+    - sig_buf_6: ce0@[2, 5], we0@[2]
+    - sig_buf_7: ce0@[2, 5], we0@[2]
+    - sig_buf: ce0@[2, 5], we0@[2]
+    - topClass24_qcsnn24_bin_lif_V0_446: ce0@[2, 54], ce1@[54], we0@[2, 54]
+    - topClass24_qcsnn24_bin_lif_V1_445: ce0@[2, 54], ce1@[54], we0@[2, 54]
+    - topClass24_qcsnn24_multi_lif1_V0_444: ce0@[57, 69], ce1@[69], we0@[57, 69]
+    - topClass24_qcsnn24_multi_lif1_V1_443: ce0@[57, 69], ce1@[69], we0@[57, 69]
+    - topClass24_qcsnn24_multi_lif2_V0_442: ce0@[57, 75], ce1@[75], we0@[57, 75]
+    - topClass24_qcsnn24_multi_lif2_V1_441: ce0@[57, 75], ce1@[75], we0@[57, 75]
+    - topClass24_qcsnn24_trunk_lif1_V0: ce0@[2, 13], ce1@[13], we0@[2, 13]
+    - topClass24_qcsnn24_trunk_lif1_V1: ce0@[2, 13], ce1@[13], we0@[2, 13]
+    - topClass24_qcsnn24_trunk_lif2_V0: ce0@[2, 24], ce1@[24], we0@[2, 24]
+    - topClass24_qcsnn24_trunk_lif2_V1: ce0@[2, 24], ce1@[24], we0@[2, 24]
+    - topClass24_qcsnn24_trunk_lif3_V0: ce0@[2, 35], ce1@[35], we0@[2, 35]
+    - topClass24_qcsnn24_trunk_lif3_V1: ce0@[2, 35], ce1@[35], we0@[2, 35]
+    - starts `grp_forward_10_fu_5947` at stage/state [23] iter []
+    - starts `grp_forward_11_fu_5373` at stage/state [12] iter []
+    - starts `grp_forward_12_fu_7719` at stage/state [68] iter []
+    - starts `grp_forward_13_fu_6233` at stage/state [30] iter []
+    - starts `grp_forward_14_fu_5935` at stage/state [19] iter []
+    - starts `grp_forward_1_fu_5746` at stage/state [14] iter []
+    - starts `grp_forward_2_fu_6136` at stage/state [25] iter []
+    - starts `grp_forward_3_fu_7731` at stage/state [70] iter []
+    - starts `grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP6_fu_5941` at stage/state [21] iter []
+    - starts `grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP9_fu_6239` at stage/state [32] iter []
+    - starts `grp_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP_fu_5367` at stage/state [10] iter []
+    - starts `grp_forward_4_Pipeline_DOT_I_fu_6915` at stage/state [49] iter []
+    - starts `grp_forward_4_Pipeline_OUT_LOOP_fu_7409` at stage/state [51] iter []
+    - starts `grp_forward_4_Pipeline_POOL_LOOP11_fu_6357` at stage/state [38] iter []
+    - starts `grp_forward_4_Pipeline_POOL_LOOP8_fu_6142` at stage/state [27] iter []
+    - starts `grp_forward_4_Pipeline_POOL_LOOP_fu_5752` at stage/state [16] iter []
+    - starts `grp_forward_4_Pipeline_READ_CHANNEL10_fu_6257` at stage/state [36] iter []
+    - starts `grp_forward_4_Pipeline_READ_CHANNEL7_fu_5959` at stage/state [25] iter []
+    - starts `grp_forward_4_Pipeline_READ_CHANNEL_fu_5385` at stage/state [14] iter []
+    - starts `grp_forward_4_Pipeline_READ_IN_fu_6426` at stage/state [47] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_194_3_fu_5322` at stage/state [4] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_25_112_fu_5335` at stage/state [4] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_25_113_fu_5343` at stage/state [4] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_24_fu_5298` at stage/state [1] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_25_fu_5306` at stage/state [1] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_2_fu_5290` at stage/state [1] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_25_1_fu_5314` at stage/state [1] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_277_4_fu_6342` at stage/state [36] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_289_5_fu_6411` at stage/state [43] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_294_6_fu_6417` at stage/state [45] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_343_7_fu_7428` at stage/state [58] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_353_8_fu_7442` at stage/state [62] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_358_9_fu_7448` at stage/state [64] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_47_2_fu_5351` at stage/state [6] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4_fu_5359` at stage/state [8] iter []
+    - starts `grp_forward_4_Pipeline_VITIS_LOOP_88_1_fu_5268` at stage/state [1] iter []
+    - starts `grp_forward_5_fu_7457` at stage/state [66] iter []
+    - starts `grp_forward_6_fu_7737` at stage/state [72] iter []
+    - starts `grp_forward_7_fu_7751` at stage/state [74] iter []
+    - starts `grp_forward_8_fu_6245` at stage/state [34] iter []
+    - starts `grp_forward_9_fu_7416` at stage/state [53] iter []
+    - starts `grp_forward_fu_6402` at stage/state [41, 60] iter []
+- `_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 11}
+- `_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP6`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 11}
+- `_forward_4_Pipeline_CHANNEL_LOOP_FEATURE_LOOP9`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 11}
+- `_forward_4_Pipeline_DOT_I`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 5}
+- `_forward_4_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet2_lblk1_qlinear_weibkb`: {}
+- `_forward_4_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet2_lblk1_qlinear_weicud`: {}
+- `_forward_4_Pipeline_OUT_LOOP`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 5}
+- `_forward_4_Pipeline_POOL_LOOP`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_POOL_LOOP11`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_POOL_LOOP8`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_READ_CHANNEL`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_READ_CHANNEL10`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_READ_CHANNEL7`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_READ_IN`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_VITIS_LOOP_194_3`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 3}
+- `_forward_4_Pipeline_VITIS_LOOP_25_1`: {'kind': 'state_machine', 'states': 1}
+- `_forward_4_Pipeline_VITIS_LOOP_25_112`: {'kind': 'state_machine', 'states': 1}
+- `_forward_4_Pipeline_VITIS_LOOP_25_113`: {'kind': 'state_machine', 'states': 1}
+- `_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_2`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 5}
+- `_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_24`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 5}
+- `_forward_4_Pipeline_VITIS_LOOP_25_1_VITIS_LOOP_26_25`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 5}
+- `_forward_4_Pipeline_VITIS_LOOP_277_4`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_VITIS_LOOP_289_5`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_VITIS_LOOP_294_6`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_VITIS_LOOP_343_7`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 3}
+- `_forward_4_Pipeline_VITIS_LOOP_353_8`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_VITIS_LOOP_358_9`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_VITIS_LOOP_47_2`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_Pipeline_VITIS_LOOP_58_3_VITIS_LOOP_59_4`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 24}
+- `_forward_4_Pipeline_VITIS_LOOP_88_1`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_4_body_cache_RAM_AUTO_1R1W`: {}
+- `_forward_4_input_buffer_RAM_AUTO_1R1W`: {}
+- `_forward_4_sig_buf_RAM_AUTO_1R1W`: {}
+- `_forward_4_topClass24_qcsnn24_bin_lif_V0_446_RAM_AUTO_1R1W`: {}
+- `_forward_4_topClass24_qcsnn24_multi_lif1_V0_444_RAM_AUTO_1R1W`: {}
+- `_forward_4_topClass24_qcsnn24_multi_lif2_V0_442_RAM_AUTO_1R1W`: {}
+- `_forward_4_topClass24_qcsnn24_trunk_lif1_V0_RAM_AUTO_1R1W`: {}
+- `_forward_4_topClass24_qcsnn24_trunk_lif2_V0_RAM_AUTO_1R1W`: {}
+- `_forward_4_topClass24_qcsnn24_trunk_lif3_V0_RAM_AUTO_1R1W`: {}
+- `_forward_5`: {'kind': 'state_machine', 'states': 6}
+    - starts `grp_forward_5_Pipeline_DOT_I_fu_3218` at stage/state [3] iter []
+    - starts `grp_forward_5_Pipeline_OUT_LOOP_fu_4090` at stage/state [5] iter []
+    - starts `grp_forward_5_Pipeline_READ_IN_fu_2728` at stage/state [1] iter []
+- `_forward_5_Pipeline_DOT_I`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 5}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei0iy`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei1iI`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei2iS`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei3i2`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei4jc`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei5jm`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei6jw`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei7jG`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei8jQ`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_wei9j0`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiAem`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiBew`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiCeG`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiDeQ`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiEe0`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiFfa`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiGfk`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiHfu`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiIfE`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiJfO`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiKfY`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiLf8`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiMgi`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiNgs`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiOgC`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiPgM`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiQgW`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiRg6`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiShg`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiThq`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiUhA`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiVhK`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiWhU`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiXh4`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiYie`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiZio`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib0s`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib1s`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib2s`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib3s`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib4t`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib5t`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib6t`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib7t`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib8t`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weib9t`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibAo`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibBo`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibCo`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibDo`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibEo`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibFp`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibGp`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibHp`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibIp`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibJp`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibKp`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibLp`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibMq`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibNq`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibOq`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibPq`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibQq`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibRq`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibSr`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibTr`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibUr`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibVr`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibWr`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibXr`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibYs`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibZs`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibak`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibbk`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibck`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibdk`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibek`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibfk`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibgk`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibhl`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibil`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibjl`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibkl`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibll`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibml`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibnm`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibom`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibpm`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibqm`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibrm`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibsm`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibtn`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibun`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibvn`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibwn`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibxn`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibyn`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weibzo`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weicau`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weicbu`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiccu`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weicdu`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiceu`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weicfu`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weicgu`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weidEe`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weieOg`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weifYi`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weig8j`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weihbi`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiibs`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weijbC`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weikbM`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weilbW`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weimb6`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weincg`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiocq`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weipcA`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiqcK`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weircU`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weisc4`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weitde`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiudo`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weivdy`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiwdI`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weixdS`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weiyd2`: {}
+- `_forward_5_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk1_qlinear_weizec`: {}
+- `_forward_5_Pipeline_OUT_LOOP`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 6}
+- `_forward_5_Pipeline_READ_IN`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_6`: {'kind': 'state_machine', 'states': 6}
+    - starts `grp_forward_6_Pipeline_DOT_I_fu_694` at stage/state [3] iter []
+    - starts `grp_forward_6_Pipeline_OUT_LOOP_fu_838` at stage/state [5] iter []
+    - starts `grp_forward_6_Pipeline_READ_IN_fu_560` at stage/state [1] iter []
+- `_forward_6_Pipeline_DOT_I`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 5}
+- `_forward_6_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weichv`: {}
+- `_forward_6_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weiciv`: {}
+- `_forward_6_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weicjv`: {}
+- `_forward_6_Pipeline_DOT_I_p_ZN18hls4csnn1d_cblk_sdL29qcsnet4_lblk2_qlinear_weickv`: {}
+- `_forward_6_Pipeline_OUT_LOOP`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 6}
+- `_forward_6_Pipeline_READ_IN`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 2}
+- `_forward_7`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 6}
+- `_forward_8`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 7}
+- `_forward_9`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 6}
+- `_forward_Pipeline_VITIS_LOOP_41_1`: {'kind': 'pipeline', 'stages_per_ii': 1, 'pipeline_depth_iters': 3}
+- `_mac_muladd_6ns_5ns_6ns_10_4_1`: {}
+- `_mac_muladd_7ns_5ns_7ns_11_4_1`: {}
+- `_mac_muladd_8ns_5ns_8ns_12_4_1`: {}
+- `_mac_muladd_8s_5ns_11s_13_4_1`: {}
+- `_mac_muladd_8s_5ns_12s_14_4_1`: {}
+- `_mac_muladd_8s_7ns_10s_16_4_1`: {}
+- `_mac_muladd_8s_7ns_12s_16_4_1`: {}
+- `_mac_muladd_8s_7ns_13s_16_4_1`: {}
+- `_mac_muladd_8s_7ns_7s_15_4_1`: {}
+- `_mac_muladd_8s_7s_15s_15_4_1`: {}
+- `_mac_muladd_8s_7s_15s_16_4_1`: {}
+- `_mac_muladd_8s_7s_16s_16_4_1`: {}
+- `_mac_muladd_8s_7s_23s_23_4_1`: {}
+- `_mac_muladd_8s_8ns_12s_16_4_1`: {}
+- `_mac_muladd_8s_8ns_9s_16_4_1`: {}
+- `_mac_muladd_8s_8s_15s_16_4_1`: {}
+- `_mac_muladd_8s_8s_16s_16_4_1`: {}
+- `_mac_muladd_8s_8s_16s_17_4_1`: {}
+- `_mac_muladd_8s_8s_17s_17_4_1`: {}
+- `_mac_muladd_8s_8s_17s_18_4_1`: {}
+- `_mac_muladd_8s_8s_22s_22_4_1`: {}
+- `_mac_muladd_8s_8s_23s_23_4_1`: {}
+- `_mac_muladd_8s_8s_24s_24_4_1`: {}
+- `_mul_24s_12ns_36_1_1`: {}
+- `_mul_24s_13ns_37_1_1`: {}
+- `_mul_24s_32ns_55_2_1`: {}
+- `_mul_31ns_16s_47_2_1`: {}
+- `_mul_31ns_17s_48_2_1`: {}
+- `_mul_31ns_20s_51_2_1`: {}
+- `_mul_31ns_22s_53_2_1`: {}
+- `_mul_31ns_24s_55_2_1`: {}
+- `_mul_6ns_8ns_13_1_1`: {}
+- `_mul_7ns_9ns_15_1_1`: {}
+- `_mul_8ns_10ns_17_1_1`: {}
+- `_mul_8s_7s_15_1_1`: {}
+- `_mul_8s_8s_16_1_1`: {}
+- `_start_for_Block_entry_proc_U0`: {}
+- `_start_for_Loop_in_write_proc_U0`: {}
+- `_udiv_13ns_8ns_3_17_seq_1`: {}
+- `_urem_6ns_3ns_2_10_1`: {}
+- `_urem_7ns_3ns_2_11_1`: {}
+- `_urem_8ns_3ns_2_12_1`: {}

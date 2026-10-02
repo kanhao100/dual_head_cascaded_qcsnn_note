@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QCSNN · 误分类浏览器</title>
+<meta name="description" content="MIT-BIH 全测试集的真实 C++ 分类结果，关联混淆矩阵、心拍、输入波形、级联路由与整数推理回放。">
+<style>{{CSS}}</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div>
+      <p class="eyebrow">QCSNN / MIT-BIH / C++ 全测试集</p>
+      <h1>误分类浏览器</h1>
+      <p class="intro">从一个错分类，追到一个心拍，再看它怎样经过两级网络。</p>
+    </div>
+    <div class="header-actions">
+      <a href="qcsnn_kernel_walkthrough.html">kernel 解读 ↗</a>
+      <button id="eb-theme" type="button" aria-label="切换明暗主题">明 / 暗</button>
+    </div>
+  </header>
+
+  <div class="summary" aria-label="全测试集统计">
+    <span>心拍 <strong id="eb-total">—</strong></span>
+    <span>最终错分类 <strong id="eb-errors">—</strong></span>
+    <span>准确率 <strong id="eb-accuracy">—</strong></span>
+    <span id="eb-source-label">来源：保存的 topFunction 输出</span>
+  </div>
+  <p id="eb-load" role="status" aria-live="polite">正在读取全测试集…</p>
+
+  <div class="workspace" id="eb-workspace" hidden>
+    <aside class="catalog" aria-label="混淆矩阵与心拍列表">
+      <section class="matrix-section">
+        <div class="section-heading"><h2>混淆矩阵</h2><button id="eb-all-errors" type="button" class="text-button">全部错分类</button></div>
+        <p class="caption">全测试集 · 行为真实类别，列为最终预测</p>
+        <div id="eb-matrix" class="matrix" role="group" aria-label="选择真实类别与预测类别"></div>
+        <p class="class-key">N 正常 · S 室上性 · V 室性 · F 融合</p>
+      </section>
+
+      <section class="sample-section">
+        <div class="filters">
+          <label>路由筛选<select id="eb-route">
+            <option value="all">全部路由</option>
+            <option value="errors">最终错分类</option>
+            <option value="gate_miss">异常被一级提前退出</option>
+            <option value="gate_extra">正常误入二级</option>
+            <option value="stage2_wrong">进入二级后错分类</option>
+            <option value="recovered">正常误入二级，最终纠正</option>
+          </select></label>
+          <label>记录<select id="eb-record"><option value="">所有记录</option></select></label>
+        </div>
+        <p id="eb-match" class="match" aria-live="polite"></p>
+        <div id="eb-list" class="sample-list" aria-label="匹配的心拍"></div>
+        <div class="pagination">
+          <button id="eb-prev-page" type="button">上一页</button>
+          <span id="eb-page" class="mono"></span>
+          <button id="eb-next-page" type="button">下一页</button>
+        </div>
+      </section>
+    </aside>
+
+    <section class="detail" id="eb-detail" aria-label="选中心拍的波形和推理路径">
+      <div class="detail-heading">
+        <div><p class="eyebrow" id="eb-beat-id"></p><h2 id="eb-beat-title"></h2></div>
+        <span id="eb-outcome" class="outcome"></span>
+      </div>
+      <p class="classification" id="eb-classification"></p>
+
+      <figure class="wave">
+        <figcaption>预处理后的 ECG 输入</figcaption>
+        <svg id="eb-wave" role="img" aria-label="选中心拍的归一化 ECG 波形"></svg>
+      </figure>
+
+      <div class="path-heading"><h3>这次推理走了哪条路</h3><span id="eb-model-status" role="status"></span></div>
+      <div class="route-path" id="eb-path"></div>
+      <p class="route-reason" id="eb-reason" aria-live="polite"></p>
+      <div class="spike-section" id="eb-spikes"></div>
+
+      <div class="rr-heading"><h3>RR 特征</h3><span class="caption">量化前的模型输入</span></div>
+      <dl class="rr-values" id="eb-rr"></dl>
+
+      <div class="detail-actions">
+        <a id="eb-replay" class="primary-action" target="_blank" rel="noopener">查看这个心拍的逐层推理 ↗</a>
+        <span class="caption">进入现有信号流与整数查看器</span>
+      </div>
+      <p class="scope">标签、输入及预测均来自项目保存的全测试集。脉冲计数由同一整数功能模型现场重算，并核对两个 C++ 输出；动画表示函数执行顺序。</p>
+    </section>
+    <p id="eb-empty" class="empty" hidden>这个组合没有匹配的心拍。可以改选矩阵单元、路由或记录。</p>
+  </div>
+  <footer>
+    <details><summary>数据出处与路由定义</summary>
+      <p>最终类别：一级判正常时为 N；一级判异常时取四分类头输出。一级比较 10 步正常与异常脉冲累计，异常严格大于正常才进入二级，平票提前退出。</p>
+      <p>“正常误入二级”也包括最终被四分类头纠正为 N 的心拍；它与最终错分类不是同一统计口径。</p>
+      <ul id="eb-sources"></ul>
+    </details>
+  </footer>
+</div>
+<script>{{SCRIPTS}}</script>
+</body>
+</html>
